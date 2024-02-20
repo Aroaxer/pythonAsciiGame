@@ -57,6 +57,9 @@ class Enemy(Character):
         dist = max(abs(plr.x - self.x), abs(plr.y - self.y))
 
         return action.range >= dist
+    
+    def isInRegion(self, topLeft, botRight):
+        return (self.x > topLeft[0] and self.y > topLeft[1]) and (self.x < botRight[0] and self.y < botRight[1])
 
 
 
