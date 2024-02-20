@@ -64,7 +64,7 @@ def getRoute(start, goal, entity, game):
         for neighbor in getNeighbors(current, game.encounter.width, game.encounter.height, game):
             tentaGScore = gScore[current] + 1
             try:
-                if tentaGScore < gScore(neighbor):
+                if tentaGScore < gScore[neighbor]:
                     route[neighbor] = current
                     gScore[neighbor] = tentaGScore
                     fScore[neighbor] = tentaGScore + heurDist(neighbor, goal)
