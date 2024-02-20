@@ -1,5 +1,4 @@
 import math
-import os
 
 from Entities.object import Object
 from Entities.Characters.character import Character

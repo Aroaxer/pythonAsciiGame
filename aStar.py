@@ -6,11 +6,8 @@
 # Supporting functions
 def reconstPath(route, current):
     fullPath = [current]
-    prevKeys = []
-    while current in route.keys() and not current in prevKeys:
-        print(current)
+    while current in route.keys():
         current = route[current]
-        prevKeys.append(current)
         fullPath.append(current)
     return fullPath
 
