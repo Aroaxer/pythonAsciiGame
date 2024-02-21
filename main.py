@@ -8,6 +8,7 @@ from Stages.Encounters.encounter import Encounter
 from Stages.stage import Stage
 
 import premades as pre
+import utils
 
 class Game():
     # Properties
@@ -62,7 +63,9 @@ class Game():
             shouldEnd = self.loopCycle()
 
     def startPlayer(self):
-        return Player(0, 0, 2, 2)
+        plr = Player(0, 0, 2, 2)
+        plr.mainhand = pre.weps["Sword"]
+        return plr
 
     # Run game
     def loopCycle(self):

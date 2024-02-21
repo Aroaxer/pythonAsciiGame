@@ -14,3 +14,16 @@ def promptChoice(startMessage, options):
             return choice - 1
         except Exception:
             print("Bad Input")
+
+# 'format' is entered with _ for blanks
+def promptInFormat(prompt, format, ignoreSpaces = True):
+    while True:
+        choice = input(f"{prompt}\n")
+
+        if ignoreSpaces:
+            choice.replace(" ", "")
+
+        for choiceChar, formatChar in choice, format:
+            if choiceChar != formatChar and formatChar != "_":
+                continue
+            return choice

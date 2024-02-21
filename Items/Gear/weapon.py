@@ -5,10 +5,10 @@ class Weapon(Equippable):
 
     category = ""
 
-    def __init__(self, attacks, category, user = None, upgrade = 0, traits = []) -> None:
+    def __init__(self, attacks, category, upgrade = 0, traits = []) -> None:
         self.attacks = attacks
         self.category = category
-        super().__init__(user, upgrade, traits)
+        super().__init__(upgrade, traits)
 
     
 

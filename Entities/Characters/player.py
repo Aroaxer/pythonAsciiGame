@@ -1,4 +1,8 @@
 from Entities.Characters.character import Character
+from Items.Gear.weapon import Weapon
+from Items.Consumables.consumable import Consumable
+
+import utils
 
 class Player(Character):
 
@@ -32,3 +36,36 @@ class Player(Character):
                     self.move(game.encounter, game, cy = -change)
                 case "d":
                     self.move(game.encounter, game, cy = change)
+
+    def collect(self, item):
+        if type(item) == Consumable:
+            pass
+        else:
+            self.equip(item)
+
+    def equip(self, item):
+        slots = []
+        if type(item) == Weapon:
+            slots.append("Mainhand")
+            if "Light" in item.specialTags:
+                slots.append("Offhand")
+        #elif type(item) == Armor:
+                
+        if len(slots) == 1:
+            self.putOn(item, slots[0])
+        elif len(slots > 1):
+            chosenSlot = slots[utils.promptChoice("What slot would you like to equip this in?", slots)]
+            self.putOn(item, chosenSlot)
+
+    def putOn(self, item, slot):
+        match slot:
+                case "Mainhand":
+                    self.mainhand = item
+                case "Offhand":
+                    self.offhand = item
+                case "Armor":
+                    self.armor = item
+                case "Helmet":
+                    self.armor = item
+                case "Accesory":
+                    self.accesory = item

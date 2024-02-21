@@ -5,9 +5,10 @@ class Equippable(Item):
     upgrade = 0
 
     traits = []
+    specialTags = []
 
-    def __init__(self, user, upgrade = 0, traits = []) -> None:
-        self.user = user
+    def __init__(self, upgrade = 0, traits = [], specialTags = []) -> None:
         self.upgrade = upgrade
         self.traits = traits
+        self.specialTags = specialTags
         super().__init__()
