@@ -70,6 +70,9 @@ class Trait():
             
             target = self.getTarget(game, user)
 
+            if target == "Cancelled":
+                didntTrigger = True
+
             if type(target) == Enemy:
                 self.triggerEffectOn(target)
 
@@ -79,16 +82,19 @@ class Trait():
 
     def getTarget(self, game, user):
         plr = game.player
+        print("Getting target")
         if user == plr:
+            print("Used by player")
             match self.targeting:
                 case "Standard":
-                    print("Standard Targeting")
                     validEnems = []
+                    print(self.range)
                     for enem in game.enemies:
-                        if enem.isInRegion((plr.x - self.range, plr.y - self.range), (plr.x + self.range, plr.y + self.range)):
+                        print(f"{enem.x}, {enem.y} : {plr.x}, {plr.y}")
+                        if enem.isWithinDistance(self.range, (plr.x, plr.y)):
                             validEnems.append[enem]
                     target = utils.promptChoice("Which enemy would you like to target?", (f"{enem.name} ({enem.x}, {enem.y})" for enem in validEnems))
-                    return game.enemies[target]
+                    return (target if target == "Cancelled" else game.enemies[target])
                 case "Directional":
                     target = utils.promptChoice("Which direction would you like to attack?", ("Up", "Down", "Left", "Right"))
                     return ("Up", "Down", "Left", "Right")[target]
@@ -114,6 +120,8 @@ class Trait():
 
     def triggerEffectOn(self, target):
         match self.effectKey:
+            case "Basic Attack":
+                target.takeDamage(5)
 
 
             case _:

@@ -1,14 +1,16 @@
 
 # Returns an index for the entry chosen, starting with 0
 def promptChoice(startMessage, options):
-    print("Test")
     print(f"{startMessage}\n")
     for index, option in enumerate(options):
         print(f"{index + 1}: {option}")
-    print("\nEnter an index to make a selection")
+    print("\nEnter an index to make a selection, or 'cancel' to cancel this action.")
     while True:
         try:
-            choice = int(input())
+            entry = input()
+            if entry.lower() == "cancel":
+                return "Cancelled"
+            choice = int(entry)
             if not choice in range(1, len(options) + 1):
                 print("Invalid Index")
                 continue

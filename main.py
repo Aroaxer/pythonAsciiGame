@@ -110,9 +110,4 @@ class Game():
         self.player.y = enc[0].height
         self.player.x = math.ceil(enc[0].width / 2)
 
-
-
-
-
-
 game = Game()
