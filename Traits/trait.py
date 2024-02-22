@@ -82,7 +82,7 @@ class Trait():
                     target = utils.promptChoice("Which direction would you like to attack?", ("Up", "Down", "Left", "Right"))
                     return ("Up", "Down", "Left", "Right")[target]
                 case "Point":
-                    target = utils.promptInFormat("What point would you like to target? (x,y)", "(_,_)")
+                    target = utils.promptCoords("What point would you like to target? (x,y)", "(_,_)")
 
 
                     

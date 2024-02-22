@@ -13,7 +13,7 @@ acs = {
 
 # Weapons
 weps = {
-    "Sword" : Weapon(acs["Basic Attack"], "Melee",)
+    "Sword" : Weapon("Sword", 5, acs["Basic Attack"], "Melee",)
 }
 
 # Other Helds
@@ -40,7 +40,7 @@ accs = {
 
 # Enemies
 preEnemies = [
-    ["Wild Boar"]
+    [("Wild Boar", 7)]
 ]
 
 # Stages

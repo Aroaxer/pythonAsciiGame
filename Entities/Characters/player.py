@@ -6,13 +6,15 @@ import utils
 
 class Player(Character):
 
+    def __init__(self, hp, x, y, speed, actions = 1) -> None:
+        super().__init__("Player", hp, x, y, speed, actions)
 
     def takeAction(self, game):
         self.speedLeft = self.speed
         self.actionsLeft -= 1
 
         game.emptyTerminal()
-        print(game.assembleMap("str"))
+        game.displayInfo()
 
         print(f"Actions Remaining: {self.actionsLeft + 1}")
 

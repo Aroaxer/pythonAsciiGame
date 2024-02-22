@@ -38,6 +38,6 @@ class Stage():
                     if x == enem.x or y == enem.y:
                         validCoords = False
 
-            enems.append(Enemy(self.enemies[index], x, y))
+            enems.append(Enemy(self.enemies[index][0], self.enemies[index][1], x, y))
             desEnemies -= 1
         return [enc, enems]

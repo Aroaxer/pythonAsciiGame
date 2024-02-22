@@ -7,8 +7,8 @@ class Equippable(Item):
     traits = []
     specialTags = []
 
-    def __init__(self, upgrade = 0, traits = [], specialTags = []) -> None:
+    def __init__(self, name, upgrade = 0, traits = [], specialTags = []) -> None:
         self.upgrade = upgrade
         self.traits = traits
         self.specialTags = specialTags
-        super().__init__()
+        super().__init__(name)

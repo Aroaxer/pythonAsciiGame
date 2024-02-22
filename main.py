@@ -63,7 +63,7 @@ class Game():
             shouldEnd = self.loopCycle()
 
     def startPlayer(self):
-        plr = Player(0, 0, 2, 2)
+        plr = Player(10, 0, 0, 2, 2)
         plr.mainhand = pre.weps["Sword"]
         return plr
 
@@ -97,6 +97,11 @@ class Game():
                 reduced.append(" ".join(row))
             return "\n".join(reduced)
         return map
+    
+    def displayInfo(self):
+        print(self.assembleMap("str"))
+
+        print(self.player.getInfo(True))
 
     def startNewEncounter(self, enems):
         enc = self.stage.genEncounter(enems)

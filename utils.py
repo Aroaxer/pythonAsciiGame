@@ -14,16 +14,27 @@ def promptChoice(startMessage, options):
             return choice - 1
         except Exception:
             print("Bad Input")
-
-# 'format' is entered with _ for blanks
-def promptInFormat(prompt, format, ignoreSpaces = True):
+        
+def promptCoords(prompt):
+    print(prompt)
+    
     while True:
-        choice = input(f"{prompt}\n")
+        choice = input().replace(" ", "")
 
-        if ignoreSpaces:
-            choice.replace(" ", "")
+        nextNonInt = "("
 
-        for choiceChar, formatChar in choice, format:
-            if choiceChar != formatChar and formatChar != "_":
-                continue
-            return choice
+        # Make sure there's no extra characters at the start and end
+        if not (choice[0] == "(" and choice[-1] == ")"): continue
+
+        if choice == nextNonInt:
+            match choice:
+                case "(":
+                    nextNonInt = ","
+                case ",":
+                    nextNonInt - ")"
+                case ")":
+                    return choice
+        else:
+            # Check if integer
+            try: int(choice)
+            except TypeError: continue

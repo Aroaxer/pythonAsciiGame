@@ -3,6 +3,10 @@ import math
 from Entities.object import Object
 
 class Character(Object):
+    hp = 0
+    maxHp = 0
+
+    name = ""
     speed = 0
     speedLeft = 0
 
@@ -15,7 +19,10 @@ class Character(Object):
     helmet = None
     accesory = None
 
-    def __init__(self, x, y, speed, actions = 1) -> None:
+    def __init__(self, name, hp, x, y, speed, actions = 1) -> None:
+        self.name = name
+        self.maxHp = hp
+        self.hp = self.maxHp
         self.speed = speed
         self.actions = actions
         super().__init__(x, y)
@@ -83,14 +90,29 @@ class Character(Object):
 
         # I have no clue if there is a shorter way to do this
         try: actionList.append(action for action in self.mainhand.traits if action.trigger == "Active")
-        except Exception: pass
+        except AttributeError: pass
         try: actionList.append(action for action in self.offhand.traits if action.trigger == "Active")
-        except Exception: pass
+        except AttributeError: pass
         try: actionList.append(action for action in self.armor.traits if action.trigger == "Active")
-        except Exception: pass
+        except AttributeError: pass
         try: actionList.append(action for action in self.helmet.traits if action.trigger == "Active")
-        except Exception: pass
+        except AttributeError: pass
         try: actionList.append(action for action in self.accesory.traits if action.trigger == "Active")
-        except Exception: pass
+        except AttributeError: pass
 
         return actionList
+        
+    def getInfo(self, detailed = False):
+        infoStr = f"{self.name}: {self.hp}/{self.maxHp} Health"
+        if detailed:
+            try: infoStr += f"\nMainhand: {self.mainhand.name}, {self.mainhand.damage} Damage"
+            except AttributeError: pass
+            try: infoStr += f"\nOffhand: {self.offhand.name}"
+            except AttributeError: pass
+            try: infoStr += f"\nArmor: {self.armor.name}"
+            except AttributeError: pass
+            try: infoStr += f"\nHelmet: {self.helmet.name}"
+            except AttributeError: pass
+            try: infoStr += f"\nAccesory: {self.accesory.name}"
+            except AttributeError: pass
+        return infoStr

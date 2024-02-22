@@ -5,15 +5,13 @@ from Entities.Characters.character import Character
 import aStar
 
 class Enemy(Character):
-    name = ""
     preferredDist = 0
     mapIcon = ""
     
-    def __init__(self, name, x, y, speed = 1, actions = 1, preferredDist = 1, mapIcon = "E") -> None:
-        self.name = name
+    def __init__(self, name, hp, x, y, speed = 1, actions = 1, preferredDist = 1, mapIcon = "E") -> None:
         self.preferredDist = preferredDist
         self.mapIcon = mapIcon
-        super().__init__(x, y, speed, actions)
+        super().__init__(name, hp, x, y, speed, actions)
 
     def takeAction(self, game):
         self.speedLeft = self.speed
