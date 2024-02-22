@@ -24,8 +24,6 @@ class Enemy(Character):
                 pass
             case "Move":
                 while self.speedLeft > 0 and len(action[1]) > 1:
-                    print(f"{self.x}, {self.y}")
-                    print(f"{action[1]}")
                     del action[1][-1]
                     self.move(game.encounter, game, target = action[1][-1])
 

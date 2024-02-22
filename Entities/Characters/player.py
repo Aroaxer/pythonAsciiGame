@@ -24,10 +24,10 @@ class Player(Character):
         try:
             self.readAsMove(action, game)
         except Exception:
-            try:
-                self.getFullActionList()[int(action - 1)].activate(game, "Active", user = self)
-            except TypeError:
-                pass
+            #try:
+            self.getFullActionList()[int(action) - 1].activate(game, "Active", user = self)
+            #except TypeError:
+            #    print("Type Error")
 
     def readAsMove(self, entered, game):
         enArr = entered.replace(" ", "").split(",")

@@ -1,6 +1,7 @@
 
 # Returns an index for the entry chosen, starting with 0
 def promptChoice(startMessage, options):
+    print("Test")
     print(f"{startMessage}\n")
     for index, option in enumerate(options):
         print(f"{index + 1}: {option}")

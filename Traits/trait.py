@@ -1,5 +1,7 @@
 import utils
 
+from Entities.Characters.enemy import Enemy
+
 class Trait():
     # Should be: "Active" / "Turn" / "Action" / "Damage" / "Attack"
     trigger = ""
@@ -54,7 +56,9 @@ class Trait():
                 self.recharge("Turn")
     
     def activate(self, game, trigger, equipment = None, user = None):
+        print(f"{self.trigger} compared to {trigger}: {self.trigger == trigger}")
         if self.trigger == trigger and (self.charges > 0 or self.maxCharges < 0):
+            print("Triggered")
 
             # Causes no charges to be lost
             didntTrigger = False
@@ -64,19 +68,26 @@ class Trait():
                 case _:
                     pass
             
-            if self.needsTarget:
-                target = self.getTarget(game, self.targetsTile, user)
+            target = self.getTarget(game, user)
+
+            if type(target) == Enemy:
+                self.triggerEffectOn(target)
 
             # Remove charge if effect triggered and not infinite charges
             if self.charges > 0 and not didntTrigger:
                 self.charges -= 1
 
     def getTarget(self, game, user):
-        plr = game.plr
+        plr = game.player
         if user == plr:
             match self.targeting:
                 case "Standard":
-                    target = utils.promptChoice("Which enemy would you like to target?", (f"{enem.name} ({enem.x}, {enem.y})" for enem in game.enemies if enem.isInRegion((plr.x - self.range, plr.y - self.range), (plr.x + self.range, plr.y + self.range))))
+                    print("Standard Targeting")
+                    validEnems = []
+                    for enem in game.enemies:
+                        if enem.isInRegion((plr.x - self.range, plr.y - self.range), (plr.x + self.range, plr.y + self.range)):
+                            validEnems.append[enem]
+                    target = utils.promptChoice("Which enemy would you like to target?", (f"{enem.name} ({enem.x}, {enem.y})" for enem in validEnems))
                     return game.enemies[target]
                 case "Directional":
                     target = utils.promptChoice("Which direction would you like to attack?", ("Up", "Down", "Left", "Right"))
