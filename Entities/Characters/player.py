@@ -16,14 +16,18 @@ class Player(Character):
         game.emptyTerminal()
         game.displayInfo()
 
-        print(f"Actions Remaining: {self.actionsLeft + 1}")
+        print(f"\nActions Remaining: {self.actionsLeft + 1}")
+        print(self.getSkillDisplay())
 
         action = input()
 
         try:
             self.readAsMove(action, game)
         except Exception:
-            pass
+            try:
+                self.getFullActionList()[int(action - 1)].activate(game, "Active", user = self)
+            except TypeError:
+                pass
 
     def readAsMove(self, entered, game):
         enArr = entered.replace(" ", "").split(",")
@@ -62,12 +66,26 @@ class Player(Character):
     def putOn(self, item, slot):
         match slot:
                 case "Mainhand":
+                    del self.mainhand
                     self.mainhand = item
                 case "Offhand":
+                    del self.offhand
                     self.offhand = item
                 case "Armor":
+                    del self.armor
                     self.armor = item
                 case "Helmet":
-                    self.armor = item
+                    del self.helmet
+                    self.helmet = item
                 case "Accesory":
+                    del self.accesory
                     self.accesory = item
+
+    def getSkillDisplay(self):
+        actions = self.getFullActionList()
+
+        display = ""
+        for index, action in enumerate(actions):
+            display += f"{index + 1}: {action.effectKey}" + (f", {action.charges} Charges\n" if action.maxCharges >= 0 else "")
+
+        return display

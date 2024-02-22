@@ -89,15 +89,30 @@ class Character(Object):
         actionList = []
 
         # I have no clue if there is a shorter way to do this
-        try: actionList.append(action for action in self.mainhand.traits if action.trigger == "Active")
+        try: 
+            for trait in self.mainhand.traits:
+                if trait.trigger == "Active":
+                    actionList.append(trait)
         except AttributeError: pass
-        try: actionList.append(action for action in self.offhand.traits if action.trigger == "Active")
+        try:
+            for trait in self.offhand.traits:
+                if trait.trigger == "Active":
+                    actionList.append(trait)
         except AttributeError: pass
-        try: actionList.append(action for action in self.armor.traits if action.trigger == "Active")
+        try:
+            for trait in self.armor.traits:
+                if trait.trigger == "Active":
+                    actionList.append(trait)
         except AttributeError: pass
-        try: actionList.append(action for action in self.helmet.traits if action.trigger == "Active")
+        try:
+            for trait in self.helmet.traits:
+                if trait.trigger == "Active":
+                    actionList.append(trait)
         except AttributeError: pass
-        try: actionList.append(action for action in self.accesory.traits if action.trigger == "Active")
+        try:
+            for trait in self.accesory.traits:
+                if trait.trigger == "Active":
+                    actionList.append(trait)
         except AttributeError: pass
 
         return actionList

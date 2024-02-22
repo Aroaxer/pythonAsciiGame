@@ -53,7 +53,7 @@ class Trait():
             case "Action":
                 self.recharge("Turn")
     
-    def activate(self, game, trigger, equipment, user):
+    def activate(self, game, trigger, equipment = None, user = None):
         if self.trigger == trigger and (self.charges > 0 or self.maxCharges < 0):
 
             # Causes no charges to be lost
