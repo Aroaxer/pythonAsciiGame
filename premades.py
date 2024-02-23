@@ -46,9 +46,14 @@ accs = {
 
 # Enemies
 preEnemies = [
-    [("Wild Boar", 7)]
+    [("Wild Boar", 7), ("Spitting Cobra", 4)]
 ]
 
 # Stages
-sunlitField = Stage("Sunlit Field", preEnemies[0], 5, 5, 7, 7)
+# Each row holds stages that can be at that position
+stages = [
+    [Stage("Sunlit Field", preEnemies[0], 5, 5, length=2)],
+    [Stage("Shaded Forest", preEnemies[0], 3, 5, 5, 7, length=2)],
+    [Stage("Forest Tower", preEnemies[0], 7, 7, 7, 7, length=2, prevStages = [0])]
+]
 

@@ -74,7 +74,7 @@ class Trait():
                 didntTrigger = True
 
             if type(target) == Enemy:
-                self.triggerEffectOn(target)
+                self.triggerEffectOn(target, game)
 
             # Remove charge if effect triggered and not infinite charges
             if self.charges > 0 and not didntTrigger:
@@ -92,8 +92,8 @@ class Trait():
                     for enem in game.enemies:
                         print(f"{enem.x}, {enem.y} : {plr.x}, {plr.y}")
                         if enem.isWithinDistance(self.range, (plr.x, plr.y)):
-                            validEnems.append[enem]
-                    target = utils.promptChoice("Which enemy would you like to target?", (f"{enem.name} ({enem.x}, {enem.y})" for enem in validEnems))
+                            validEnems.append(f"{enem.name} ({enem.x}, {enem.y})")
+                    target = utils.promptChoice("Which enemy would you like to target?", validEnems)
                     return (target if target == "Cancelled" else game.enemies[target])
                 case "Directional":
                     target = utils.promptChoice("Which direction would you like to attack?", ("Up", "Down", "Left", "Right"))
@@ -118,10 +118,10 @@ class Trait():
             case _:
                 pass
 
-    def triggerEffectOn(self, target):
+    def triggerEffectOn(self, target, game):
         match self.effectKey:
             case "Basic Attack":
-                target.takeDamage(5)
+                target.takeDamage(5, game)
 
 
             case _:

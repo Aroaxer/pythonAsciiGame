@@ -14,8 +14,14 @@ class Stage():
 
     enemies = []
 
-    def __init__(self, name, enemies, minWidth, minHeight, maxWidth = -1, maxHeight = -1) -> None:
+    length = 0
+    # Stores the indices in the premades list that this stage can follow
+    prevStages = []
+
+    def __init__(self, name, enemies, minWidth, minHeight, maxWidth = -1, maxHeight = -1, length = 10, prevStages = []) -> None:
         self.name = name
+        self.length = length
+        self.prevStages = prevStages
 
         self.minWidth = minWidth
         self.minHeight = minHeight

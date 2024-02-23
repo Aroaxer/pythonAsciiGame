@@ -15,7 +15,7 @@ def promptChoice(startMessage, options):
                 print("Invalid Index")
                 continue
             return choice - 1
-        except Exception:
+        except ValueError:
             print("Bad Input")
         
 def promptCoords(prompt):
@@ -40,4 +40,4 @@ def promptCoords(prompt):
         else:
             # Check if integer
             try: int(choice)
-            except TypeError: continue
+            except ValueError: continue

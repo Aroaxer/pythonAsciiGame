@@ -17,6 +17,9 @@ class Game():
     encounter = None
     stage = pre.sunlitField
 
+    completedEncounters = 0
+    complEncsPerStage = 0
+
     def getEnemies(self):
         enems = []
         for object in self.allObjects:
@@ -69,13 +72,18 @@ class Game():
 
     # Run game
     def loopCycle(self):
-        if len(self.enemies) == 0:
-            self.startNewEncounter(2)
 
         self.player.takeTurn(self)
 
         for enemy in self.enemies:
             enemy.takeTurn(self)
+
+        if len(self.enemies) == 0:
+            self.completedEncounters += 1
+            self.complEncsPerStage += 1
+            if self.stage.length <= self.complEncsPerStage:
+                self.advanceStage()
+            self.startNewEncounter(2)
 
     def emptyTerminal(self):
         cyc = 0
@@ -109,5 +117,8 @@ class Game():
         self.enemies = enc[1]
         self.player.y = enc[0].height
         self.player.x = math.ceil(enc[0].width / 2)
+
+    def advanceStage(self):
+        self.complEncsPerStage = 0
 
 game = Game()

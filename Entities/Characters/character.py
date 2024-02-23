@@ -84,6 +84,12 @@ class Character(Object):
         self.actionsLeft = 0
         return None # This function is defined by subclasses
     
+    def takeDamage(self, damage, game):
+        self.hp -= damage
+        if self.hp <= 0:
+            game.allObjects.remove(self)
+            del self
+    
     # Returns a list of all actions for all equipments
     def getFullActionList(self):
         actionList = []
