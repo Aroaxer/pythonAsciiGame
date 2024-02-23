@@ -75,6 +75,8 @@ class Character(Object):
         self.speedLeft -= abs(stY - self.y) if not ignoreSpd else 0
 
     def takeTurn(self, game):
+        self.rechargeTraits("Turn")
+
         self.actionsLeft = self.actions
 
         while self.actionsLeft > 0:
@@ -153,6 +155,33 @@ class Character(Object):
         except AttributeError: pass
 
         return actionList
+    
+    def getAllTraits(self):
+        traits = []
+
+        try: 
+            for trait in self.mainhand.traits:
+                traits.append(trait)
+        except AttributeError: pass
+        try:
+            for trait in self.offhand.traits:
+                traits.append(trait)
+        except AttributeError: pass
+        try:
+            for trait in self.armor.traits:
+                traits.append(trait)
+        except AttributeError: pass
+        try:
+            for trait in self.helmet.traits:
+                traits.append(trait)
+        except AttributeError: pass
+        try:
+            for trait in self.accesory.traits:
+                traits.append(trait)
+        except AttributeError: pass
+
+        return traits
+
         
     def getInfo(self, detailed = False):
         infoStr = f"{self.name}: {self.hp}/{self.maxHp} Health"
@@ -168,3 +197,16 @@ class Character(Object):
             try: infoStr += f"\nAccesory: {self.accesory.name}"
             except AttributeError: pass
         return infoStr
+    
+    def isInRegion(self, topLeft, botRight):
+        return (self.x >= topLeft[0] and self.y >= topLeft[1]) and (self.x <= botRight[0] and self.y <= botRight[1])
+    
+    def testEnem(self):
+        return False
+        # Redefined to return True in the enemy class
+    
+    def rechargeTraits(self, trigger):
+        traits = self.getAllTraits()
+
+        for trait in traits:
+            trait.recharge(trigger)

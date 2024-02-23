@@ -117,7 +117,14 @@ class Game():
 
         print(self.player.getInfo(True))
 
+        print("")
+
+        for enem in self.enemies:
+            print(enem.getInfo())
+
     def startNewEncounter(self, enems):
+        self.player.rechargeTraits("Encounter")
+
         enc = self.stage.genEncounter(enems)
         self.encounter = enc[0]
         self.enemies = enc[1]
@@ -132,5 +139,8 @@ class Game():
             if len(nextStage.prevStages) == 0 or self.stage.name in nextStage.prevStages:
                 self.stage = nextStage
                 break
+
+    def getLoot(self):
+        pass
 
 game = Game()

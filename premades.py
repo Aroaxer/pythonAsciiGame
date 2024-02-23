@@ -10,8 +10,18 @@ def c(obj):
 
 # Actions
 acs = {
+    # Physical Melee
     "Basic Attack" : Action("Basic Attack"),
-    "Slam" : Action("Slam", maxCharges=1, aiPrio=1)
+    "Slam" : Action("Slam", maxCharges=1),
+    "Slash" : Action("Slash", targeting="Directional", maxCharges=1, width=3),
+    "Impale" : Action("Impale", targeting="Directional", maxCharges=1, length=3),
+    
+    # Physical Ranged
+    "Basic Shot" : Action("Basic Shot", range=3),
+    "Pierce" : Action("Pierce", targeting="Directional", maxCharges=1, length=5)
+
+    # Magical
+    
 }
 
 enemAcs = {
@@ -23,7 +33,10 @@ enemAcs = {
 
 # Weapons
 weps = {
-    "Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"])])
+    "Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"])]),
+    "Hammer" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"])])
+    #"Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"])]),
+    #"Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"])])
 }
 
 enemWeps = {
@@ -33,7 +46,7 @@ enemWeps = {
 
 # Other Helds
 offs = {
-
+    
 }
 
 # Armor
@@ -51,6 +64,16 @@ accs = {
 
 }
 
+# Loot Pools
+lootPools = [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+]
 
 
 # Enemies

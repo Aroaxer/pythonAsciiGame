@@ -10,8 +10,13 @@ class Player(Character):
         super().__init__("Player", hp, x, y, speed, actions)
 
     def takeAction(self, game):
+        self.rechargeTraits("Action")
+
         self.speedLeft = self.speed
         self.actionsLeft -= 1
+
+        if len(game.enemies) == 0:
+            self.actionsLeft = 0
 
         game.emptyTerminal()
         game.displayInfo()
@@ -26,9 +31,11 @@ class Player(Character):
         except Exception:
             try:
                 trait = self.getFullActionList()[int(action) - 1]
-                trait.activate(game, "Active", trait.tiedEquipment, user = self)
+                if not trait.activate(game, "Active", trait.tiedEquipment, user = self):
+                    self.actionsLeft += 1
             except ValueError:
-                print("Value Error")
+                if not action == "pass":
+                    self.actionsLeft += 1
 
     def readAsMove(self, entered, game):
         enArr = entered.replace(" ", "").split(",")
@@ -69,6 +76,6 @@ class Player(Character):
 
         display = ""
         for index, action in enumerate(actions):
-            display += f"{index + 1}: {action.effectKey}" + (f", {action.charges} Charges\n" if action.maxCharges >= 0 else "")
+            display += f"{index + 1}: {action.effectKey}" + (f", {action.charges} Charges\n" if action.maxCharges >= 0 else "\n")
 
         return display

@@ -1,3 +1,11 @@
+import random
+
+def getXRandom(source, number = 1):
+    entries = []
+    while number > 0:
+        entries.append(source[random.randint(0, len(source) - 1)])
+        number -= 1
+    return entries
 
 # Returns an index for the entry chosen, starting with 0
 def promptChoice(startMessage, options):

@@ -13,13 +13,14 @@ class Stage():
     maxHeight = minHeight
 
     enemies = []
+    lootPool = []
 
     length = 0
     # Stores the names of the stages that this stage can follow
     prevStages = []
     stageOrder = 0
 
-    def __init__(self, name, stageOrder, enemies, minWidth, minHeight, maxWidth = -1, maxHeight = -1, length = 10, prevStages = []) -> None:
+    def __init__(self, name, stageOrder, enemies, lootPool, minWidth, minHeight, maxWidth = -1, maxHeight = -1, length = 10, prevStages = []) -> None:
         self.name = name
         self.length = length
         self.prevStages = prevStages
@@ -30,6 +31,7 @@ class Stage():
         self.maxWidth = maxWidth if maxWidth > 0 else minWidth
         self.maxHeight = maxHeight if maxHeight > 0 else minHeight
         self.enemies = enemies
+        self.lootPool = lootPool
 
     def genEncounter(self, desEnemies):
         enc = Encounter(random.randint(self.minWidth, self.maxWidth), random.randint(self.minHeight, self.maxHeight))

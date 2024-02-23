@@ -1,4 +1,5 @@
 import utils
+import math
 
 
 class Trait():
@@ -8,9 +9,9 @@ class Trait():
     targeting = None
     
     areaType = None
-    length = 0
-    width = 0
-    range = 0
+    length = 1
+    width = 1
+    range = 1
 
     # Stores tied equipment, initialized by the equipment
     tiedEquipment = None
@@ -30,7 +31,7 @@ class Trait():
     # For enemy AI
     aiPrio = 0
     
-    def __init__(self, trigger, effectKey, targeting = "Standard", maxCharges = -1, recharge = "Turn", rechargePercent = 1, aiPrio = 0, range = 1, length = 0, width = 0) -> None:
+    def __init__(self, trigger, effectKey, targeting = "Standard", maxCharges = -1, recharge = "Turn", rechargePercent = 1, aiPrio = 0, range = 1, length = 1, width = 1) -> None:
         self.trigger = trigger
         self.effectKey = effectKey
         self.targeting = targeting
@@ -53,9 +54,9 @@ class Trait():
         
         match trigger:
             case "Encounter":
-                self.recharge("Action")
-            case "Action":
                 self.recharge("Turn")
+            case "Turn":
+                self.recharge("Action")
     
     def activate(self, game, trigger, equipment = None, user = None):
         if self.trigger == trigger and (self.charges > 0 or self.maxCharges < 0):
@@ -72,12 +73,46 @@ class Trait():
 
             if target == "Cancelled":
                 didntTrigger = True
+            elif target in ("Up", "Down", "Left", "Right"):
+                # I don't think there's a way to make this shorter
+                x1 = None
+                x2 = None
+                y1 = None
+                y2 = None
+                match target:
+                    case "Up":
+                        x1 = user.x - math.floor(self.width / 2)
+                        x2 = x1 + self.width - 1
 
-            self.triggerEffectOn(target, game, equipment)
+                        y1 = user.y - self.length
+                        y2 = user.y - 1
+                    case "Down":
+                        x1 = user.x - math.floor(self.width / 2)
+                        x2 = x1 + self.width - 1
+
+                        y1 = user.y + 1
+                        y2 = user.y + self.length
+                    case "Left":
+                        x1 = user.x - self.length
+                        x2 = user.x - 1
+
+                        y1 = user.y + math.floor(self.width / 2)
+                        y2 = y1 - self.width + 1
+                    case "Right":
+                        x1= user.x + 1
+                        x2 = user.x + self.length
+
+                        y1 = user.y + math.floor(self.width / 2)
+                        y2 = y1 - self.width + 1
+                self.triggerOnRegion((x1, y1), (x2, y2), game, equipment, user.testEnem())
+            else:
+                self.triggerEffectOn(target, game, equipment)
 
             # Remove charge if effect triggered and not infinite charges
             if self.charges > 0 and not didntTrigger:
                 self.charges -= 1
+            
+            return not didntTrigger
 
     def getTarget(self, game, user):
         plr = game.player
@@ -87,24 +122,31 @@ class Trait():
                     validEnems = []
                     for enem in game.enemies:
                         if enem.isWithinDistance(self.range, (plr.x, plr.y)):
-                            validEnems.append(f"{enem.name} ({enem.x}, {enem.y})")
+                            validEnems.append(f"{enem.name}: {enem.hp}/{enem.maxHp} ({enem.x}, {enem.y})")
+                    if len(validEnems) == 0:
+                        return "Cancelled"
                     target = utils.promptChoice("Which enemy would you like to target?", validEnems)
                     return (target if target == "Cancelled" else game.enemies[target])
                 case "Directional":
                     target = utils.promptChoice("Which direction would you like to attack?", ("Up", "Down", "Left", "Right"))
                     return ("Up", "Down", "Left", "Right")[target]
                 case "Point":
-                    target = utils.promptCoords("What point would you like to target? (x,y)", "(_,_)")
+                    target = utils.promptCoords("What point would you like to target? (x,y)")
+                    return target
 
 
                     
         else:
             return plr
 
-    def triggerOnRegion(self, topLeft, botRight, game):
-        for enem in game.enemies:
-            if enem.isInRegion(topLeft, botRight):
-                self.triggerEffectOn(enem)
+    def triggerOnRegion(self, topLeft, botRight, game, equip, wasEnem = False):
+        if not wasEnem:
+            for enem in game.enemies:
+                if enem.isInRegion(topLeft, botRight):
+                    self.triggerEffectOn(enem, game, equip)
+        else:
+            if game.player.isInRegion(topLeft, botRight):
+                self.triggerEffectOn(game.player, game, equip)
 
     def manageTargeting(self):
         match self.effectKey:
@@ -117,6 +159,10 @@ class Trait():
         match self.effectKey:
             case "Basic Attack" | "Gore" | "Spit":
                 target.takeDamage(equipment.damage, game)
+            case "Slash":
+                target.takeDamage(equipment.damage, game)
+            case "Slam":
+                target.takeDamage(equipment.damage * 1.5, game)
 
 
             case _:
