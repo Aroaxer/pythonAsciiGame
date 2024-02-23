@@ -24,10 +24,11 @@ class Player(Character):
         try:
             self.readAsMove(action, game)
         except Exception:
-            #try:
-            self.getFullActionList()[int(action) - 1].activate(game, "Active", user = self)
-            #except TypeError:
-            #    print("Type Error")
+            try:
+                trait = self.getFullActionList()[int(action) - 1]
+                trait.activate(game, "Active", trait.tiedEquipment, user = self)
+            except ValueError:
+                print("Value Error")
 
     def readAsMove(self, entered, game):
         enArr = entered.replace(" ", "").split(",")
@@ -62,24 +63,6 @@ class Player(Character):
         elif len(slots > 1):
             chosenSlot = slots[utils.promptChoice("What slot would you like to equip this in?", slots)]
             self.putOn(item, chosenSlot)
-
-    def putOn(self, item, slot):
-        match slot:
-                case "Mainhand":
-                    del self.mainhand
-                    self.mainhand = item
-                case "Offhand":
-                    del self.offhand
-                    self.offhand = item
-                case "Armor":
-                    del self.armor
-                    self.armor = item
-                case "Helmet":
-                    del self.helmet
-                    self.helmet = item
-                case "Accesory":
-                    del self.accesory
-                    self.accesory = item
 
     def getSkillDisplay(self):
         actions = self.getFullActionList()

@@ -1,6 +1,5 @@
 import utils
 
-from Entities.Characters.enemy import Enemy
 
 class Trait():
     # Should be: "Active" / "Turn" / "Action" / "Damage" / "Attack"
@@ -12,6 +11,9 @@ class Trait():
     length = 0
     width = 0
     range = 0
+
+    # Stores tied equipment, initialized by the equipment
+    tiedEquipment = None
 
 
     # Determines effect when triggered
@@ -56,9 +58,7 @@ class Trait():
                 self.recharge("Turn")
     
     def activate(self, game, trigger, equipment = None, user = None):
-        print(f"{self.trigger} compared to {trigger}: {self.trigger == trigger}")
         if self.trigger == trigger and (self.charges > 0 or self.maxCharges < 0):
-            print("Triggered")
 
             # Causes no charges to be lost
             didntTrigger = False
@@ -73,8 +73,7 @@ class Trait():
             if target == "Cancelled":
                 didntTrigger = True
 
-            if type(target) == Enemy:
-                self.triggerEffectOn(target, game)
+            self.triggerEffectOn(target, game, equipment)
 
             # Remove charge if effect triggered and not infinite charges
             if self.charges > 0 and not didntTrigger:
@@ -82,15 +81,11 @@ class Trait():
 
     def getTarget(self, game, user):
         plr = game.player
-        print("Getting target")
         if user == plr:
-            print("Used by player")
             match self.targeting:
                 case "Standard":
                     validEnems = []
-                    print(self.range)
                     for enem in game.enemies:
-                        print(f"{enem.x}, {enem.y} : {plr.x}, {plr.y}")
                         if enem.isWithinDistance(self.range, (plr.x, plr.y)):
                             validEnems.append(f"{enem.name} ({enem.x}, {enem.y})")
                     target = utils.promptChoice("Which enemy would you like to target?", validEnems)
@@ -118,10 +113,10 @@ class Trait():
             case _:
                 pass
 
-    def triggerEffectOn(self, target, game):
+    def triggerEffectOn(self, target, game, equipment):
         match self.effectKey:
-            case "Basic Attack":
-                target.takeDamage(5, game)
+            case "Basic Attack" | "Gore" | "Spit":
+                target.takeDamage(equipment.damage, game)
 
 
             case _:

@@ -10,5 +10,7 @@ class Equippable(Item):
     def __init__(self, name, upgrade = 0, traits = [], specialTags = []) -> None:
         self.upgrade = upgrade
         self.traits = traits
+        for trait in self.traits:
+            trait.tiedEquipment = self
         self.specialTags = specialTags
         super().__init__(name)

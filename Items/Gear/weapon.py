@@ -8,6 +8,9 @@ class Weapon(Equippable):
     def __init__(self, name, damage, category, upgrade = 0, traits = []) -> None:
         self.damage = damage
         self.category = category
+
+        
+
         super().__init__(name, upgrade, traits)
 
     

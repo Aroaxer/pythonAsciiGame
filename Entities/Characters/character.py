@@ -87,8 +87,39 @@ class Character(Object):
     def takeDamage(self, damage, game):
         self.hp -= damage
         if self.hp <= 0:
-            game.allObjects.remove(self)
-            del self
+            if not self == game.player:
+                game.allObjects.remove(self)
+                del self
+            else:
+                game.ended = True
+
+    def putOn(self, item, slot):
+        match slot:
+                case "Mainhand":
+                    try:
+                        del self.mainhand
+                    except AttributeError: pass
+                    self.mainhand = item
+                case "Offhand":
+                    try:
+                        del self.offhand
+                    except AttributeError: pass
+                    self.offhand = item
+                case "Armor":
+                    try:
+                        del self.armor
+                    except AttributeError: pass
+                    self.armor = item
+                case "Helmet":
+                    try:
+                        del self.helmet
+                    except AttributeError: pass
+                    self.helmet = item
+                case "Accesory":
+                    try:
+                        del self.accesory
+                    except AttributeError: pass
+                    self.accesory = item
     
     # Returns a list of all actions for all equipments
     def getFullActionList(self):

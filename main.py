@@ -1,4 +1,5 @@
 import math
+import random
 
 from Entities.object import Object
 from Entities.Characters.character import Character
@@ -8,6 +9,7 @@ from Stages.Encounters.encounter import Encounter
 from Stages.stage import Stage
 
 import premades as pre
+import Stages.preStages as preS
 import utils
 
 class Game():
@@ -15,10 +17,12 @@ class Game():
     player = None
     allObjects = []
     encounter = None
-    stage = pre.sunlitField
+    stage = preS.stages[0][0]
 
     completedEncounters = 0
     complEncsPerStage = 0
+
+    ended = False
 
     def getEnemies(self):
         enems = []
@@ -107,6 +111,8 @@ class Game():
         return map
     
     def displayInfo(self):
+        print(f"Stage: {self.stage.name}")
+
         print(self.assembleMap("str"))
 
         print(self.player.getInfo(True))
@@ -120,5 +126,11 @@ class Game():
 
     def advanceStage(self):
         self.complEncsPerStage = 0
+        nextStage = None
+        while True:
+            nextStage = preS.stages[self.stage.stageOrder][random.randint(0, len(preS.stages[self.stage.stageOrder]) - 1)]
+            if len(nextStage.prevStages) == 0 or self.stage.name in nextStage.prevStages:
+                self.stage = nextStage
+                break
 
 game = Game()
