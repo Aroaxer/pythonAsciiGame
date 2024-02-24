@@ -71,7 +71,7 @@ class Game():
 
     def startPlayer(self):
         plr = Player(10, 0, 0, 2, 2)
-        plr.mainhand = pre.weps["Sword"]
+        plr.mainhand = pre.weps["Bow"]
         return plr
 
     # Run game

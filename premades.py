@@ -21,7 +21,7 @@ acs = {
     "Pierce" : Action("Pierce", targeting="Directional", maxCharges=1, length=5)
 
     # Magical
-    
+
 }
 
 enemAcs = {
@@ -33,10 +33,16 @@ enemAcs = {
 
 # Weapons
 weps = {
+    # Physical Melee
     "Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"])]),
-    "Hammer" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"])])
-    #"Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"])]),
-    #"Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"])])
+    "Hammer" : Weapon("Hammer", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"])]),
+    "Spear" : Weapon("Spear", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Impale"])]),
+
+    # Physical Ranged
+    "Bow" : Weapon("Bow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Pierce"])])
+}
+upgradedWeps = {
+
 }
 
 enemWeps = {
@@ -65,15 +71,11 @@ accs = {
 }
 
 # Loot Pools
-lootPools = [
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    []
-]
+lootPools = {
+    "Standard" : weps.values(),
+    "Upgraded" : upgradedWeps.values()
+}
+
 
 
 # Enemies

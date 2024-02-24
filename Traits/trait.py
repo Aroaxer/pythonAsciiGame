@@ -5,7 +5,7 @@ import math
 class Trait():
     # Should be: "Active" / "Turn" / "Action" / "Damage" / "Attack"
     trigger = ""
-    # Should be: "Standard" / "Directional" / "Point" / "Multi {number}" / "Custom"
+    # Should be: "Standard" / "Directional" / "Point" / "Multi {number}" / "Self" / "Centered" / "Global" / "Custom"
     targeting = None
     
     areaType = None
@@ -104,6 +104,7 @@ class Trait():
 
                         y1 = user.y + math.floor(self.width / 2)
                         y2 = y1 - self.width + 1
+                print(f"({x1}, {y1}), ({x2}, {y2})")
                 self.triggerOnRegion((x1, y1), (x2, y2), game, equipment, user.testEnem())
             else:
                 self.triggerEffectOn(target, game, equipment)
@@ -157,9 +158,9 @@ class Trait():
 
     def triggerEffectOn(self, target, game, equipment):
         match self.effectKey:
-            case "Basic Attack" | "Gore" | "Spit":
+            case "Basic Attack" | "Basic Shot" | "Gore" | "Spit":
                 target.takeDamage(equipment.damage, game)
-            case "Slash":
+            case "Slash" | "Impale" | "Pierce":
                 target.takeDamage(equipment.damage, game)
             case "Slam":
                 target.takeDamage(equipment.damage * 1.5, game)
