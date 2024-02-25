@@ -5,7 +5,7 @@ import math
 class Trait():
     # Should be: "Active" / "Turn" / "Action" / "Damage" / "Attack"
     trigger = ""
-    # Should be: "Standard" / "Directional" / "Point" / "Multi {number}" / "Self" / "Centered" / "Global" / "Custom"
+    # Should be: "Standard" / "Directional" / "Point" / "Multi {number}" / "Self" / "Centered" / "Global" / "Copy Target" /"Damage Source" / "Custom"
     targeting = None
     
     areaType = None
@@ -31,9 +31,16 @@ class Trait():
     # For enemy AI
     aiPrio = 0
     
-    def __init__(self, trigger, effectKey, targeting = "Standard", maxCharges = -1, recharge = "Turn", rechargePercent = 1, aiPrio = 0, range = 1, length = 1, width = 1) -> None:
+    def __init__(self, trigger, effectKey, targeting = "N/A", maxCharges = -1, recharge = "Turn", rechargePercent = 1, aiPrio = 0, range = 1, length = 1, width = 1) -> None:
         self.trigger = trigger
         self.effectKey = effectKey
+        if targeting == "N/A":
+            if trigger == "Damage":
+                targeting = "Damage Source"
+            elif trigger == "Attack":
+                targeting = "Copy Target"
+            elif trigger == "Turn":
+                targeting = "Self"
         self.targeting = targeting
 
         self.range = range
@@ -58,7 +65,8 @@ class Trait():
             case "Turn":
                 self.recharge("Action")
     
-    def activate(self, game, trigger, equipment = None, user = None):
+    # 'target' is only used by some targeting types
+    def activate(self, game, trigger, equipment = None, user = None, target = None):
         if self.trigger == trigger and (self.charges > 0 or self.maxCharges < 0):
 
             # Causes no charges to be lost
@@ -134,10 +142,12 @@ class Trait():
                 case "Point":
                     target = utils.promptCoords("What point would you like to target? (x,y)")
                     return target
-
-
+                case "Self":
+                    return user
                     
         else:
+            if self.targeting == "Self":
+                return user
             return plr
 
     def triggerOnRegion(self, topLeft, botRight, game, equip, wasEnem = False):
@@ -149,21 +159,37 @@ class Trait():
             if game.player.isInRegion(topLeft, botRight):
                 self.triggerEffectOn(game.player, game, equip)
 
-    def manageTargeting(self):
-        match self.effectKey:
-
-
-            case _:
-                pass
-
     def triggerEffectOn(self, target, game, equipment):
         match self.effectKey:
+            # Attacks
             case "Basic Attack" | "Basic Shot" | "Gore" | "Spit":
                 target.takeDamage(equipment.damage, game)
             case "Slash" | "Impale" | "Pierce":
                 target.takeDamage(equipment.damage, game)
             case "Slam":
                 target.takeDamage(equipment.damage * 1.5, game)
+
+            # Passive Damage
+            case "Spikes":
+                target.takeDamage(equipment.damage, game)
+
+            # Defensive (Active)
+            case "Block":
+                pass
+
+            # Defensive (Passive)
+            case "Regenerate":
+                target.hp += target.maxHp / 10
+                if target.hp > target.maxHp:
+                    target.hp = target.maxHp
+            
+            # Utility (Active)
+            case "Hasten":
+                pass
+
+            # Utility (Passive)
+            case "Repel":
+                pass
 
 
             case _:

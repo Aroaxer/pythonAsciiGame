@@ -3,6 +3,7 @@ import copy
 from Traits.trait import Trait
 from Traits.action import Action
 from Items.Gear.weapon import Weapon
+from Items.Gear.armor import Armor
 
 # Copy an object without a really long command
 def c(obj):
@@ -18,10 +19,15 @@ acs = {
     
     # Physical Ranged
     "Basic Shot" : Action("Basic Shot", range=3),
-    "Pierce" : Action("Pierce", targeting="Directional", maxCharges=1, length=5)
+    "Pierce" : Action("Pierce", targeting="Directional", maxCharges=1, length=5),
 
     # Magical
 
+    # Utility
+    "Hasten" : Action("Hasten", targeting="Self", maxCharges=2, recharge="Encounter"),
+
+    # Defensive
+    "Block" : Action("Block", targeting="Self")
 }
 
 enemAcs = {
@@ -30,6 +36,11 @@ enemAcs = {
 }
 
 # Traits
+traits = {
+    "Spikes" : Trait("Damage", "Spikes"),
+    "Repel" : Trait("Damage", "Repel"),
+    "Regenerate" : Trait("Turn", "Regenerate")
+}
 
 # Weapons
 weps = {
@@ -57,7 +68,11 @@ offs = {
 
 # Armor
 armors = {
+    # Defensive
+    "Spiked Mail" : Armor("Spiked Armor", 15, traits=[c(traits["Spikes"])]),
+    "Overgrown Plate" : Armor("Overgrown Plate", 25, traits=[c(traits["Regenerate"])])
 
+    # Utility
 }
 
 # Helmets

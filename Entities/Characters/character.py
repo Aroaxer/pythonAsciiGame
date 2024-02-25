@@ -13,6 +13,8 @@ class Character(Object):
     actions = 0
     actionsLeft = 0
 
+    actionBonus = 0
+
     mainhand = None
     offhand = None
     armor = None
@@ -77,7 +79,8 @@ class Character(Object):
     def takeTurn(self, game):
         self.rechargeTraits("Turn")
 
-        self.actionsLeft = self.actions
+        self.actionsLeft = self.actions + self.actionBonus
+        self.actionBonus = 0
 
         while self.actionsLeft > 0:
             self.takeAction(game)
@@ -87,6 +90,10 @@ class Character(Object):
         return None # This function is defined by subclasses
     
     def takeDamage(self, damage, game):
+        try:
+            damage *= 1 - (self.armor.defense / 100)
+        except AttributeError: pass
+
         self.hp -= damage
         if self.hp <= 0:
             if not self == game.player:
@@ -204,6 +211,28 @@ class Character(Object):
     def testEnem(self):
         return False
         # Redefined to return True in the enemy class
+    
+    def activateAllTraits(self, trigger, game):
+        try: 
+            for trait in self.mainhand.traits:
+                trait.activate(game, trigger, self.mainhand, self)
+        except AttributeError: pass
+        try:
+            for trait in self.offhand.traits:
+                trait.activate(game, trigger, self.offhand, self)
+        except AttributeError: pass
+        try:
+            for trait in self.armor.traits:
+                trait.activate(game, trigger, self.armor, self)
+        except AttributeError: pass
+        try:
+            for trait in self.helmet.traits:
+                trait.activate(game, trigger, self.helmet, self)
+        except AttributeError: pass
+        try:
+            for trait in self.accesory.traits:
+                trait.activate(game, trigger, self.accesory, self)
+        except AttributeError: pass
     
     def rechargeTraits(self, trigger):
         traits = self.getAllTraits()
