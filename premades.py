@@ -5,6 +5,8 @@ from Traits.action import Action
 from Items.Gear.weapon import Weapon
 from Items.Gear.armor import Armor
 
+import utils
+
 # Copy an object without a really long command
 def c(obj):
     return copy.deepcopy(obj)
@@ -37,8 +39,8 @@ enemAcs = {
 
 # Traits
 traits = {
-    "Spikes" : Trait("Damage", "Spikes"),
-    "Repel" : Trait("Damage", "Repel"),
+    "Spikes" : Trait("After Damage", "Spikes"),
+    "Repel" : Trait("After Damage", "Repel"),
     "Regenerate" : Trait("Turn", "Regenerate")
 }
 
@@ -69,7 +71,7 @@ offs = {
 # Armor
 armors = {
     # Defensive
-    "Spiked Mail" : Armor("Spiked Armor", 15, traits=[c(traits["Spikes"])]),
+    "Spiked Mail" : Armor("Spiked Armor", 15, damage=2, traits=[c(traits["Spikes"])]),
     "Overgrown Plate" : Armor("Overgrown Plate", 25, traits=[c(traits["Regenerate"])])
 
     # Utility
@@ -87,8 +89,8 @@ accs = {
 
 # Loot Pools
 lootPools = {
-    "Standard" : weps.values(),
-    "Upgraded" : upgradedWeps.values()
+    "Standard" : utils.merge(weps.values(), armors.values()),
+    "Upgraded" : utils.merge(upgradedWeps.values())
 }
 
 

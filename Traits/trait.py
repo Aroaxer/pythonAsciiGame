@@ -3,7 +3,7 @@ import math
 
 
 class Trait():
-    # Should be: "Active" / "Turn" / "Action" / "Damage" / "Attack"
+    # Should be: "Active" / "Turn" / "Action" / "Before Damage" / "After Damage" / "Attack"
     trigger = ""
     # Should be: "Standard" / "Directional" / "Point" / "Multi {number}" / "Self" / "Centered" / "Global" / "Copy Target" /"Damage Source" / "Custom"
     targeting = None
@@ -35,7 +35,7 @@ class Trait():
         self.trigger = trigger
         self.effectKey = effectKey
         if targeting == "N/A":
-            if trigger == "Damage":
+            if trigger == "After Damage" or trigger == "Before Damage":
                 targeting = "Damage Source"
             elif trigger == "Attack":
                 targeting = "Copy Target"
@@ -77,7 +77,7 @@ class Trait():
                 case _:
                     pass
             
-            target = self.getTarget(game, user)
+            target = self.getTarget(game, user, target)
 
             if target == "Cancelled":
                 didntTrigger = True
@@ -112,10 +112,9 @@ class Trait():
 
                         y1 = user.y + math.floor(self.width / 2)
                         y2 = y1 - self.width + 1
-                print(f"({x1}, {y1}), ({x2}, {y2})")
-                self.triggerOnRegion((x1, y1), (x2, y2), game, equipment, user.testEnem())
+                self.triggerOnRegion((x1, y1), (x2, y2), user, game, equipment, user.testEnem())
             else:
-                self.triggerEffectOn(target, game, equipment)
+                self.triggerEffectOn(target, user, game, equipment)
 
             # Remove charge if effect triggered and not infinite charges
             if self.charges > 0 and not didntTrigger:
@@ -123,7 +122,8 @@ class Trait():
             
             return not didntTrigger
 
-    def getTarget(self, game, user):
+    # 'target' is required only by some targeting types
+    def getTarget(self, game, user, target = None):
         plr = game.player
         if user == plr:
             match self.targeting:
@@ -144,34 +144,36 @@ class Trait():
                     return target
                 case "Self":
                     return user
+                case "Damage Source" | "Copy Target":
+                    return target
                     
         else:
             if self.targeting == "Self":
                 return user
             return plr
 
-    def triggerOnRegion(self, topLeft, botRight, game, equip, wasEnem = False):
+    def triggerOnRegion(self, topLeft, botRight, user, game, equip, wasEnem = False):
         if not wasEnem:
             for enem in game.enemies:
                 if enem.isInRegion(topLeft, botRight):
-                    self.triggerEffectOn(enem, game, equip)
+                    self.triggerEffectOn(enem, user, game, equip)
         else:
             if game.player.isInRegion(topLeft, botRight):
-                self.triggerEffectOn(game.player, game, equip)
+                self.triggerEffectOn(game.player, user, game, equip)
 
-    def triggerEffectOn(self, target, game, equipment):
+    def triggerEffectOn(self, target, user, game, equipment):
         match self.effectKey:
             # Attacks
             case "Basic Attack" | "Basic Shot" | "Gore" | "Spit":
-                target.takeDamage(equipment.damage, game)
+                target.takeDamage(equipment.damage, user, game)
             case "Slash" | "Impale" | "Pierce":
-                target.takeDamage(equipment.damage, game)
+                target.takeDamage(equipment.damage, user, game)
             case "Slam":
-                target.takeDamage(equipment.damage * 1.5, game)
+                target.takeDamage(equipment.damage * 1.5, user, game)
 
             # Passive Damage
             case "Spikes":
-                target.takeDamage(equipment.damage, game)
+                target.takeDamage(equipment.damage, user, game)
 
             # Defensive (Active)
             case "Block":

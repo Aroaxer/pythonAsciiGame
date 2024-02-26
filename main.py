@@ -62,6 +62,7 @@ class Game():
     def resetGame(self):
         self.allObjects = []
         self.player = self.startPlayer()
+        self.getLoot(5)
 
     def beginLoop(self):
         self.startNewEncounter(2)
@@ -71,7 +72,8 @@ class Game():
 
     def startPlayer(self):
         plr = Player(10, 0, 0, 2, 2)
-        plr.mainhand = pre.weps["Bow"]
+        plr.mainhand = pre.weps["Sword"]
+
         return plr
 
     # Run game
@@ -140,7 +142,15 @@ class Game():
                 self.stage = nextStage
                 break
 
-    def getLoot(self):
-        pass
+    def getLoot(self, amount):
+        loot = utils.getXRandom(self.stage.lootPool, amount)
+
+        names = []
+        for item in loot:
+            names.append(item.name)
+
+        choice = utils.promptChoice("You found some loot!", names)
+        self.player.collect(loot[choice])
+        
 
 game = Game()

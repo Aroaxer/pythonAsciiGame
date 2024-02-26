@@ -7,6 +7,12 @@ def getXRandom(source, number = 1):
         number -= 1
     return entries
 
+def merge(*args):
+    list = []
+    for entry in args:
+        list.extend(entry)
+    return list
+
 # Returns an index for the entry chosen, starting with 0
 def promptChoice(startMessage, options):
     print(f"{startMessage}\n")

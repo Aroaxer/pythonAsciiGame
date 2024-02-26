@@ -89,10 +89,14 @@ class Character(Object):
         self.actionsLeft = 0
         return None # This function is defined by subclasses
     
-    def takeDamage(self, damage, game):
+    def takeDamage(self, damage, source, game):
+        self.activateAllTraits("Before Damage", game, source)
+
         try:
             damage *= 1 - (self.armor.defense / 100)
         except AttributeError: pass
+
+        self.activateAllTraits("After Damage", game, source)
 
         self.hp -= damage
         if self.hp <= 0:
@@ -212,26 +216,26 @@ class Character(Object):
         return False
         # Redefined to return True in the enemy class
     
-    def activateAllTraits(self, trigger, game):
+    def activateAllTraits(self, trigger, game, target):
         try: 
             for trait in self.mainhand.traits:
-                trait.activate(game, trigger, self.mainhand, self)
+                trait.activate(game, trigger, self.mainhand, self, target)
         except AttributeError: pass
         try:
             for trait in self.offhand.traits:
-                trait.activate(game, trigger, self.offhand, self)
+                trait.activate(game, trigger, self.offhand, self, target)
         except AttributeError: pass
         try:
             for trait in self.armor.traits:
-                trait.activate(game, trigger, self.armor, self)
+                trait.activate(game, trigger, self.armor, self, target)
         except AttributeError: pass
         try:
             for trait in self.helmet.traits:
-                trait.activate(game, trigger, self.helmet, self)
+                trait.activate(game, trigger, self.helmet, self, target)
         except AttributeError: pass
         try:
             for trait in self.accesory.traits:
-                trait.activate(game, trigger, self.accesory, self)
+                trait.activate(game, trigger, self.accesory, self, target)
         except AttributeError: pass
     
     def rechargeTraits(self, trigger):

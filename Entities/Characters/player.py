@@ -1,5 +1,6 @@
 from Entities.Characters.character import Character
 from Items.Gear.weapon import Weapon
+from Items.Gear.armor import Armor
 from Items.Consumables.consumable import Consumable
 
 import utils
@@ -63,7 +64,8 @@ class Player(Character):
             slots.append("Mainhand")
             if "Light" in item.specialTags:
                 slots.append("Offhand")
-        #elif type(item) == Armor:
+        elif type(item) == Armor:
+            slots.append("Armor")
                 
         if len(slots) == 1:
             self.putOn(item, slots[0])
@@ -76,6 +78,6 @@ class Player(Character):
 
         display = ""
         for index, action in enumerate(actions):
-            display += f"{index + 1}: {action.effectKey}" + (f", {action.charges} Charges\n" if action.maxCharges >= 0 else "\n")
+            display += f"{index + 1}: {action.effectKey}" + ((f", {action.charges} Charge" + ("s" if action.charges > 1 else "") + "\n") if action.maxCharges >= 0 else "\n")
 
         return display
