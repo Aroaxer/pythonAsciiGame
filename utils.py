@@ -1,4 +1,5 @@
 import random
+import re
 
 def getXRandom(source, number = 1):
     entries = []
@@ -31,27 +32,35 @@ def promptChoice(startMessage, options):
             return choice - 1
         except ValueError:
             print("Bad Input")
-        
-def promptCoords(prompt):
-    print(prompt)
-    
+
+def promptRegEx(prompt, regEx):
+    if prompt != None: print(prompt)
+    found = None
+    choice = None
+
     while True:
-        choice = input().replace(" ", "")
+        choice = input()
+        found = re.search(regEx, choice)
+        if found != None and found.group() == choice:
+            break
 
-        nextNonInt = "("
+    return choice
 
-        # Make sure there's no extra characters at the start and end
-        if not (choice[0] == "(" and choice[-1] == ")"): continue
+def promptCoords(prompt):
+    print(f"{prompt}\nEnter in format (x,y)")
 
-        if choice == nextNonInt:
-            match choice:
-                case "(":
-                    nextNonInt = ","
-                case ",":
-                    nextNonInt - ")"
-                case ")":
-                    return choice
-        else:
-            # Check if integer
-            try: int(choice)
-            except ValueError: continue
+    choice = promptRegEx(None, "\([0-9]+, *[0-9]+\)")
+    coords = re.findall("[0-9]+", choice)
+
+    return coords
+
+def promptMultipleIds(prompt, options, count):
+    print(f"{prompt}\n")
+    for index, option in enumerate(options):
+        print(f"{index + 1}: {option}")
+    print(f"\nEnter {count} indices to make a selection, or 'cancel' to cancel this action.")
+
+    choice = promptRegEx(None, "[0-9]+(, *[0-9]+)*")
+    ids = re.findall("[0-9]+", choice)
+
+    return ids
