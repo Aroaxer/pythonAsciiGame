@@ -38,6 +38,9 @@ class Player(Character):
                 if not action == "pass":
                     self.actionsLeft += 1
 
+        if len(game.enemies) == 0:
+            self.actionsLeft = 0
+
     def readAsMove(self, entered, game):
         enArr = entered.replace(" ", "").split(",")
         for entry in enArr:
@@ -78,6 +81,6 @@ class Player(Character):
 
         display = ""
         for index, action in enumerate(actions):
-            display += f"{index + 1}: {action.effectKey}" + ((f", {action.charges} Charge" + ("s" if action.charges > 1 else "") + "\n") if action.maxCharges >= 0 else "\n")
+            display += f"{index + 1}: {action.effectKey}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "") + "\n") if action.maxCharges >= 0 else "\n")
 
         return display
