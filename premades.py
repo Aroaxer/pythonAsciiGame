@@ -22,8 +22,11 @@ acs = {
     # Physical Ranged
     "Basic Shot" : Action("Basic Shot", range=3),
     "Pierce" : Action("Pierce", targeting="Directional", maxCharges=1, length=5),
+    "Shatter" : Action("Shatter", maxCharges=1, range= 3),
 
     # Magical
+    "Fire Bolt" : Action("Fire Bolt", maxCharges=1, range= 3),
+    "Fireball" : Action("Fireball", targeting="Point", maxCharges=1, rechargePercent=0.5, range=3, width=3),
 
     # Utility
     "Hasten" : Action("Hasten", targeting="Self", maxCharges=2, recharge="Encounter"),
@@ -52,7 +55,11 @@ weps = {
     "Spear" : Weapon("Spear", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Impale"])]),
 
     # Physical Ranged
-    "Bow" : Weapon("Bow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Pierce"])])
+    "Bow" : Weapon("Bow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Pierce"])]),
+    "Crossbow" : Weapon("Crossbow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Shatter"])]),
+
+    # Magical Ranged
+    "Fire Staff" : Weapon("Fire Staff", 4, "Magic", traits = [c(acs["Fire Bolt"]), c(acs["Fireball"])])
 }
 upgradedWeps = {
 

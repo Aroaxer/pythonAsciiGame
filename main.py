@@ -81,7 +81,7 @@ class Game():
 
         self.player.takeTurn(self)
 
-        for enemy in self.enemies:
+        for i, enemy in enumerate(self.enemies):
             enemy.takeTurn(self)
 
         if len(self.enemies) == 0:

@@ -52,6 +52,9 @@ def promptCoords(prompt):
     choice = promptRegEx(None, "\([0-9]+, *[0-9]+\)")
     coords = re.findall("[0-9]+", choice)
 
+    for i, entry in enumerate(coords):
+        coords[i] = int(entry)
+
     return coords
 
 def promptMultipleIds(prompt, options, count):

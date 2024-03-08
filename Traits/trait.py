@@ -46,6 +46,8 @@ class Trait():
         self.range = range
         self.length = length
         self.width = width
+        if self.targeting == "Point" and self.length == 1:
+            self.length = width
 
         self.maxCharges = maxCharges
         self.charges = self.maxCharges
@@ -57,6 +59,8 @@ class Trait():
     def recharge(self, trigger):
         # Recharge on recharge period
         if self.rechargePeriod == trigger:
+            self.charges += self.maxCharges * self.rechargePercent
+        if self.charges > self.maxCharges:
             self.charges = self.maxCharges
         
         match trigger:
@@ -67,7 +71,7 @@ class Trait():
     
     # 'target' is only used by some targeting types
     def activate(self, game, trigger, equipment = None, user = None, target = None):
-        if self.trigger == trigger and (self.charges > 0 or self.maxCharges < 0):
+        if self.trigger == trigger and (self.charges >= 1 or self.maxCharges < 0):
 
             # Causes no charges to be lost
             didntTrigger = False
@@ -81,7 +85,7 @@ class Trait():
 
             if target == "Cancelled":
                 didntTrigger = True
-            elif target in ("Up", "Down", "Left", "Right"):
+            elif self.targeting == "Directional":
                 # I don't think there's a way to make this shorter
                 x1 = None
                 x2 = None
@@ -113,6 +117,11 @@ class Trait():
                         y1 = user.y + math.floor(self.width / 2)
                         y2 = y1 - self.width + 1
                 self.triggerOnRegion((x1, y1), (x2, y2), user, game, equipment, user.testEnem())
+            elif self.targeting == "Point":
+                x1 = target[0] - math.floor(self.width / 2)
+                y1 = target[1] - math.floor(self.length / 2)
+
+                self.triggerOnRegion((x1, y1), (x1 + self.width - 1, y1 + self.length - 1), user, game, equipment, user.testEnem())
             else:
                 self.triggerEffectOn(target, user, game, equipment)
 
@@ -140,8 +149,8 @@ class Trait():
                     target = utils.promptChoice("Which direction would you like to attack?", ("Up", "Down", "Left", "Right"))
                     return ("Up", "Down", "Left", "Right")[target]
                 case "Point":
-                    target = utils.promptCoords("What point would you like to target? (x,y)")
-                    return target
+                    targetX, targetY = utils.promptCoords("What point would you like to target?")
+                    return targetX, targetY
                 case "Self":
                     return user
                 case "Damage Source" | "Copy Target":
@@ -164,11 +173,11 @@ class Trait():
     def triggerEffectOn(self, target, user, game, equipment):
         match self.effectKey:
             # Attacks
-            case "Basic Attack" | "Basic Shot" | "Gore" | "Spit":
+            case "Basic Attack" | "Basic Shot" | "Fire Bolt" | "Gore" | "Spit":
                 target.takeDamage(equipment.damage, user, game)
-            case "Slash" | "Impale" | "Pierce":
+            case "Slash" | "Impale" | "Pierce" | "Fireball":
                 target.takeDamage(equipment.damage, user, game)
-            case "Slam":
+            case "Slam" | "Shatter":
                 target.takeDamage(equipment.damage * 1.5, user, game)
 
             # Passive Damage

@@ -85,7 +85,7 @@ class Character(Object):
         while self.actionsLeft > 0:
             self.takeAction(game)
 
-    def takeAction(self, game):
+    def takeAction(self, *args):
         self.actionsLeft = 0
         return None # This function is defined by subclasses
     
