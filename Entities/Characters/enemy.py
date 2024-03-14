@@ -16,12 +16,20 @@ class Enemy(Character):
             case "Wild Boar":
                 mapIcon = "B"
 
-                self.putOn(pre.enemWeps["Boar Tusk"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
             case "Spitting Cobra":
                 mapIcon = "C"
                 preferredDist = 2
 
-                self.putOn(pre.enemWeps["Spit"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Ranged"], "Mainhand")
+
+                # Boss
+            case "Forest Golem":
+                mapIcon = "!"
+                
+                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+                self.putOn(pre.enemArmrs["Weak Reflect"], "Armor")
+
 
 
 

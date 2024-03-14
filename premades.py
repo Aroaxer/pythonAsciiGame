@@ -36,8 +36,8 @@ acs = {
 }
 
 enemAcs = {
-    "Gore" : Action("Gore", aiPrio=1),
-    "Spit" : Action("Spit", aiPrio=1, range = 2)
+    "Melee" : Action("Melee", aiPrio=1),
+    "Ranged" : Action("Ranged", aiPrio=1, range = 2)
 }
 
 # Traits
@@ -66,8 +66,8 @@ upgradedWeps = {
 }
 
 enemWeps = {
-    "Boar Tusk" : Weapon("Boar Tusk", 2, "Melee", traits = [c(enemAcs["Gore"])]),
-    "Spit" : Weapon("Spit", 1, "Ranged", traits = [c(enemAcs["Spit"])])
+    "Weak Melee" : Weapon("Weak Melee", 2, "Melee", traits = [c(enemAcs["Melee"])]),
+    "Weak Ranged" : Weapon("Weak Ranged", 1, "Ranged", traits = [c(enemAcs["Ranged"])])
 }
 
 # Other Helds
@@ -82,6 +82,11 @@ armors = {
     "Overgrown Plate" : Armor("Overgrown Plate", 25, traits=[c(traits["Regenerate"])])
 
     # Utility
+}
+
+enemArmrs = {
+    "Weak No Special" : Armor("Weak No Special", 10),
+    "Weak Reflect" : Armor("Weak Reflect", 10, damage=1, traits=[c(traits["Spikes"])])
 }
 
 # Helmets
@@ -104,5 +109,5 @@ lootPools = {
 
 # Enemies
 preEnemies = [
-    [("Wild Boar", 7), ("Spitting Cobra", 4)]
+    [("Wild Boar", 7), ("Spitting Cobra", 4), ("Forest Golem", 15)]
 ]

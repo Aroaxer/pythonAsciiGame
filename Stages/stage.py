@@ -1,4 +1,5 @@
 import random
+import math
 
 from Stages.Encounters.encounter import Encounter
 from Entities.Characters.enemy import Enemy
@@ -33,21 +34,28 @@ class Stage():
         self.enemies = enemies
         self.lootPool = lootPool
 
-    def genEncounter(self, desEnemies):
-        enc = Encounter(random.randint(self.minWidth, self.maxWidth), random.randint(self.minHeight, self.maxHeight))
-        enems = []
-        while desEnemies > 0:
-            index = random.randint(0, len(self.enemies) - 1)
-            validCoords = False
-            while not validCoords:
-                x, y = (random.randint(1, enc.width), random.randint(1, enc.height - 2))
+    def genEncounter(self, desEnemies, encsSoFar):
+        if encsSoFar < self.length:
+            # Get normal encounter
+            enc = Encounter(random.randint(self.minWidth, self.maxWidth), random.randint(self.minHeight, self.maxHeight))
+            enems = []
+            while desEnemies > 0:
+                index = random.randint(0, len(self.enemies) - 1)
+                validCoords = False
+                while not validCoords:
+                    x, y = (random.randint(1, enc.width), random.randint(1, enc.height - 2))
 
-                # Confirm valid coords
-                validCoords = True
-                for enem in enems:
-                    if x == enem.x or y == enem.y:
-                        validCoords = False
+                    # Confirm valid coords
+                    validCoords = True
+                    for enem in enems:
+                        if x == enem.x or y == enem.y:
+                            validCoords = False
 
-            enems.append(Enemy(self.enemies[index][0], self.enemies[index][1], x, y))
-            desEnemies -= 1
-        return [enc, enems]
+                enems.append(Enemy(self.enemies[index][0], self.enemies[index][1], x, y))
+                desEnemies -= 1
+            return [enc, enems]
+        else:
+            # Get boss encounter
+            enc = Encounter(self.maxWidth, self.maxHeight)
+            enems = [Enemy(self.enemies[-1][0], self.enemies[-1][0], math.floor(self.maxWidth / 2), math.floor(self.maxHeight / 2))]
+            return [enc, enems]

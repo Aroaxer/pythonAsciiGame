@@ -91,6 +91,12 @@ class Game():
                 self.advanceStage()
             self.startNewEncounter(2)
 
+    def kill(self, entity):
+        for i, object in enumerate(self.allObjects):
+            if object.uid == entity.uid:
+                del self.allObjects[i]
+                del entity
+
     def emptyTerminal(self):
         cyc = 0
         while cyc < 20:
@@ -127,7 +133,7 @@ class Game():
     def startNewEncounter(self, enems):
         self.player.rechargeTraits("Encounter")
 
-        enc = self.stage.genEncounter(enems)
+        enc = self.stage.genEncounter(enems, self.complEncsPerStage)
         self.encounter = enc[0]
         self.enemies = enc[1]
         self.player.y = enc[0].height

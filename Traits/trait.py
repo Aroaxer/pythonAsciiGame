@@ -173,7 +173,7 @@ class Trait():
     def triggerEffectOn(self, target, user, game, equipment):
         match self.effectKey:
             # Attacks
-            case "Basic Attack" | "Basic Shot" | "Fire Bolt" | "Gore" | "Spit":
+            case "Basic Attack" | "Basic Shot" | "Fire Bolt" | "Melee" | "Ranged":
                 target.takeDamage(equipment.damage, user, game)
             case "Slash" | "Impale" | "Pierce" | "Fireball":
                 target.takeDamage(equipment.damage, user, game)

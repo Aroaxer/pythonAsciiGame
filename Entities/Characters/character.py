@@ -101,8 +101,7 @@ class Character(Object):
         self.hp -= damage
         if self.hp <= 0:
             if not self == game.player:
-                game.allObjects.remove(self)
-                del self
+                game.kill(self)
             else:
                 game.ended = True
 
