@@ -108,6 +108,8 @@ lootPools = {
 
 
 # Enemies
-preEnemies = [
-    [("Wild Boar", 7), ("Spitting Cobra", 4), ("Forest Golem", 15)]
-]
+preEnemies = {
+    "Sunlit Field" : [("Wild Boar", 7), ("Spitting Cobra", 4), ("Forest Golem", 15)],
+    "Shaded Forest" : [("Goblin", 5), ("Hobgoblin", 8), ("Bugbear", 10), ("Hobgoblin Devastator", 20)],
+    "Forest Tower" : [("Turret", 3), ("Stone Golem", 10), ("Golem Mage", 8), ("Iron Golem", 25)]
+}

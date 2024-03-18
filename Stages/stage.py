@@ -35,12 +35,12 @@ class Stage():
         self.lootPool = lootPool
 
     def genEncounter(self, desEnemies, encsSoFar):
-        if encsSoFar < self.length:
+        if encsSoFar < self.length - 1:
             # Get normal encounter
             enc = Encounter(random.randint(self.minWidth, self.maxWidth), random.randint(self.minHeight, self.maxHeight))
             enems = []
             while desEnemies > 0:
-                index = random.randint(0, len(self.enemies) - 1)
+                index = random.randint(0, len(self.enemies) - 2) # Excludes the boss, which is at the end of the list
                 validCoords = False
                 while not validCoords:
                     x, y = (random.randint(1, enc.width), random.randint(1, enc.height - 2))
@@ -57,5 +57,5 @@ class Stage():
         else:
             # Get boss encounter
             enc = Encounter(self.maxWidth, self.maxHeight)
-            enems = [Enemy(self.enemies[-1][0], self.enemies[-1][0], math.floor(self.maxWidth / 2), math.floor(self.maxHeight / 2))]
+            enems = [Enemy(self.enemies[-1][0], self.enemies[-1][1], math.floor(self.maxWidth / 2), math.floor(self.maxHeight / 2))]
             return [enc, enems]

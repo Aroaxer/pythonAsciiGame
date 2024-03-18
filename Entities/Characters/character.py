@@ -194,7 +194,7 @@ class Character(Object):
 
         
     def getInfo(self, detailed = False):
-        infoStr = f"{self.name}: {self.hp}/{self.maxHp} Health"
+        infoStr = f"{self.name}: {math.ceil(self.hp)}/{self.maxHp} Health"
         if detailed:
             try: infoStr += f"\nMainhand: {self.mainhand.name}, {self.mainhand.damage} Damage"
             except AttributeError: pass

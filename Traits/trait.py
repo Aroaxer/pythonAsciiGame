@@ -138,13 +138,15 @@ class Trait():
             match self.targeting:
                 case "Standard":
                     validEnems = []
+                    validsReturn = []
                     for enem in game.enemies:
                         if enem.isWithinDistance(self.range, (plr.x, plr.y)):
-                            validEnems.append(f"{enem.name}: {enem.hp}/{enem.maxHp} ({enem.x}, {enem.y})")
+                            validEnems.append(f"{enem.name}: {math.ceil(enem.hp)}/{enem.maxHp} ({enem.x}, {enem.y})")
+                            validsReturn.append(enem)
                     if len(validEnems) == 0:
                         return "Cancelled"
                     target = utils.promptChoice("Which enemy would you like to target?", validEnems)
-                    return (target if target == "Cancelled" else game.enemies[target])
+                    return (target if target == "Cancelled" else validsReturn[target])
                 case "Directional":
                     target = utils.promptChoice("Which direction would you like to attack?", ("Up", "Down", "Left", "Right"))
                     return ("Up", "Down", "Left", "Right")[target]

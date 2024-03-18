@@ -96,6 +96,7 @@ class Game():
             if object.uid == entity.uid:
                 del self.allObjects[i]
                 del entity
+                break
 
     def emptyTerminal(self):
         cyc = 0

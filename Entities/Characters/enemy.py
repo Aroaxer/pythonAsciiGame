@@ -7,37 +7,95 @@ import aStar
 
 class Enemy(Character):
     preferredDist = 0
+    difficultyValue = 0
     mapIcon = ""
     
-    def __init__(self, name, hp, x, y, speed = 1, actions = 1, preferredDist = 1, mapIcon = "E") -> None:
+    def __init__(self, name, hp, x, y, speed = 1, actions = 1, preferredDist = 1, mapIcon = "E", difficultyValue = 1) -> None:
+        self.preferredDist = preferredDist
+        self.mapIcon = mapIcon
+        self.difficultyValue = difficultyValue
+
         match name:
             # Stage 1
                 # Sunlit Field
             case "Wild Boar":
-                mapIcon = "B"
+                self.mapIcon = "B"
 
                 self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
             case "Spitting Cobra":
-                mapIcon = "C"
-                preferredDist = 2
+                self.mapIcon = "C"
+                self.preferredDist = 2
 
                 self.putOn(pre.enemWeps["Weak Ranged"], "Mainhand")
 
                 # Boss
             case "Forest Golem":
-                mapIcon = "!"
+                self.mapIcon = "#"
                 
                 self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
                 self.putOn(pre.enemArmrs["Weak Reflect"], "Armor")
 
+            # Stage 2
+                # Shaded Forest
+            case "Goblin":
+                self.mapIcon = "G"
 
+                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+            case "Hobgoblin":
+                self.mapIcon = "H"
+                self.preferredDist = 2
+
+                self.putOn(pre.enemWeps["Weak Ranged"], "Mainhand")
+            case "Bugbear":
+                self.mapIcon = "B"
+                self.difficultyValue = 2
+                
+                speed = 2
+
+                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+                self.putOn(pre.enemArmrs["Weak No Special"], "Armor")
+                
+                # Boss
+            case "Hobgoblin Devastator":
+                self.mapIcon = "#"
+                self.preferredDist = 3
+
+                actions = 2
+
+                self.putOn(pre.enemWeps["Weak Magic"], "Mainhand")
+
+            # Stage 3
+                # Forest Tower
+            case "Turret":
+                self.mapIcon = "T"
+                
+                speed = 0
+
+                self.putOn(pre.enemWeps["Weak Ranged"], "Mainhand")
+            case "Stone Golem":
+                self.mapIcon = "S"
+                self.difficultyValue = 2
+
+                speed = 2
+
+                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+                self.putOn(pre.enemArmrs["Weak No Special"], "Armor")
+            case "Golem Mage":
+                self.mapIcon = "M"
+                self.preferredDist = 3
+                self.difficultyValue = 2
+
+                actions = 2
+
+                self.putOn(pre.enemWeps["Weak Magic"], "Mainhand")
+
+                
+                
 
 
             case _:
                 pass
 
-        self.preferredDist = preferredDist
-        self.mapIcon = mapIcon
 
         super().__init__(name, hp, x, y, speed, actions)
 
