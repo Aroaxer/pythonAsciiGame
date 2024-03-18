@@ -3,6 +3,8 @@ import math
 
 
 class Trait():
+    name = ""
+
     # Should be: "Active" / "Turn" / "Action" / "Before Damage" / "After Damage" / "Attack"
     trigger = ""
     # Should be: "Standard" / "Directional" / "Point" / "Multi {number}" / "Self" / "Centered" / "Global" / "Copy Target" /"Damage Source" / "Custom"
@@ -31,7 +33,9 @@ class Trait():
     # For enemy AI
     aiPrio = 0
     
-    def __init__(self, trigger, effectKey, targeting = "N/A", maxCharges = -1, recharge = "Turn", rechargePercent = 1, aiPrio = 0, range = 1, length = 1, width = 1) -> None:
+    def __init__(self, name, trigger, effectKey, targeting = "N/A", maxCharges = -1, recharge = "Turn", rechargePercent = 1, aiPrio = 0, range = 1, length = 1, width = 1) -> None:
+        self.name = name
+
         self.trigger = trigger
         self.effectKey = effectKey
         if targeting == "N/A":
@@ -175,12 +179,12 @@ class Trait():
     def triggerEffectOn(self, target, user, game, equipment):
         match self.effectKey:
             # Attacks
-            case "Basic Attack" | "Basic Shot" | "Fire Bolt" | "Melee" | "Ranged":
+            case "1x Damage":
                 target.takeDamage(equipment.damage, user, game)
-            case "Slash" | "Impale" | "Pierce" | "Fireball":
-                target.takeDamage(equipment.damage, user, game)
-            case "Slam" | "Shatter":
+            case "1.5x Damage":
                 target.takeDamage(equipment.damage * 1.5, user, game)
+            case "0.5x Damage":
+                target.takeDamage(equipment.damage * 0.5, user, game)
 
             # Passive Damage
             case "Spikes":

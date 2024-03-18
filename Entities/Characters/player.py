@@ -3,6 +3,8 @@ from Items.Gear.weapon import Weapon
 from Items.Gear.armor import Armor
 from Items.Consumables.consumable import Consumable
 
+import premades as pre
+
 import utils
 
 class Player(Character):
@@ -81,6 +83,6 @@ class Player(Character):
 
         display = ""
         for index, action in enumerate(actions):
-            display += f"{index + 1}: {action.effectKey}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "") + "\n") if action.maxCharges >= 0 else "\n")
+            display += f"{index + 1}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "") + "\n") if action.maxCharges >= 0 else "\n")
 
         return display
