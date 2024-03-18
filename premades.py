@@ -5,6 +5,8 @@ from Traits.action import Action
 from Traits.action import enemAction
 from Items.Gear.weapon import Weapon
 from Items.Gear.armor import Armor
+from Items.Gear.accessory import Accessory as Acc
+from Items.Gear.equippable import Equippable as Equip
 
 import utils
 
@@ -76,6 +78,13 @@ enemWeps = {
 
 # Other Helds
 offs = {
+    # Offhand weapons have the 'light' special tag
+    # Offensive
+    
+    # Defensive
+    
+
+    # Utility
     
 }
 
@@ -95,11 +104,19 @@ enemArmrs = {
 
 # Helmets
 helms = {
+    # Defensive
+
+    # Utility
 
 }
 
 # Accesories
 accs = {
+    # Defensive
+
+    # Utility
+
+    # Offensive
 
 }
 
