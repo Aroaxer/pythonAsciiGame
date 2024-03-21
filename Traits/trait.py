@@ -221,7 +221,7 @@ class Trait():
 
             # Defensive (Active)
             case "Block":
-                pass
+                target.tempDamageModifier *= 0.5
 
             # Defensive (Passive)
             case "Regenerate":

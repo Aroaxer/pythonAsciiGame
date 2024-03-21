@@ -21,6 +21,8 @@ class Character(Object):
     helmet = None
     accesory = None
 
+    tempDamageModifier = 1
+
     def __init__(self, name, hp, x, y, speed, actions = 1) -> None:
         self.name = name
         self.maxHp = hp
@@ -77,6 +79,8 @@ class Character(Object):
         self.speedLeft -= abs(stY - self.y) if not ignoreSpd else 0
 
     def takeTurn(self, game):
+        self.tempDamageModifier = 1
+
         self.rechargeTraits("Turn")
 
         self.actionsLeft = self.actions + self.actionBonus
@@ -95,6 +99,8 @@ class Character(Object):
         try:
             damage *= 1 - (self.armor.defense / 100)
         except AttributeError: pass
+
+        damage *= self.tempDamageModifier
 
         self.activateAllTraits("After Damage", game, source)
 

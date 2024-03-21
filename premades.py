@@ -5,8 +5,8 @@ from Traits.action import Action
 from Traits.action import enemAction
 from Items.Gear.weapon import Weapon
 from Items.Gear.armor import Armor
-from Items.Gear.accessory import Accessory as Acc
-from Items.Gear.equippable import Equippable as Equip
+from Items.Gear.accessory import Accessory
+from Items.Gear.heldItem import HeldItem
 
 import utils
 
@@ -67,7 +67,7 @@ weps = {
 
     # Magical Ranged
     "Fire Staff" : Weapon("Fire Staff", 4, "Magic", traits = [c(acs["Fire Bolt"]), c(acs["Fireball"])]),
-    "Arcane Staff" : Weapon("Arcane Staff", 3, "Magic", traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"])])
+    "Arcane Staff" : Weapon("Arcane Staff", 2, "Magic", traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"])])
 }
 upgradedWeps = {
 
@@ -85,7 +85,7 @@ offs = {
     # Offensive
     
     # Defensive
-    
+    "Shield" : HeldItem("Shield", 0, traits=[c(acs["Block"])])
 
     # Utility
     
@@ -125,7 +125,7 @@ accs = {
 
 # Loot Pools
 lootPools = {
-    "Standard" : utils.merge(weps.values(), armors.values()),
+    "Standard" : utils.merge(weps.values(), armors.values(), offs.values(), helms.values(), accs.values()),
     "Upgraded" : utils.merge(upgradedWeps.values())
 }
 
