@@ -24,7 +24,7 @@ class Equippable(Item):
         self.upgradedForm = upgradedForm
         super().__init__(name)
 
-    def upgrade(self):
+    def gainUpgrade(self):
         self.upgrade += 1
         if self.upgrade > 5:
             self = self.upgradedForm

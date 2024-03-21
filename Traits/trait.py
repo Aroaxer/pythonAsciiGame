@@ -9,6 +9,7 @@ class Trait():
     trigger = ""
     # Should be: "Standard" / "Directional" / "Point" / "Multi {number}" / "Self" / "Centered" / "Global" / "Copy Target" /"Damage Source" / "Custom"
     targeting = None
+    multi = None
     
     areaType = None
     length = 1
@@ -45,6 +46,10 @@ class Trait():
                 targeting = "Copy Target"
             elif trigger == "Turn":
                 targeting = "Self"
+        if targeting[:5] == "Multi":
+            self.multi = int(targeting[5:])
+            targeting = "Multi"
+
         self.targeting = targeting
 
         self.range = range
@@ -126,6 +131,9 @@ class Trait():
                 y1 = target[1] - math.floor(self.length / 2)
 
                 self.triggerOnRegion((x1, y1), (x1 + self.width - 1, y1 + self.length - 1), user, game, equipment, user.testEnem())
+            elif self.targeting == "Multi":
+                for entity in target:
+                    self.triggerEffectOn(entity, user, game, equipment)
             else:
                 self.triggerEffectOn(target, user, game, equipment)
 
@@ -150,15 +158,36 @@ class Trait():
                     if len(validEnems) == 0:
                         return "Cancelled"
                     target = utils.promptChoice("Which enemy would you like to target?", validEnems)
-                    return (target if target == "Cancelled" else validsReturn[target])
+                    return validsReturn[target]
+                
                 case "Directional":
                     target = utils.promptChoice("Which direction would you like to attack?", ("Up", "Down", "Left", "Right"))
                     return ("Up", "Down", "Left", "Right")[target]
+                
                 case "Point":
                     targetX, targetY = utils.promptCoords("What point would you like to target?")
                     return targetX, targetY
+                
+                case "Multi":
+                    validEnems = []
+                    validsReturn = []
+                    for enem in game.enemies:
+                        if enem.isWithinDistance(self.range, (plr.x, plr.y)):
+                            validEnems.append(f"{enem.name}: {math.ceil(enem.hp)}/{enem.maxHp} ({enem.x}, {enem.y})")
+                            validsReturn.append(enem)
+                    if len(validEnems) == 0:
+                        return "Cancelled"
+                    
+                    targets = utils.promptMultipleIds("Which enemies would you like to target?", validEnems, self.multi)
+
+                    finalTargets = []
+                    for entry in targets:
+                        finalTargets.append(validsReturn[int(entry) - 1])
+                    return finalTargets
+                    
                 case "Self":
                     return user
+                
                 case "Damage Source" | "Copy Target":
                     return target
                     

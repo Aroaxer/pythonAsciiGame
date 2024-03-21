@@ -61,9 +61,12 @@ def promptMultipleIds(prompt, options, count):
     print(f"{prompt}\n")
     for index, option in enumerate(options):
         print(f"{index + 1}: {option}")
-    print(f"\nEnter {count} indices to make a selection, or 'cancel' to cancel this action.")
+    print(f"\nEnter {count} " + ("indices" if count > 1 else "index") + " to make a selection, or 'cancel' to cancel this action.")
 
-    choice = promptRegEx(None, "[0-9]+(, *[0-9]+)*")
-    ids = re.findall("[0-9]+", choice)
+    ids = []
+
+    while len(ids) != count:
+        choice = promptRegEx(None, "[0-9]+(, *[0-9]+)*")
+        ids = re.findall("[0-9]+", choice)
 
     return ids

@@ -132,6 +132,9 @@ class Game():
             print(enem.getInfo())
 
     def startNewEncounter(self, enems):
+        if self.complEncsPerStage == self.stage.length / 2 or self.complEncsPerStage == self.stage.length:
+            self.getLoot(3)
+
         self.player.rechargeTraits("Encounter")
 
         enc = self.stage.genEncounter(enems, self.complEncsPerStage)
@@ -156,8 +159,14 @@ class Game():
         for item in loot:
             names.append(item.name)
 
+        names.append("Upgrade an Item")
+
         choice = utils.promptChoice("You found some loot!", names)
-        self.player.collect(loot[choice])
+
+        if choice == amount:
+            self.player.getUpgrade()
+        elif choice != "Cancelled":
+            self.player.collect(loot[choice])
         
 
 game = Game()

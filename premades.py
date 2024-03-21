@@ -25,11 +25,13 @@ acs = {
     # Physical Ranged
     "Basic Shot" : Action("Basic Shot", "1x Damage", range=3),
     "Pierce" : Action("Pierce", "1x Damage", targeting="Directional", maxCharges=1, length=5),
-    "Shatter" : Action("Shatter", "1.5x Damage", maxCharges=1, range= 3),
+    "Shatter" : Action("Shatter", "1.5x Damage", maxCharges=1, range=3),
 
     # Magical
-    "Fire Bolt" : Action("Fire Bolt", "1x Damage", maxCharges=1, range= 3),
+    "Fire Bolt" : Action("Fire Bolt", "1x Damage", maxCharges=1, range=3),
     "Fireball" : Action("Fireball", "1x Damage", targeting="Point", maxCharges=1, rechargePercent=0.5, range=3, width=3),
+    "Arcane Rays" : Action("Arcane Rays", "1x Damage", targeting="Multi 2", maxCharges=5, rechargePercent=0.2, range=3),
+    "Magic Missiles" : Action("Magic Missiles", "1x Damage", targeting="Multi 4", maxCharges=1, rechargePercent=0.5, range=4),
 
     # Utility
     "Hasten" : Action("Hasten", "Hasten", targeting="Self", maxCharges=2, recharge="Encounter"),
@@ -64,7 +66,8 @@ weps = {
     "Crossbow" : Weapon("Crossbow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Shatter"])]),
 
     # Magical Ranged
-    "Fire Staff" : Weapon("Fire Staff", 4, "Magic", traits = [c(acs["Fire Bolt"]), c(acs["Fireball"])])
+    "Fire Staff" : Weapon("Fire Staff", 4, "Magic", traits = [c(acs["Fire Bolt"]), c(acs["Fireball"])]),
+    "Arcane Staff" : Weapon("Arcane Staff", 3, "Magic", traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"])])
 }
 upgradedWeps = {
 

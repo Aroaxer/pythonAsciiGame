@@ -63,6 +63,31 @@ class Player(Character):
         else:
             self.equip(item)
 
+    def getUpgrade(self):
+        items = []
+        itemNames = []
+
+        if self.mainhand != None:
+            items.append(self.mainhand)
+            itemNames.append(self.mainhand.name)
+        if self.offhand != None:
+            items.append(self.offhand)
+            itemNames.append(self.offhand.name)
+        if self.offhand != None:
+            items.append(self.offhand)
+            itemNames.append(self.offhand.name)
+        if self.offhand != None:
+            items.append(self.offhand)
+            itemNames.append(self.offhand.name)
+        if self.offhand != None:
+            items.append(self.offhand)
+            itemNames.append(self.offhand.name)
+
+        choice = items[utils.promptChoice("Which item would you like to upgrade?", itemNames)]
+        choice.gainUpgrade()
+
+
+
     def equip(self, item):
         slots = []
         if type(item) == Weapon:
