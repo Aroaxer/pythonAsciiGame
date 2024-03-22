@@ -38,9 +38,6 @@ class Trait():
         self.name = name
 
         self.trigger = trigger
-        if effectKey[:6] == "Action":
-            self.multi = int(effectKey[7:])
-            effectKey = "Gain Action"
         self.effectKey = effectKey
         if targeting == "N/A":
             if trigger == "After Damage" or trigger == "Before Damage":
@@ -135,6 +132,11 @@ class Trait():
                 y1 = target[1] - math.floor(self.length / 2)
 
                 self.triggerOnRegion((x1, y1), (x1 + self.width - 1, y1 + self.length - 1), user, game, equipment, user.testEnem())
+            elif self.targeting == "Centered":
+                x1 = user.x - math.floor(self.width / 2)
+                y1 = user.y - math.floor(self.length / 2)
+
+                self.triggerOnRegion((x1, y1), (x1 + self.width - 1, y1 + self.length - 1), user, game, equipment, user.testEnem())
             elif self.targeting == "Multi":
                 for entity in target:
                     self.triggerEffectOn(entity, user, game, equipment)
@@ -194,6 +196,9 @@ class Trait():
                 
                 case "Damage Source" | "Copy Target":
                     return target
+                
+                case _:
+                    return None
                     
         else:
             if self.targeting == "Self":
@@ -235,13 +240,11 @@ class Trait():
             
             # Utility (Active)
             case "Hasten":
-                pass
+                target.actionsLeft += 2
 
             # Utility (Passive)
             case "Repel":
                 pass
-            case "Gain Action":
-                target.actionsLeft += self.multi
 
 
             case _:

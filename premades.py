@@ -21,6 +21,7 @@ acs = {
     "Slam" : Action("Slam", "1.5x Damage", maxCharges=1),
     "Slash" : Action("Slash", "1x Damage", targeting="Directional", maxCharges=1, width=3),
     "Impale" : Action("Impale", "1x Damage", targeting="Directional", maxCharges=1, length=3),
+    "Whirl" : Action("Whirl", "1x Damage", targeting="Centered", maxCharges=5, rechargePercent=0.2, width=5),
     
     # Physical Ranged
     "Basic Shot" : Action("Basic Shot", "1x Damage", range=3),
@@ -71,7 +72,13 @@ weps = {
     "Arcane Staff" : Weapon("Arcane Staff", 2, "Magic", traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"])])
 }
 upgradedWeps = {
+    # Physical Melee
+    "Wind Blade" : Weapon("Wind Blade", 8, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"]), c(acs["Whirl"])]),
+    "Flamehammer" : Weapon("Flamehammer", 8, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"]), c(acs["Fireball"])])
 
+    # Physical Ranged
+
+    # Magical Ranged
 }
 
 enemWeps = {
