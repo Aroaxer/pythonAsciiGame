@@ -51,7 +51,8 @@ enemAcs = {
 traits = {
     "Spikes" : Trait("Spikes", "After Damage", "Spikes"),
     "Repel" : Trait("Repel", "After Damage", "Repel"),
-    "Regenerate" : Trait("Regenerate", "Turn", "Regenerate")
+    "Regenerate" : Trait("Regenerate", "Turn", "Regenerate"),
+    "Extra Action" : Trait("Extra Action", "Turn", "Action 1")
 }
 
 # Weapons
@@ -118,6 +119,7 @@ accs = {
     # Defensive
 
     # Utility
+    "Hastening Amulet" : Accessory("Hastening Amulet", speedBoost=1, actionBoost=1)
 
     # Offensive
 

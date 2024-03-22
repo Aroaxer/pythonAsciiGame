@@ -2,6 +2,7 @@ from Entities.Characters.character import Character
 from Items.Gear.weapon import Weapon
 from Items.Gear.armor import Armor
 from Items.Gear.heldItem import HeldItem
+from Items.Gear.accessory import Accessory
 from Items.Consumables.consumable import Consumable
 
 import premades as pre
@@ -99,6 +100,8 @@ class Player(Character):
             slots.append("Armor")
         elif type(item) == HeldItem:
             slots.append("Offhand")
+        elif type(item) == Accessory:
+            slots.append("Accessory")
                 
         if len(slots) == 1:
             self.putOn(item, slots[0])

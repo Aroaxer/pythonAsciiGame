@@ -38,6 +38,9 @@ class Trait():
         self.name = name
 
         self.trigger = trigger
+        if effectKey[:6] == "Action":
+            self.multi = int(effectKey[7:])
+            effectKey = "Gain Action"
         self.effectKey = effectKey
         if targeting == "N/A":
             if trigger == "After Damage" or trigger == "Before Damage":
@@ -49,6 +52,7 @@ class Trait():
         if targeting[:5] == "Multi":
             self.multi = int(targeting[5:])
             targeting = "Multi"
+        
 
         self.targeting = targeting
 
@@ -236,6 +240,8 @@ class Trait():
             # Utility (Passive)
             case "Repel":
                 pass
+            case "Gain Action":
+                target.actionsLeft += self.multi
 
 
             case _:

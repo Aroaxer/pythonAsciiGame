@@ -19,7 +19,7 @@ class Character(Object):
     offhand = None
     armor = None
     helmet = None
-    accesory = None
+    accessory = None
 
     tempDamageModifier = 1
 
@@ -32,7 +32,11 @@ class Character(Object):
         super().__init__(x, y)
 
     # target is an (x, y) tuple
-    def move(self, area, game, cx = 0, cy = 0, target = None, ignoreSpd = False):
+    def move(self, area, game, cx = 0, cy = 0, target = None):
+        self.speedLeft = self.speed
+        try: self.speedLeft += self.accessory.extraSpeed
+        except AttributeError: pass
+
         stX = self.x
         stY = self.y
 
@@ -40,7 +44,7 @@ class Character(Object):
             cx = target[0] - self.x
             cy = target[1] - self.y
 
-        while abs(cx) > 0:
+        while abs(cx) > 0 and self.speedLeft > 0:
             # Copies the sign but moves by one
             stX = self.x
             self.x += (cx / abs(cx))
@@ -53,12 +57,11 @@ class Character(Object):
                 for object in game.allObjects:
                     if self.x == object.x and self.y == object.y and object.collides and object != self:
                         self.x = stX
-
+                        
             cx -= (cx / abs(cx))
+            self.speedLeft -= 1
 
-        self.speedLeft -= abs(stX - cx)
-
-        while abs(cy) > 0:
+        while abs(cy) > 0 and self.speedLeft > 0:
             # Copies the sign but moves by one
             stY = self.y
             self.y += (cy / abs(cy))
@@ -73,10 +76,8 @@ class Character(Object):
                         self.y = stY
 
             cy -= (cy / abs(cy))
+            self.speedLeft -= 1
 
-        self.speedLeft -= abs(stY - cy)
-
-        self.speedLeft -= abs(stY - self.y) if not ignoreSpd else 0
 
     def takeTurn(self, game):
         self.tempDamageModifier = 1
@@ -85,6 +86,11 @@ class Character(Object):
 
         self.actionsLeft = self.actions + self.actionBonus
         self.actionBonus = 0
+
+        try: self.actionsLeft += self.accessory.extraActions
+        except AttributeError: pass
+
+        self.activateAllTraits("Turn", game, None)
 
         while self.actionsLeft > 0:
             self.takeAction(game)
@@ -133,11 +139,11 @@ class Character(Object):
                         del self.helmet
                     except AttributeError: pass
                     self.helmet = item
-                case "Accesory":
+                case "Accessory":
                     try:
-                        del self.accesory
+                        del self.accessory
                     except AttributeError: pass
-                    self.accesory = item
+                    self.accessory = item
     
     # Returns a list of all actions for all equipments
     def getFullActionList(self):
