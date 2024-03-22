@@ -132,7 +132,7 @@ class Game():
             print(enem.getInfo())
 
     def startNewEncounter(self, enems):
-        if self.complEncsPerStage == self.stage.length / 2 or self.complEncsPerStage == self.stage.length:
+        if self.complEncsPerStage == self.stage.length / 2 or self.complEncsPerStage == 0:
             self.getLoot(3)
 
         self.player.rechargeTraits("Encounter")

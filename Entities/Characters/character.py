@@ -171,7 +171,7 @@ class Character(Object):
                     actionList.append(trait)
         except AttributeError: pass
         try:
-            for trait in self.accesory.traits:
+            for trait in self.accessory.traits:
                 if trait.trigger == "Active":
                     actionList.append(trait)
         except AttributeError: pass
@@ -198,7 +198,7 @@ class Character(Object):
                 traits.append(trait)
         except AttributeError: pass
         try:
-            for trait in self.accesory.traits:
+            for trait in self.accessory.traits:
                 traits.append(trait)
         except AttributeError: pass
 
@@ -216,7 +216,7 @@ class Character(Object):
             except AttributeError: pass
             try: infoStr += f"\nHelmet: {self.helmet.name}"
             except AttributeError: pass
-            try: infoStr += f"\nAccesory: {self.accesory.name}"
+            try: infoStr += f"\nAccesory: {self.accessory.name}"
             except AttributeError: pass
         return infoStr
     
@@ -246,7 +246,7 @@ class Character(Object):
         except AttributeError: pass
         try:
             for trait in self.accesory.traits:
-                trait.activate(game, trigger, self.accesory, self, target)
+                trait.activate(game, trigger, self.accessory, self, target)
         except AttributeError: pass
     
     def rechargeTraits(self, trigger):
