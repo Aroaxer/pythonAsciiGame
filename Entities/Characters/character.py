@@ -78,7 +78,6 @@ class Character(Object):
             cy -= (cy / abs(cy))
             self.speedLeft -= 1
 
-
     def takeTurn(self, game):
         self.tempDamageModifier = 1
 
@@ -94,6 +93,8 @@ class Character(Object):
 
         while self.actionsLeft > 0:
             self.takeAction(game)
+            if self.hp > self.maxHp:
+                self.hp = self.maxHp
 
     def takeAction(self, *args):
         self.actionsLeft = 0

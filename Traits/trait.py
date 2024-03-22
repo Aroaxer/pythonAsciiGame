@@ -4,6 +4,7 @@ import math
 
 class Trait():
     name = ""
+    freeAction = False
 
     # Should be: "Active" / "Turn" / "Action" / "Before Damage" / "After Damage" / "Attack"
     trigger = ""
@@ -34,8 +35,9 @@ class Trait():
     # For enemy AI
     aiPrio = 0
     
-    def __init__(self, name, trigger, effectKey, targeting = "N/A", maxCharges = -1, recharge = "Turn", rechargePercent = 1, aiPrio = 0, range = 1, length = 1, width = 1) -> None:
+    def __init__(self, name, trigger, effectKey, targeting = "N/A", maxCharges = -1, recharge = "Turn", rechargePercent = 1, aiPrio = 0, range = 1, length = 1, width = 1, freeAction = False) -> None:
         self.name = name
+        self.freeAction = freeAction
 
         self.trigger = trigger
         if effectKey[:5] == "Repel":
@@ -240,16 +242,31 @@ class Trait():
             # Defensive (Active)
             case "Block":
                 target.tempDamageModifier *= 0.5
+            case "Invuln":
+                target.tempDamageModifier *= 0
 
             # Defensive (Passive)
             case "Regenerate":
                 target.hp += target.maxHp / 10
-                if target.hp > target.maxHp:
-                    target.hp = target.maxHp
+            case "Minor Block":
+                target.tempDamageModifier *= 0.9
             
             # Utility (Active)
             case "Hasten":
                 target.actionsLeft += 2
+            case "Pull":
+                target.takeDamage(equipment.damage, user, game)
+
+                if target.x < user.x:
+                    target.move(game.encounter, game, cx=(user.x - target.x - 1), ignoreSpd = True)
+                elif target.x > user.x:
+                    target.move(game.encounter, game, cx=-(target.x - user.x - 1), ignoreSpd = True)
+                if target.y < user.y:
+                    target.move(game.encounter, game, cy=(user.x - target.x - 1), ignoreSpd = True)
+                elif target.y > user.y:
+                    target.move(game.encounter, game, cy=-(target.x - user.x - 1), ignoreSpd = True)
+                
+
 
             # Utility (Passive)
 

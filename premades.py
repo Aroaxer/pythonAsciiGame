@@ -5,6 +5,7 @@ from Traits.action import Action
 from Traits.action import enemAction
 from Items.Gear.weapon import Weapon
 from Items.Gear.armor import Armor
+from Items.Gear.helmet import Helmet
 from Items.Gear.accessory import Accessory
 from Items.Gear.heldItem import HeldItem
 
@@ -38,9 +39,11 @@ acs = {
     # Utility
     "Hasten" : Action("Hasten", "Hasten", targeting="Self", maxCharges=2, recharge="Encounter"),
     "Shove" : Action("Shove", "Repel 3"),
+    "Pull" : Action("Pull", "Pull", maxCharges=1, range=4, freeAction=True),
 
     # Defensive
-    "Block" : Action("Block", "Block", targeting="Self")
+    "Block" : Action("Block", "Block", targeting="Self"),
+    "Arcane Shield" : Action("Arcane Shield", "Invuln", targeting="Self", maxCharges=2, recharge="Encounter", rechargePercent=0.5)
 }
 
 enemAcs = {
@@ -55,7 +58,7 @@ traits = {
     "Spikes" : Trait("Spikes", "After Damage", "Spikes"),
     "Repel" : Trait("Repel", "After Damage", "Repel 1"),
     "Regenerate" : Trait("Regenerate", "Turn", "Regenerate"),
-    "Extra Action" : Trait("Extra Action", "Turn", "Action 1")
+    "Chain Reduction" : Trait("Chain Reduction", "Before Damage", "Minor Block")
 }
 
 # Weapons
@@ -64,7 +67,8 @@ weps = {
     "Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"])]),
     "Hammer" : Weapon("Hammer", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"])]),
     "Spear" : Weapon("Spear", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Impale"])]),
-    "Ritual Dagger" : Weapon("Ritual Dagger", 6, "Melee", traits=[c(acs["Ritual Stab"])], specialTags=["Light"]),
+
+    "Ritual Dagger" : Weapon("Ritual Dagger", 4, "Melee", traits=[c(acs["Ritual Stab"])], specialTags=["Light"]),
 
     # Physical Ranged
     "Bow" : Weapon("Bow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Pierce"])]),
@@ -94,7 +98,8 @@ enemWeps = {
 offs = {
     # Offhand weapons have the 'light' special tag
     # Offensive
-    
+    "Rope Hook" : HeldItem("Rope Hook", 1, traits=[c(acs["Pull"])]),
+
     # Defensive
     "Shield" : HeldItem("Shield", 0, traits=[c(acs["Block"])])
 
@@ -119,6 +124,7 @@ enemArmrs = {
 # Helmets
 helms = {
     # Defensive
+    "Reactive Helm" : Helmet("Reactive Helm", traits=[c(traits["Chain Reduction"])])
 
     # Utility
 
@@ -127,9 +133,10 @@ helms = {
 # Accesories
 accs = {
     # Defensive
+    "Brooch of Shielding" : Accessory("Brooch of Shielding", traits=[c(acs["Arcane Shield"])]),
 
     # Utility
-    "Hastening Amulet" : Accessory("Hastening Amulet", speedBoost=1, actionBoost=1),
+    "Hastening Amulet" : Accessory("Hastening Amulet", actionBoost=1),
     "Shoving Gauntlets" : Accessory("Shoving Gauntlets", speedBoost=1, traits=[c(acs["Shove"])])
 
     # Offensive
