@@ -32,7 +32,7 @@ class Character(Object):
         super().__init__(x, y)
 
     # target is an (x, y) tuple
-    def move(self, area, game, cx = 0, cy = 0, target = None):
+    def move(self, area, game, cx = 0, cy = 0, target = None, ignoreSpd = False):
         self.speedLeft = self.speed
         try: self.speedLeft += self.accessory.extraSpeed
         except AttributeError: pass
@@ -44,7 +44,7 @@ class Character(Object):
             cx = target[0] - self.x
             cy = target[1] - self.y
 
-        while abs(cx) > 0 and self.speedLeft > 0:
+        while abs(cx) > 0 and (self.speedLeft > 0 or ignoreSpd):
             # Copies the sign but moves by one
             stX = self.x
             self.x += (cx / abs(cx))
@@ -61,7 +61,7 @@ class Character(Object):
             cx -= (cx / abs(cx))
             self.speedLeft -= 1
 
-        while abs(cy) > 0 and self.speedLeft > 0:
+        while abs(cy) > 0 and (self.speedLeft > 0 or ignoreSpd):
             # Copies the sign but moves by one
             stY = self.y
             self.y += (cy / abs(cy))
@@ -99,8 +99,8 @@ class Character(Object):
         self.actionsLeft = 0
         return None # This function is defined by subclasses
     
-    def takeDamage(self, damage, source, game):
-        self.activateAllTraits("Before Damage", game, source)
+    def takeDamage(self, damage, source, game, shouldTriggerTraits = True):
+        if shouldTriggerTraits: self.activateAllTraits("Before Damage", game, source)
 
         try:
             damage *= 1 - (self.armor.defense / 100)
@@ -108,14 +108,14 @@ class Character(Object):
 
         damage *= self.tempDamageModifier
 
-        self.activateAllTraits("After Damage", game, source)
-
         self.hp -= damage
         if self.hp <= 0:
             if not self == game.player:
                 game.kill(self)
             else:
                 game.ended = True
+        
+        if shouldTriggerTraits: self.activateAllTraits("After Damage", game, source)
 
     def putOn(self, item, slot):
         match slot:

@@ -75,15 +75,15 @@ class Player(Character):
         if self.offhand != None:
             items.append(self.offhand)
             itemNames.append(self.offhand.name)
-        if self.offhand != None:
-            items.append(self.offhand)
-            itemNames.append(self.offhand.name)
-        if self.offhand != None:
-            items.append(self.offhand)
-            itemNames.append(self.offhand.name)
-        if self.offhand != None:
-            items.append(self.offhand)
-            itemNames.append(self.offhand.name)
+        if self.armor != None:
+            items.append(self.armor)
+            itemNames.append(self.armor.name)
+        if self.helmet != None:
+            items.append(self.helmet)
+            itemNames.append(self.helmet.name)
+        if self.accessory != None:
+            items.append(self.accessory)
+            itemNames.append(self.accessory.name)
 
         choice = items[utils.promptChoice("Which item would you like to upgrade?", itemNames)]
         choice.gainUpgrade()

@@ -38,6 +38,9 @@ class Trait():
         self.name = name
 
         self.trigger = trigger
+        if effectKey[:5] == "Repel":
+            self.multi = int(effectKey[5:])
+            effectKey = "Repel"
         self.effectKey = effectKey
         if targeting == "N/A":
             if trigger == "After Damage" or trigger == "Before Damage":
@@ -226,7 +229,7 @@ class Trait():
 
             # Passive Damage
             case "Spikes":
-                target.takeDamage(equipment.damage, user, game)
+                target.takeDamage(equipment.damage, user, game, False)
 
             # Defensive (Active)
             case "Block":
@@ -243,9 +246,17 @@ class Trait():
                 target.actionsLeft += 2
 
             # Utility (Passive)
-            case "Repel":
-                pass
 
+            # Misc
+            case "Repel":
+                if target.x < user.x:
+                    target.move(cx=-self.multi, ignoreSpd = True)
+                elif target.x > user.x:
+                    target.move(cx=self.multi, ignoreSpd = True)
+                if target.y < user.y:
+                    target.move(cy=-self.multi, ignoreSpd = True)
+                elif target.y > user.y:
+                    target.move(cy=self.multi, ignoreSpd = True)
 
             case _:
                 pass

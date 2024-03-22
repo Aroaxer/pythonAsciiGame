@@ -36,6 +36,7 @@ acs = {
 
     # Utility
     "Hasten" : Action("Hasten", "Hasten", targeting="Self", maxCharges=2, recharge="Encounter"),
+    "Shove" : Action("Shove", "Repel 3"),
 
     # Defensive
     "Block" : Action("Block", "Block", targeting="Self")
@@ -51,7 +52,7 @@ enemAcs = {
 # Traits
 traits = {
     "Spikes" : Trait("Spikes", "After Damage", "Spikes"),
-    "Repel" : Trait("Repel", "After Damage", "Repel"),
+    "Repel" : Trait("Repel", "After Damage", "Repel 1"),
     "Regenerate" : Trait("Regenerate", "Turn", "Regenerate"),
     "Extra Action" : Trait("Extra Action", "Turn", "Action 1")
 }
@@ -126,7 +127,8 @@ accs = {
     # Defensive
 
     # Utility
-    "Hastening Amulet" : Accessory("Hastening Amulet", speedBoost=1, actionBoost=1)
+    "Hastening Amulet" : Accessory("Hastening Amulet", speedBoost=1, actionBoost=1),
+    "Shoving Gauntlets" : Accessory("Shoving Gauntlets", speedBoost=1, traits=[c(acs["Shove"])])
 
     # Offensive
 
