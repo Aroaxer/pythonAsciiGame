@@ -21,6 +21,7 @@ acs = {
     "Slam" : Action("Slam", "1.5x Damage", maxCharges=1),
     "Slash" : Action("Slash", "1x Damage", targeting="Directional", maxCharges=1, width=3),
     "Impale" : Action("Impale", "1x Damage", targeting="Directional", maxCharges=1, length=3),
+    "Ritual Stab" : Action("Ritual Stab", "Ritual Attack", maxCharges=2, recharge="Encounter"),
     "Whirl" : Action("Whirl", "1x Damage", targeting="Centered", maxCharges=5, rechargePercent=0.2, width=5),
     
     # Physical Ranged
@@ -63,6 +64,7 @@ weps = {
     "Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"])]),
     "Hammer" : Weapon("Hammer", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"])]),
     "Spear" : Weapon("Spear", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Impale"])]),
+    "Ritual Dagger" : Weapon("Ritual Dagger", 6, "Melee", traits=[c(acs["Ritual Stab"])], specialTags=["Light"]),
 
     # Physical Ranged
     "Bow" : Weapon("Bow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Pierce"])]),

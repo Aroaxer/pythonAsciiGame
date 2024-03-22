@@ -226,6 +226,12 @@ class Trait():
                 target.takeDamage(equipment.damage * 1.5, user, game)
             case "0.5x Damage":
                 target.takeDamage(equipment.damage * 0.5, user, game)
+            case "Ritual Attack":
+                target.takeDamage(equipment.damage, user, game)
+                if target.hp <= 0:
+                    user.actionsLeft += 1
+                    user.hp += 1
+                    self.charges += 1
 
             # Passive Damage
             case "Spikes":
@@ -250,13 +256,13 @@ class Trait():
             # Misc
             case "Repel":
                 if target.x < user.x:
-                    target.move(cx=-self.multi, ignoreSpd = True)
+                    target.move(game.encounter, game, cx=-self.multi, ignoreSpd = True)
                 elif target.x > user.x:
-                    target.move(cx=self.multi, ignoreSpd = True)
+                    target.move(game.encounter, game, cx=self.multi, ignoreSpd = True)
                 if target.y < user.y:
-                    target.move(cy=-self.multi, ignoreSpd = True)
+                    target.move(game.encounter, game, cy=-self.multi, ignoreSpd = True)
                 elif target.y > user.y:
-                    target.move(cy=self.multi, ignoreSpd = True)
+                    target.move(game.encounter, game, cy=self.multi, ignoreSpd = True)
 
             case _:
                 pass

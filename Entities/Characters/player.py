@@ -105,7 +105,7 @@ class Player(Character):
                 
         if len(slots) == 1:
             self.putOn(item, slots[0])
-        elif len(slots > 1):
+        elif len(slots) > 1:
             chosenSlot = slots[utils.promptChoice("What slot would you like to equip this in?", slots)]
             self.putOn(item, chosenSlot)
 
