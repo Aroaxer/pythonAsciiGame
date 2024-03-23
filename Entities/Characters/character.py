@@ -57,7 +57,9 @@ class Character(Object):
                 for object in game.allObjects:
                     if self.x == object.x and self.y == object.y and object.collides and object != self:
                         self.x = stX
-                        
+                if self.x == game.player.x and self.y == game.player.y and game.player != self:
+                        self.x = stX
+
             cx -= (cx / abs(cx))
             self.speedLeft -= 1
 
@@ -73,6 +75,8 @@ class Character(Object):
             else:
                 for object in game.allObjects:
                     if self.y == object.y and self.x == object.x and object.collides and object != self:
+                        self.y = stY
+                if self.x == game.player.x and self.y == game.player.y and game.player != self:
                         self.y = stY
 
             cy -= (cy / abs(cy))
