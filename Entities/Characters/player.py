@@ -1,6 +1,7 @@
 from Entities.Characters.character import Character
 from Items.Gear.weapon import Weapon
 from Items.Gear.armor import Armor
+from Items.Gear.helmet import Helmet
 from Items.Gear.heldItem import HeldItem
 from Items.Gear.accessory import Accessory
 from Items.Consumables.consumable import Consumable
@@ -98,6 +99,8 @@ class Player(Character):
                 slots.append("Offhand")
         elif type(item) == Armor:
             slots.append("Armor")
+        elif type(item) == Helmet:
+            slots.append("Helmet")
         elif type(item) == HeldItem:
             slots.append("Offhand")
         elif type(item) == Accessory:
@@ -114,6 +117,6 @@ class Player(Character):
 
         display = ""
         for index, action in enumerate(actions):
-            display += f"{index + 1}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "") + "\n") if action.maxCharges >= 0 else "\n")
+            display += f"{index + 1}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") + (" - Free Action\n" if action.freeAction else "\n")
 
         return display

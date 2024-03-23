@@ -8,7 +8,7 @@ class Trait():
 
     # Should be: "Active" / "Turn" / "Action" / "Before Damage" / "After Damage" / "Attack"
     trigger = ""
-    # Should be: "Standard" / "Directional" / "Point" / "Multi {number}" / "Self" / "Centered" / "Global" / "Copy Target" /"Damage Source" / "Custom"
+    # Should be: "Standard" / "Directional" / "Point" / "Point No Enemy" / "Multi {number}" / "Self" / "Centered" / "Global" / "Copy Target" /"Damage Source" / "Custom"
     targeting = None
     multi = None
     
@@ -137,6 +137,8 @@ class Trait():
                 y1 = target[1] - math.floor(self.length / 2)
 
                 self.triggerOnRegion((x1, y1), (x1 + self.width - 1, y1 + self.length - 1), user, game, equipment, user.testEnem())
+            elif self.targeting == "Point No Enemy":
+                self.triggerEffectOn(target, user, game, equipment)
             elif self.targeting == "Centered":
                 x1 = user.x - math.floor(self.width / 2)
                 y1 = user.y - math.floor(self.length / 2)
@@ -152,6 +154,9 @@ class Trait():
             if self.charges > 0 and not didntTrigger:
                 self.charges -= 1
             
+            if self.freeAction:
+                user.actionsLeft += 1
+
             return not didntTrigger
 
     # 'target' is required only by some targeting types
@@ -175,7 +180,7 @@ class Trait():
                     target = utils.promptChoice("Which direction would you like to attack?", ("Up", "Down", "Left", "Right"))
                     return ("Up", "Down", "Left", "Right")[target]
                 
-                case "Point":
+                case "Point" | "Point No Enemy":
                     targetX, targetY = utils.promptCoords("What point would you like to target?")
                     return targetX, targetY
                 
@@ -228,11 +233,13 @@ class Trait():
                 target.takeDamage(equipment.damage * 1.5, user, game)
             case "0.5x Damage":
                 target.takeDamage(equipment.damage * 0.5, user, game)
+            case "Free 1x Damage":
+                target.takeDamage(equipment.damage, user, game)
             case "Ritual Attack":
                 target.takeDamage(equipment.damage, user, game)
                 if target.hp <= 0:
                     user.actionsLeft += 1
-                    user.hp += 1
+                    user.hp += 0.5
                     self.charges += 1
 
             # Passive Damage
@@ -258,8 +265,8 @@ class Trait():
                 target.takeDamage(equipment.damage, user, game)
 
                 target.move(game.encounter, game, target=(user.x, user.y), ignoreSpd = True)
-                
-
+            case "Teleport":
+                user.x, user.y = target[0], target[1]
 
             # Utility (Passive)
 

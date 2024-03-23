@@ -29,6 +29,7 @@ acs = {
     "Basic Shot" : Action("Basic Shot", "1x Damage", range=3),
     "Pierce" : Action("Pierce", "1x Damage", targeting="Directional", maxCharges=1, length=5),
     "Shatter" : Action("Shatter", "1.5x Damage", maxCharges=1, range=3),
+    "Toss" : Action("Toss", effectKey="Free 1x Damage", maxCharges=1, range=3),
 
     # Magical
     "Fire Bolt" : Action("Fire Bolt", "1x Damage", maxCharges=1, range=3),
@@ -40,6 +41,7 @@ acs = {
     "Hasten" : Action("Hasten", "Hasten", targeting="Self", maxCharges=2, recharge="Encounter"),
     "Shove" : Action("Shove", "Repel 3"),
     "Pull" : Action("Pull", "Pull", maxCharges=1, range=4, freeAction=True),
+    "Teleport" : Action("Teleport", "Teleport", targeting="Point No Enemy", range=10),
 
     # Defensive
     "Block" : Action("Block", "Block", targeting="Self"),
@@ -99,6 +101,7 @@ offs = {
     # Offhand weapons have the 'light' special tag
     # Offensive
     "Rope Hook" : HeldItem("Rope Hook", 1, traits=[c(acs["Pull"])]),
+    "Kunai" : HeldItem("Kunai", 2, traits=[c(acs["Toss"])]),
 
     # Defensive
     "Shield" : HeldItem("Shield", 0, traits=[c(acs["Block"])])
@@ -124,10 +127,10 @@ enemArmrs = {
 # Helmets
 helms = {
     # Defensive
-    "Reactive Helm" : Helmet("Reactive Helm", traits=[c(traits["Chain Reduction"])])
+    "Reactive Helm" : Helmet("Reactive Helm", traits=[c(traits["Chain Reduction"])]),
 
     # Utility
-
+    "Phasing Helm" : Helmet("Phasing Helm", traits=[c(acs["Teleport"])])
 }
 
 # Accesories

@@ -14,7 +14,9 @@ class Equippable(Item):
 
     upgradedForm = None
 
-    def __init__(self, name, upgrade = 0, traits = [], specialTags = [], damage = 0, upgradedForm = None) -> None:
+    shouldUseAction = True
+
+    def __init__(self, name, upgrade = 0, traits = [], specialTags = [], damage = 0, upgradedForm = None, shouldUseAction = True) -> None:
         self.upgrade = upgrade
         self.traits = traits
         for trait in self.traits:
@@ -22,6 +24,7 @@ class Equippable(Item):
         self.specialTags = specialTags
         self.damage = damage
         self.upgradedForm = upgradedForm
+        self.shouldUseAction = shouldUseAction
         super().__init__(name)
 
     def gainUpgrade(self):
