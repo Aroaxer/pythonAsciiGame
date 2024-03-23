@@ -257,14 +257,7 @@ class Trait():
             case "Pull":
                 target.takeDamage(equipment.damage, user, game)
 
-                if target.x < user.x:
-                    target.move(game.encounter, game, cx=(user.x - target.x - 1), ignoreSpd = True)
-                elif target.x > user.x:
-                    target.move(game.encounter, game, cx=-(target.x - user.x - 1), ignoreSpd = True)
-                if target.y < user.y:
-                    target.move(game.encounter, game, cy=(user.x - target.x - 1), ignoreSpd = True)
-                elif target.y > user.y:
-                    target.move(game.encounter, game, cy=-(target.x - user.x - 1), ignoreSpd = True)
+                target.move(game.encounter, game, target=(user.x, user.y), ignoreSpd = True)
                 
 
 
