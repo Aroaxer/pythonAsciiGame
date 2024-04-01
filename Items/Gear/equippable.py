@@ -29,7 +29,7 @@ class Equippable(Item):
         super().__init__(name)
 
     def upgrade(self):
-        if self.upgraded:
+        if self.upgraded and self.upgradedForm != None:
             match self.user[1]:
                 case "Mainhand":
                     self.user[0].putOn(copy.deepcopy(self.upgradedForm), "Mainhand")

@@ -30,6 +30,7 @@ acs = {
     "Pierce" : Action("Pierce", "1x Damage", targeting="Directional", maxCharges=1, length=5),
     "Shatter" : Action("Shatter", "1.5x Damage", maxCharges=1, range=3),
     "Toss" : Action("Toss", effectKey="Free 1x Damage", maxCharges=1, range=3),
+    "Twin Shot" : Action("Twin Shot", "0.5x Damage", targeting="Multi 2", range=3),
 
     # Magical
     "Fire Bolt" : Action("Fire Bolt", "1x Damage", maxCharges=1, range=3),
@@ -67,10 +68,12 @@ traits = {
 # This must be defined in this order
 upgradedWeps = {
     # Physical Melee
-    "Wind Blade" : Weapon("Wind Blade", 8, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"]), c(acs["Whirl"])]),
-    "Flamehammer" : Weapon("Flamehammer", 8, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"]), c(acs["Fireball"])])
+    "Wind Blade" : Weapon("Wind Blade", 10, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"]), c(acs["Whirl"])]),
+    "Flamehammer" : Weapon("Flamehammer", 10, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"]), c(acs["Fireball"])]),
+    "Runed Halberd" : Weapon("Runed Halberd", 10, "Melee", traits=[c(acs["Basic Attack"]), c(acs["Impale"]), c(acs["Slash"]), c(acs["Fire Bolt"])]),
 
     # Physical Ranged
+    "Twinshot Bow" : Weapon("Twinshot Bow", 8, "Ranged", traits = [c(acs["Twin Shot"]), c(acs["Pierce"]), c(acs["Shove"])])
 
     # Magical Ranged
 }
@@ -78,12 +81,12 @@ weps = {
     # Physical Melee
     "Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"])], upgradedForm = upgradedWeps["Wind Blade"]),
     "Hammer" : Weapon("Hammer", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"])], upgradedForm = upgradedWeps["Flamehammer"]),
-    "Spear" : Weapon("Spear", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Impale"])]),
+    "Spear" : Weapon("Spear", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Impale"])], upgradedForm = upgradedWeps["Runed Halberd"]),
 
     "Ritual Dagger" : Weapon("Ritual Dagger", 4, "Melee", traits=[c(acs["Ritual Stab"])], specialTags=["Light"]),
 
     # Physical Ranged
-    "Bow" : Weapon("Bow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Pierce"])]),
+    "Bow" : Weapon("Bow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Pierce"])], upgradedForm = upgradedWeps["Twinshot Bow"]),
     "Crossbow" : Weapon("Crossbow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Shatter"])]),
 
     # Magical Ranged
