@@ -73,7 +73,7 @@ class Game():
 
     def startPlayer(self):
         plr = Player(10, 0, 0, 2, 2)
-        plr.mainhand = copy.deepcopy(pre.weps["Sword"])
+        plr.putOn(copy.deepcopy(pre.weps["Sword"]), "Mainhand")
 
         return plr
 
