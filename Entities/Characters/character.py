@@ -7,10 +7,42 @@ class Character(Object):
     maxHp = 0
 
     name = ""
-    speed = 0
+    spd = 0
+    def getSpeed(self):
+        total = self.spd
+        try: total += self.mainhand.extraSpeed
+        except AttributeError: pass
+        try: total += self.offhand.extraSpeed
+        except AttributeError: pass
+        try: total += self.armor.extraSpeed
+        except AttributeError: pass
+        try: total += self.helmet.extraSpeed
+        except AttributeError: pass
+        try: total += self.accessory.extraSpeed
+        except AttributeError: pass
+        return total
+    def setSpeed(self, speed):
+        self.spd = speed
+    speed = property(fget=getSpeed, fset=setSpeed)
     speedLeft = 0
 
-    actions = 0
+    acs = 0
+    def getActions(self):
+        total = self.acs
+        try: total += self.mainhand.extraActions
+        except AttributeError: pass
+        try: total += self.offhand.extraActions
+        except AttributeError: pass
+        try: total += self.armor.extraActions
+        except AttributeError: pass
+        try: total += self.helmet.extraActions
+        except AttributeError: pass
+        try: total += self.accessory.extraActions
+        except AttributeError: pass
+        return total
+    def setActions(self, actions):
+        self.acs = actions
+    actions = property(fget=getActions, fset=setActions)
     actionsLeft = 0
 
     actionBonus = 0
@@ -34,8 +66,6 @@ class Character(Object):
     # target is an (x, y) tuple
     def move(self, area, game, cx = 0, cy = 0, target = None, ignoreSpd = False):
         self.speedLeft = self.speed
-        try: self.speedLeft += self.accessory.extraSpeed
-        except AttributeError: pass
 
         stX = self.x
         stY = self.y
@@ -89,9 +119,6 @@ class Character(Object):
 
         self.actionsLeft = self.actions + self.actionBonus
         self.actionBonus = 0
-
-        try: self.actionsLeft += self.accessory.extraActions
-        except AttributeError: pass
 
         self.activateAllTraits("Turn", game, None)
 

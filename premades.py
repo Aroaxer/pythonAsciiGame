@@ -114,9 +114,10 @@ offs = {
 armors = {
     # Defensive
     "Spiked Mail" : Armor("Spiked Armor", 15, damage=2, traits=[c(traits["Spikes"])]),
-    "Overgrown Plate" : Armor("Overgrown Plate", 25, traits=[c(traits["Regenerate"])])
+    "Overgrown Plate" : Armor("Overgrown Plate", 25, traits=[c(traits["Regenerate"])]),
 
     # Utility
+    "Swift Leather" : Armor("Swift Leather", 0, speedBoost=2, actionBoost=1)
 }
 
 enemArmrs = {

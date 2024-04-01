@@ -3,6 +3,8 @@ from Items.item import Item
 class Equippable(Item):
     user = None
     upgrade = 0
+    extraActions = 0
+    extraSpeed = 0
 
     dmg = 0
     def getDmg(self): return self.dmg * (1 + (self.upgrade / 5))
@@ -16,8 +18,10 @@ class Equippable(Item):
 
     shouldUseAction = True
 
-    def __init__(self, name, upgrade = 0, traits = [], specialTags = [], damage = 0, upgradedForm = None, shouldUseAction = True) -> None:
+    def __init__(self, name, upgrade = 0, traits = [], specialTags = [], damage = 0, upgradedForm = None, shouldUseAction = True, actionBoost = 0, speedBoost = 0) -> None:
         self.upgrade = upgrade
+        self.extraActions = actionBoost
+        self.extraSpeed = speedBoost
         self.traits = traits
         for trait in self.traits:
             trait.tiedEquipment = self
