@@ -1,5 +1,6 @@
 import math
 import random
+import copy
 
 from Entities.object import Object
 from Entities.Characters.character import Character
@@ -72,7 +73,7 @@ class Game():
 
     def startPlayer(self):
         plr = Player(10, 0, 0, 2, 2)
-        plr.mainhand = pre.weps["Sword"]
+        plr.mainhand = copy.deepcopy(pre.weps["Sword"])
 
         return plr
 

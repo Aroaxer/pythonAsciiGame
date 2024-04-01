@@ -64,10 +64,20 @@ traits = {
 }
 
 # Weapons
+# This must be defined in this order
+upgradedWeps = {
+    # Physical Melee
+    "Wind Blade" : Weapon("Wind Blade", 8, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"]), c(acs["Whirl"])]),
+    "Flamehammer" : Weapon("Flamehammer", 8, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"]), c(acs["Fireball"])])
+
+    # Physical Ranged
+
+    # Magical Ranged
+}
 weps = {
     # Physical Melee
-    "Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"])]),
-    "Hammer" : Weapon("Hammer", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"])]),
+    "Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"])], upgradedForm = upgradedWeps["Wind Blade"]),
+    "Hammer" : Weapon("Hammer", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"])], upgradedForm = upgradedWeps["Flamehammer"]),
     "Spear" : Weapon("Spear", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Impale"])]),
 
     "Ritual Dagger" : Weapon("Ritual Dagger", 4, "Melee", traits=[c(acs["Ritual Stab"])], specialTags=["Light"]),
@@ -79,15 +89,6 @@ weps = {
     # Magical Ranged
     "Fire Staff" : Weapon("Fire Staff", 4, "Magic", traits = [c(acs["Fire Bolt"]), c(acs["Fireball"])]),
     "Arcane Staff" : Weapon("Arcane Staff", 2, "Magic", traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"])])
-}
-upgradedWeps = {
-    # Physical Melee
-    "Wind Blade" : Weapon("Wind Blade", 8, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"]), c(acs["Whirl"])]),
-    "Flamehammer" : Weapon("Flamehammer", 8, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"]), c(acs["Fireball"])])
-
-    # Physical Ranged
-
-    # Magical Ranged
 }
 
 enemWeps = {

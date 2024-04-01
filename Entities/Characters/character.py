@@ -156,26 +156,31 @@ class Character(Object):
                         del self.mainhand
                     except AttributeError: pass
                     self.mainhand = item
+                    item.user = (self, "Mainhand")
                 case "Offhand":
                     try:
                         del self.offhand
                     except AttributeError: pass
                     self.offhand = item
+                    item.user = (self, "Offhand")
                 case "Armor":
                     try:
                         del self.armor
                     except AttributeError: pass
                     self.armor = item
+                    item.user = (self, "Armor")
                 case "Helmet":
                     try:
                         del self.helmet
                     except AttributeError: pass
                     self.helmet = item
+                    item.user = (self, "Helmet")
                 case "Accessory":
                     try:
                         del self.accessory
                     except AttributeError: pass
                     self.accessory = item
+                    item.user = (self, "Accessory")
     
     # Returns a list of all actions for all equipments
     def getFullActionList(self):

@@ -1,25 +1,23 @@
+import copy
+import math
+
 from Items.item import Item
 
 class Equippable(Item):
-    user = None
-    upgrade = 0
+    # Stores the actual entity followed by the slot
+    user = (None, None)
+    upgraded = False
     extraActions = 0
     extraSpeed = 0
 
-    dmg = 0
-    def getDmg(self): return self.dmg * (1 + (self.upgrade / 5))
-    def setDmg(self, dmg): self.dmg = dmg
-    damage = property(fget=getDmg, fset=setDmg)
+    damage = 0
 
     traits = []
     specialTags = []
 
     upgradedForm = None
 
-    shouldUseAction = True
-
-    def __init__(self, name, upgrade = 0, traits = [], specialTags = [], damage = 0, upgradedForm = None, shouldUseAction = True, actionBoost = 0, speedBoost = 0) -> None:
-        self.upgrade = upgrade
+    def __init__(self, name, traits = [], specialTags = [], damage = 0, upgradedForm = None, actionBoost = 0, speedBoost = 0) -> None:
         self.extraActions = actionBoost
         self.extraSpeed = speedBoost
         self.traits = traits
@@ -28,10 +26,28 @@ class Equippable(Item):
         self.specialTags = specialTags
         self.damage = damage
         self.upgradedForm = upgradedForm
-        self.shouldUseAction = shouldUseAction
         super().__init__(name)
 
-    def gainUpgrade(self):
-        self.upgrade += 1
-        if self.upgrade > 5:
-            self = self.upgradedForm
+    def upgrade(self):
+        if self.upgraded:
+            match self.user[1]:
+                case "Mainhand":
+                    self.user[0].putOn(copy.deepcopy(self.upgradedForm), "Mainhand")
+                case "Offhand":
+                    self.user[0].putOn(copy.deepcopy(self.upgradedForm), "Offhand")
+                case "Armor":
+                    self.user[0].putOn(copy.deepcopy(self.upgradedForm), "Armor")
+                case "Helmet":
+                    self.user[0].putOn(copy.deepcopy(self.upgradedForm), "Helmet")
+                case "Accessory":
+                    self.user[0].putOn(copy.deepcopy(self.upgradedForm), "Accessory")
+        else:
+            if self.extraSpeed > 0:
+                self.extraSpeed += max(1, math.floor(self.extraSpeed / 2))
+            if self.extraActions > 0:
+                self.extraActions += max(1, math.floor(self.extraActions / 2))
+            if self.damage > 0:
+                self.damage += max(2, math.ceil(self.damage / 3))
+
+            self.upgraded = True
+            self.name += "+"

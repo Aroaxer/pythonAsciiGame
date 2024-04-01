@@ -87,7 +87,7 @@ class Player(Character):
             itemNames.append(self.accessory.name)
 
         choice = items[utils.promptChoice("Which item would you like to upgrade?", itemNames)]
-        choice.gainUpgrade()
+        choice.upgrade()
 
 
 
