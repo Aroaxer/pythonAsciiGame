@@ -37,6 +37,7 @@ class Stage():
         self.lootPool = lootPool
 
     def genEncounter(self, encsSoFar):
+        print("Generating Encounter")
         desEnemies = random.randint(self.enemCount[0], self.enemCount[1])
 
         if encsSoFar < self.length - 1:
@@ -52,7 +53,7 @@ class Stage():
                     # Confirm valid coords
                     validCoords = True
                     for enem in enems:
-                        if x == enem.x or y == enem.y:
+                        if x == enem.x and y == enem.y:
                             validCoords = False
 
                 enems.append(Enemy(self.enemies[index][0], self.enemies[index][1], x, y))

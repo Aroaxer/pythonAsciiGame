@@ -29,7 +29,7 @@ acs = {
     "Basic Shot" : Action("Basic Shot", "1x Damage", range=3),
     "Pierce" : Action("Pierce", "1x Damage", targeting="Directional", maxCharges=1, length=5),
     "Shatter" : Action("Shatter", "1.5x Damage", maxCharges=1, range=3),
-    "Shatterwave" : Action("Shatterwave", "1.5x Damage", targeting="Directional", maxCharges=2, rechargePercent=0.5, width=3, length=5),
+    "Shatterwave" : Action("Shatterwave", "1.5x Damage", targeting="Directional", maxCharges=2, rechargePercent=0.5, width=1, length=5),
     "Toss" : Action("Toss", "1x Damage", maxCharges=1, range=2, freeAction=True),
     "Twin Shot" : Action("Twin Shot", "0.5x Damage", targeting="Multi 2", range=3),
 
@@ -84,7 +84,7 @@ upgradedWeps = {
 
     # Magical Ranged
     "Inferno Cane" : Weapon("Inferno Cane", 8, "Magic", traits = [c(acs["Enhanced Firebolt"]), c(acs["Fireball"]), c(acs["Flamethrower"])]),
-    "Archmage Rod" : Weapon("Archmage Rod", 8, "Magic", traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"]), c(acs["Arcane Shield"])])
+    "Archmage Rod" : Weapon("Archmage Rod", 4, "Magic", traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"]), c(acs["Arcane Shield"])])
 }
 weps = {
     # Physical Melee
