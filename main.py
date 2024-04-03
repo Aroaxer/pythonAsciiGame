@@ -125,12 +125,12 @@ class Game():
 
         print(self.assembleMap("str"))
 
-        print(self.player.getInfo(True))
+        print(self.player.getInfo(self, True))
 
         print("")
 
         for enem in self.enemies:
-            print(enem.getInfo())
+            print(enem.getInfo(self))
 
     def startNewEncounter(self):
         if self.complEncsPerStage == self.stage.length / 2 or self.complEncsPerStage == 0:

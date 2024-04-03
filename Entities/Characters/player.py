@@ -101,17 +101,15 @@ class Player(Character):
             self.putOn(item, chosenSlot)
 
     def getSkillDisplay(self):
-        actions = self.getFullActionList()
-
         display = ""
         totalIndex = 1
         for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
             try:
-                if len(slot.allActions()) > 0:
+                if slot.allActions():
                     display += f"{slot.name}:\n"
                     for action in slot.allActions():
                         display += f"   {totalIndex}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") + (" - Free Action\n" if action.freeAction else "\n")
                         totalIndex += 1
-            except Exception: pass
+            except AttributeError: pass
 
         return display

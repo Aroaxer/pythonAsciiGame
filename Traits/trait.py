@@ -61,7 +61,7 @@ class Trait():
         self.range = range
         self.length = length
         self.width = width
-        if self.targeting in {"Point", "Point No Enemy"} and self.length == 1:
+        if self.targeting in {"Point", "Point No Enemy", "Centered"} and self.length == 1:
             self.length = width
 
         self.maxCharges = maxCharges

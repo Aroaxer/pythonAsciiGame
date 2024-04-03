@@ -193,9 +193,17 @@ class Character(Object):
 
         return traits
 
-        
-    def getInfo(self, detailed = False):
-        infoStr = f"{self.name}: {math.ceil(self.hp)}/{self.maxHp} Health"
+    def getInfo(self, game, detailed = False):
+        plannedAction = False
+        try:
+            plannedAction = self.determineBestAction(game)
+            if plannedAction[0] != "Move":
+                plannedAction = f"Use {plannedAction[1].name}"
+            else:
+                plannedAction = "Move"
+        except AttributeError: pass
+
+        infoStr = f"{self.name}: {math.ceil(self.hp)}/{self.maxHp} Health" + (f"\n   Will {plannedAction}" if plannedAction else "")
         if detailed:
             try: infoStr += f"\nMainhand: {self.mainhand.name}, {self.mainhand.damage} Damage"
             except AttributeError: pass
@@ -218,8 +226,10 @@ class Character(Object):
     
     def activateAllTraits(self, trigger, game, target):
         for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
-            for trait in slot.traits:
-                trait.activate(game, trigger, slot, self, target)
+            try:
+                for trait in slot.traits:
+                    trait.activate(game, trigger, slot, self, target)
+            except AttributeError: pass
     
     def rechargeTraits(self, trigger):
         for trait in self.getAllTraits():

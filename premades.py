@@ -2,7 +2,6 @@ import copy
 
 from Traits.trait import Trait
 from Traits.action import Action
-from Traits.action import enemAction
 from Items.Gear.weapon import Weapon
 from Items.Gear.armor import Armor
 from Items.Gear.helmet import Helmet
@@ -23,7 +22,7 @@ acs = {
     "Slash" : Action("Slash", "1x Damage", targeting="Directional", maxCharges=1, width=3),
     "Impale" : Action("Impale", "1x Damage", targeting="Directional", maxCharges=1, length=3),
     "Ritual Stab" : Action("Ritual Stab", "Ritual Attack", maxCharges=2, recharge="Encounter"),
-    "Whirl" : Action("Whirl", "1x Damage", targeting="Centered", maxCharges=5, rechargePercent=0.2, width=5),
+    "Whirl" : Action("Whirl", "1x Damage", targeting="Centered", maxCharges=5, rechargePercent=0.2, width=3),
     
     # Physical Ranged
     "Basic Shot" : Action("Basic Shot", "1x Damage", range=3),
@@ -53,10 +52,10 @@ acs = {
 }
 
 enemAcs = {
-    "Melee" : enemAction("1x Damage", aiPrio=1),
-    "Ranged" : enemAction("1x Damage", aiPrio=1, range = 2),
-    "Magic" : enemAction("1x Damage", aiPrio=1, range = 3, maxCharges=1),
-    "Fireball" : enemAction("1.5x Damage", aiPrio=2, range = 3, maxCharges=1, rechargePercent=0.5)
+    "Melee" : Action("Melee", "1x Damage", aiPrio=1),
+    "Ranged" : Action("Ranged", "1x Damage", aiPrio=1, range = 2),
+    "Magic" : Action("Magic", "1x Damage", aiPrio=1, range = 3, maxCharges=1),
+    "Fireball" : Action("Fireball", "1.5x Damage", aiPrio=2, range = 3, maxCharges=1, rechargePercent=0.5)
 }
 
 # Traits
