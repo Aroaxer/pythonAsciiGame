@@ -247,6 +247,8 @@ class Trait():
             # Defensive (Active)
             case "Block":
                 target.tempDamageModifier *= 0.5
+            case "Parry":
+                target.tempDamageModifier *= 0.75
             case "Invuln":
                 target.tempDamageModifier *= 0
 

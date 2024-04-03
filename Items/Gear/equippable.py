@@ -47,7 +47,7 @@ class Equippable(Item):
             if self.extraActions > 0:
                 self.extraActions += max(1, math.floor(self.extraActions / 2))
             if self.damage > 0:
-                self.damage += max(2, math.ceil(self.damage / 3))
+                self.damage += max(1, math.ceil(self.damage / 3))
 
             self.upgraded = True
             self.name += "+"

@@ -44,10 +44,13 @@ acs = {
     "Hasten" : Action("Hasten", "Hasten", targeting="Self", maxCharges=2, recharge="Encounter"),
     "Shove" : Action("Shove", "Repel 3"),
     "Pull" : Action("Pull", "Pull", maxCharges=1, range=4, freeAction=True),
+    "Double Hook" : Action("Double Hook", "Pull", "Multi 2", maxCharges=1, range=5, freeAction=True),
     "Teleport" : Action("Teleport", "Teleport", targeting="Point No Enemy", range=10),
+    "Charge" : Action("Charge", "Charge", "Point No Enemy", range=5),
 
     # Defensive
-    "Block" : Action("Block", "Block", targeting="Self"),
+    "Block" : Action("Block", "Block", "Self"),
+    "Parry" : Action("Parry", "Parry", "Self", maxCharges=3, recharge="Encounter", freeAction=True),
     "Arcane Shield" : Action("Arcane Shield", "Invuln", targeting="Self", maxCharges=2, recharge="Encounter", rechargePercent=0.5)
 }
 
@@ -108,27 +111,47 @@ enemWeps = {
 }
 
 # Other Helds
-offs = {
+upgradedOffs = {
     # Offensive
-    "Ritual Dagger" : HeldItem("Ritual Dagger", 4, traits=[c(acs["Ritual Stab"])]),
-    "Rope Hook" : HeldItem("Rope Hook", 1, traits = [c(acs["Pull"])]),
-    "Kunai" : HeldItem("Kunai", 2, traits = [c(acs["Toss"])]),
+    "Ritual Blade" : HeldItem("Ritual Blade", 8, traits = [c(acs["Ritual Stab"]), c(acs["Pull"])]),
+    "Chain Hooks" : HeldItem("Chain Hooks", 3, traits = [c(acs["Double Hook"])]),
+    "Shrouded Dagger" : HeldItem("Shrouded Dagger", 5, traits = [c(acs["Toss"]), c(acs["Parry"])]),
 
     # Defensive
-    "Shield" : HeldItem("Shield", 0, traits = [c(acs["Block"])])
+    "Crystal Shield" : HeldItem("Crystal Shield", 2, traits=[c(acs["Block"]), c(traits["Spikes"])])
+
+    # Utility
+
+}
+offs = {
+    # Offensive
+    "Ritual Dagger" : HeldItem("Ritual Dagger", 4, traits=[c(acs["Ritual Stab"])], upgradedForm = upgradedOffs["Ritual Blade"]),
+    "Rope Hook" : HeldItem("Rope Hook", 1, traits = [c(acs["Pull"])], upgradedForm = upgradedOffs["Chain Hooks"]),
+    "Kunai" : HeldItem("Kunai", 2, traits = [c(acs["Toss"])], upgradedForm = upgradedOffs["Shrouded Dagger"]),
+
+    # Defensive
+    "Shield" : HeldItem("Shield", 0, traits = [c(acs["Block"])], upgradedForm = upgradedOffs["Crystal Shield"])
 
     # Utility
     
 }
 
 # Armor
-armors = {
+upgradedArmors = {
     # Defensive
-    "Spiked Mail" : Armor("Spiked Armor", 15, damage=2, traits = [c(traits["Spikes"])]),
-    "Overgrown Plate" : Armor("Overgrown Plate", 25, traits = [c(traits["Regenerate"])]),
+    "Battlerager Mail" : Armor("Battlerager Mail", 25, damage=5, traits = [c(traits["Spikes"]), c(acs["Charge"])]),
+    "Druidic Plate" : Armor("Druidic Plate", 40, traits = [c(traits["Regenerate"]), c(acs["Block"])]),
 
     # Utility
-    "Swift Leather" : Armor("Swift Leather", 0, speedBoost=2, actionBoost=1)
+    "Leathers of the Wind" : Armor("Leathers of the Wind", 10, speedBoost=5, actionBoost=2, traits=[c(acs["Hasten"])])
+}
+armors = {
+    # Defensive
+    "Spiked Mail" : Armor("Spiked Armor", 15, damage=2, traits = [c(traits["Spikes"])], upgradedForm = upgradedArmors["Battlerager Mail"]),
+    "Overgrown Plate" : Armor("Overgrown Plate", 25, traits = [c(traits["Regenerate"])], upgradedForm = upgradedArmors["Druidic Plate"]),
+
+    # Utility
+    "Swift Leather" : Armor("Swift Leather", 0, speedBoost=2, actionBoost=1, upgradedForm = upgradedArmors["Leathers of the Wind"])
 }
 
 enemArmrs = {
@@ -137,22 +160,38 @@ enemArmrs = {
 }
 
 # Helmets
-helms = {
+upgradedHelms = {
     # Defensive
-    "Reactive Helm" : Helmet("Reactive Helm", traits = [c(traits["Chain Reduction"])]),
+    "Tortoise Helm" : Helmet("Tortoise Helm", traits = [c(traits["Chain Reduction"]), c(traits["Chain Reduction"])]),
 
     # Utility
-    "Phasing Helm" : Helmet("Phasing Helm", traits = [c(acs["Teleport"])])
+    "Warping Helm" : Helmet("Warping Helm", traits = [c(acs["Teleport"]), c(traits["Repel"])])
+}
+helms = {
+    # Defensive
+    "Reactive Helm" : Helmet("Reactive Helm", traits = [c(traits["Chain Reduction"])], upgradedForm = upgradedHelms["Tortoise Helm"]),
+
+    # Utility
+    "Phasing Helm" : Helmet("Phasing Helm", traits = [c(acs["Teleport"])], upgradedForm = upgradedHelms["Warping Helm"])
 }
 
 # Accesories
-accs = {
+upgradedAccs = {
     # Defensive
-    "Brooch of Shielding" : Accessory("Brooch of Shielding", traits = [c(acs["Arcane Shield"])]),
+    "Barrier Necklace" : Accessory("Barrier Necklace", traits = [c(acs["Arcane Shield"]), c(traits["Chain Reduction"])]),
 
     # Utility
-    "Hastening Amulet" : Accessory("Hastening Amulet", actionBoost=1),
-    "Shoving Gauntlets" : Accessory("Shoving Gauntlets", speedBoost=1, traits = [c(acs["Shove"])])
+    "Lightspeed Amulet" : Accessory("Lightspeed Amulet", speedBoost=2, actionBoost=2, traits = [c(acs["Hasten"])]),
+    "Repelling Gloves" : Accessory("Repelling Gloves", speedBoost=2, traits = [c(acs["Shove"]), c(traits["Repel"])])
+
+}
+accs = {
+    # Defensive
+    "Brooch of Shielding" : Accessory("Brooch of Shielding", traits = [c(acs["Arcane Shield"])], upgradedForm = upgradedAccs["Barrier Necklace"]),
+
+    # Utility
+    "Hastening Amulet" : Accessory("Hastening Amulet", actionBoost=1, upgradedForm = upgradedAccs["Lightspeed Amulet"]),
+    "Shoving Gauntlets" : Accessory("Shoving Gauntlets", speedBoost=1, traits = [c(acs["Shove"])], upgradedForm = upgradedAccs["Repelling Gloves"])
 
     # Offensive
 
