@@ -23,6 +23,8 @@ class Game():
     completedEncounters = 0
     complEncsPerStage = 0
 
+    oldEnemInfo = {}
+
     ended = False
 
     def getEnemies(self):
@@ -130,9 +132,15 @@ class Game():
         print("")
 
         for enem in self.enemies:
-            print(enem.getInfo(self))
+            try:
+                print(enem.getInfo(self, oldHp = self.oldEnemInfo[enem]))
+            except KeyError:
+                print(enem.getInfo(self))
+            self.oldEnemInfo[enem] = enem.hp
+            
 
     def startNewEncounter(self):
+        self.oldEnemInfo = {}
         if self.complEncsPerStage == self.stage.length / 2 or self.complEncsPerStage == 0:
             self.getLoot(3)
 

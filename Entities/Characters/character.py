@@ -195,7 +195,7 @@ class Character(Object):
 
         return traits
 
-    def getInfo(self, game, detailed = False):
+    def getInfo(self, game, detailed = False, oldHp = 0):
         plannedAction = False
         try:
             plannedAction = self.determineBestAction(game)
@@ -205,7 +205,7 @@ class Character(Object):
                 plannedAction = "Move"
         except AttributeError: pass
 
-        infoStr = f"{self.name}: {math.ceil(self.hp)}/{self.maxHp} Health" + (f"\n   Will {plannedAction}" if plannedAction else "")
+        infoStr = f"{self.name}: {math.ceil(self.hp)}/{self.maxHp} Health" + (f" (-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "") + (f"\n   Will {plannedAction}" if plannedAction else "")
         if detailed:
             try: infoStr += f"\nMainhand: {self.mainhand.name}, {self.mainhand.damage} Damage"
             except AttributeError: pass
