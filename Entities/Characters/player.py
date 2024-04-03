@@ -112,7 +112,7 @@ class Player(Character):
                 if slot.allActions():
                     display += f"{slot.name}:\n"
                     for action in slot.allActions():
-                        display += f"   {totalIndex}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") + (" - Free Action\n" if action.freeAction else "\n")
+                        display += f"   {totalIndex}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") + (f", {action.range if action.range > 1 else "Melee"} Range" if action.range else "") + (f", {action.width}x{action.length} Area" if action.width + action.length > 2 else "") + (" - Free Action\n" if action.freeAction else "\n")
                         totalIndex += 1
             except AttributeError: pass
 
