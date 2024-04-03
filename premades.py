@@ -11,6 +11,7 @@ from Items.Gear.heldItem import HeldItem
 import utils
 
 # Copy an object without a really long command
+# For my own sanity when typing all this
 def c(obj):
     return copy.deepcopy(obj)
 

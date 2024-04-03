@@ -63,7 +63,7 @@ class Game():
     def resetGame(self):
         self.allObjects = []
         self.player = self.startPlayer()
-        self.getLoot(5)
+        self.getLoot(10)
 
     def beginLoop(self):
         self.startNewEncounter()
@@ -73,7 +73,7 @@ class Game():
 
     def startPlayer(self):
         plr = Player(10, 0, 0, 2, 2)
-        plr.putOn(copy.deepcopy(pre.weps["Sword"]), "Mainhand")
+        plr.putOn(pre.weps["Sword"], "Mainhand")
 
         return plr
 
@@ -167,7 +167,7 @@ class Game():
         if choice == amount:
             self.player.getUpgrade()
         elif choice != "Cancelled":
-            self.player.collect(copy.deepcopy(loot[choice]))
+            self.player.collect(loot[choice])
         
 
 game = Game()

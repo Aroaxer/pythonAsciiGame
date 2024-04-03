@@ -36,9 +36,12 @@ class Player(Character):
             self.readAsMove(action, game)
         except Exception:
             try:
-                trait = self.getFullActionList()[int(action) - 1]
-                if not trait.activate(game, "Active", trait.tiedEquipment, user = self):
-                    self.actionsLeft += 1
+                try:
+                    trait = self.getFullActionList()[int(action) - 1]
+                    if not trait.activate(game, "Active", trait.tiedEquipment, user = self):
+                        self.actionsLeft += 1
+                except IndexError:
+                    raise ValueError
             except ValueError:
                 if not action == "pass":
                     self.actionsLeft += 1

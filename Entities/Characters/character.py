@@ -1,4 +1,5 @@
 import math
+import copy
 
 from Entities.object import Object
 
@@ -142,6 +143,7 @@ class Character(Object):
         if shouldTriggerTraits: self.activateAllTraits("After Damage", game, source)
 
     def putOn(self, item, slot):
+        item = copy.deepcopy(item)
         match slot:
                 case "Mainhand":
                     try:
