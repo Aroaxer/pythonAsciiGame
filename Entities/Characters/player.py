@@ -70,11 +70,11 @@ class Player(Character):
         items = []
         itemNames = []
         for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
-            if (not slot.upgraded) or (slot.upgradedForm):
-                try:
+            try:
+                if (not slot.upgraded) or (slot.upgradedForm):
                     items.append(slot)
                     itemNames.append(slot.name)
-                except AttributeError: pass
+            except AttributeError: pass
 
         choice = items[utils.promptChoice("Which item would you like to upgrade?", itemNames)]
         choice.upgrade()

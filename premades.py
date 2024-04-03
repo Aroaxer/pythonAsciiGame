@@ -200,7 +200,7 @@ accs = {
 # Loot Pools
 lootPools = {
     "Standard" : utils.merge(weps.values(), armors.values(), offs.values(), helms.values(), accs.values()),
-    "Upgraded" : utils.merge(upgradedWeps.values())
+    "Upgraded" : utils.merge(upgradedWeps.values(), upgradedArmors.values(), upgradedOffs.values(), upgradedHelms.values(), upgradedAccs.values())
 }
 
 

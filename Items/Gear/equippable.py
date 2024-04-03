@@ -44,8 +44,6 @@ class Equippable(Item):
         else:
             if self.extraSpeed > 0:
                 self.extraSpeed += max(1, math.floor(self.extraSpeed / 2))
-            if self.extraActions > 0:
-                self.extraActions += max(1, math.floor(self.extraActions / 2))
             if self.damage > 0:
                 self.damage += max(1, math.ceil(self.damage / 3))
 
