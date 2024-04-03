@@ -110,7 +110,7 @@ class Player(Character):
         for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
             try:
                 if slot.allActions():
-                    display += f"{slot.name}:\n"
+                    display += f"{slot.name} " + (f"({slot.damage} Damage)" if slot.damage else "") + ":\n"
                     for action in slot.allActions():
                         display += f"   {totalIndex}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") + (f", {action.range if action.range > 1 else "Melee"} Range" if action.range else "") + (f", {action.width}x{action.length} Area" if action.width + action.length > 2 else "") + (" - Free Action\n" if action.freeAction else "\n")
                         totalIndex += 1

@@ -125,7 +125,7 @@ class Game():
 
         print(self.assembleMap("str"))
 
-        print(self.player.getInfo(self, True))
+        print(self.player.getInfo(self))
 
         print("")
 
