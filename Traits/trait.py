@@ -61,7 +61,7 @@ class Trait():
         self.range = range
         self.length = length
         self.width = width
-        if self.targeting == "Point" and self.length == 1:
+        if self.targeting in {"Point", "Point No Enemy"} and self.length == 1:
             self.length = width
 
         self.maxCharges = maxCharges
@@ -123,14 +123,14 @@ class Trait():
                         x1 = user.x - self.length
                         x2 = user.x - 1
 
-                        y1 = user.y + math.floor(self.width / 2)
-                        y2 = y1 - self.width + 1
+                        y1 = user.y - math.floor(self.width / 2)
+                        y2 = y1 + self.width + 1
                     case "Right":
                         x1= user.x + 1
                         x2 = user.x + self.length
 
-                        y1 = user.y + math.floor(self.width / 2)
-                        y2 = y1 - self.width + 1
+                        y1 = user.y - math.floor(self.width / 2)
+                        y2 = y1 + self.width + 1
                 self.triggerOnRegion((x1, y1), (x2, y2), user, game, equipment, user.testEnem())
             elif self.targeting == "Point":
                 x1 = target[0] - math.floor(self.width / 2)
@@ -233,8 +233,6 @@ class Trait():
                 target.takeDamage(equipment.damage * 1.5, user, game)
             case "0.5x Damage":
                 target.takeDamage(equipment.damage * 0.5, user, game)
-            case "Free 1x Damage":
-                target.takeDamage(equipment.damage, user, game)
             case "Ritual Attack":
                 target.takeDamage(equipment.damage, user, game)
                 if target.hp <= 0:

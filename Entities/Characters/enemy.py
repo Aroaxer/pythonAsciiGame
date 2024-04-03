@@ -35,6 +35,7 @@ class Enemy(Character):
                 self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
                 self.putOn(pre.enemArmrs["Weak Reflect"], "Armor")
 
+
             # Stage 2
                 # Shaded Forest
             case "Goblin":
@@ -64,6 +65,30 @@ class Enemy(Character):
 
                 self.putOn(pre.enemWeps["Weak Magic"], "Mainhand")
 
+                # Dark Cave
+                # Note: Also references 'Goblin' from Shaded Forest
+            case "Bat":
+                self.mapIcon = "B"
+
+                speed = 2
+
+                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+            case "Giant Spider":
+                self.mapIcon = "S"
+
+                actions = 3
+
+                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+
+                # Boss
+            case "Stone Giant":
+                self.mapIcon = "#"
+
+                actions = 4
+
+                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+            
+
             # Stage 3
                 # Forest Tower
             case "Turret":
@@ -88,6 +113,16 @@ class Enemy(Character):
                 actions = 2
 
                 self.putOn(pre.enemWeps["Weak Magic"], "Mainhand")
+
+                # Boss
+            case 'Iron Golem':
+                self.mapIcon = "#"
+
+                speed = 3
+                actions = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"], "Mainhand")
+                self.putOn(pre.enemArmrs["Weak No Special"], "Armor")
 
                 
                 

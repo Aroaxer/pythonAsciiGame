@@ -101,7 +101,11 @@ weps = {
 enemWeps = {
     "Weak Melee" : Weapon("Weak Melee", 2, "Melee", traits = [c(enemAcs["Melee"])]),
     "Weak Ranged" : Weapon("Weak Ranged", 1, "Ranged", traits = [c(enemAcs["Ranged"])]),
-    "Weak Magic" : Weapon("Weak Magic", 2, "Ranged", traits = [c(enemAcs["Magic"]), c(enemAcs["Fireball"])])
+    "Weak Magic" : Weapon("Weak Magic", 2, "Magic", traits = [c(enemAcs["Magic"]), c(enemAcs["Fireball"])]),
+
+    "Medium Melee" : Weapon("Medium Melee", 3, "Melee", traits = [c(enemAcs["Melee"])]),
+    "Medium Ranged" : Weapon("Medium Ranged", 2, "Ranged", traits = [c(enemAcs["Ranged"])]),
+    "Medium Magic" : Weapon("Medium Magic", 2, "Magic", traits = [c(enemAcs["Magic"]), c(enemAcs["Fireball"])])
 }
 
 # Other Helds
@@ -165,7 +169,8 @@ lootPools = {
 
 # Enemies
 preEnemies = {
-    "Sunlit Field" : [("Wild Boar", 7), ("Spitting Cobra", 4), ("Forest Golem", 15)],
-    "Shaded Forest" : [("Goblin", 5), ("Hobgoblin", 8), ("Bugbear", 10), ("Hobgoblin Devastator", 20)],
-    "Forest Tower" : [("Turret", 3), ("Stone Golem", 10), ("Golem Mage", 8), ("Iron Golem", 25)]
+    "Sunlit Field" : [("Wild Boar", 7), ("Spitting Cobra", 4), ("Forest Golem", 20)],
+    "Shaded Forest" : [("Goblin", 5), ("Hobgoblin", 8), ("Bugbear", 10), ("Hobgoblin Devastator", 25)],
+        "Dark Cave" : [("Bat", 4), ("Goblin", 5), ("Giant Spider", 8), ("Stone Giant", 30)],
+    "Forest Tower" : [("Turret", 3), ("Stone Golem", 10), ("Golem Mage", 8), ("Iron Golem", 40)]
 }
