@@ -51,3 +51,8 @@ class Equippable(Item):
 
             self.upgraded = True
             self.name += "+"
+
+    def allActions(self):
+        for trait in self.traits:
+            if trait.trigger == "Active":
+                yield trait

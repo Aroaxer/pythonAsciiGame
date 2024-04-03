@@ -2,6 +2,8 @@ import math
 
 from Entities.object import Object
 
+import utils
+
 class Character(Object):
     hp = 0
     maxHp = 0
@@ -10,16 +12,11 @@ class Character(Object):
     spd = 0
     def getSpeed(self):
         total = self.spd
-        try: total += self.mainhand.extraSpeed
-        except AttributeError: pass
-        try: total += self.offhand.extraSpeed
-        except AttributeError: pass
-        try: total += self.armor.extraSpeed
-        except AttributeError: pass
-        try: total += self.helmet.extraSpeed
-        except AttributeError: pass
-        try: total += self.accessory.extraSpeed
-        except AttributeError: pass
+
+        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+            try: total += slot.extraSpeed
+            except AttributeError: pass
+
         return total
     def setSpeed(self, speed):
         self.spd = speed
@@ -29,16 +26,11 @@ class Character(Object):
     acs = 0
     def getActions(self):
         total = self.acs
-        try: total += self.mainhand.extraActions
-        except AttributeError: pass
-        try: total += self.offhand.extraActions
-        except AttributeError: pass
-        try: total += self.armor.extraActions
-        except AttributeError: pass
-        try: total += self.helmet.extraActions
-        except AttributeError: pass
-        try: total += self.accessory.extraActions
-        except AttributeError: pass
+        
+        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+            try: total += slot.extraActions
+            except AttributeError: pass
+
         return total
     def setActions(self, actions):
         self.acs = actions
@@ -186,58 +178,18 @@ class Character(Object):
     def getFullActionList(self):
         actionList = []
 
-        # I have no clue if there is a shorter way to do this
-        try: 
-            for trait in self.mainhand.traits:
-                if trait.trigger == "Active":
-                    actionList.append(trait)
-        except AttributeError: pass
-        try:
-            for trait in self.offhand.traits:
-                if trait.trigger == "Active":
-                    actionList.append(trait)
-        except AttributeError: pass
-        try:
-            for trait in self.armor.traits:
-                if trait.trigger == "Active":
-                    actionList.append(trait)
-        except AttributeError: pass
-        try:
-            for trait in self.helmet.traits:
-                if trait.trigger == "Active":
-                    actionList.append(trait)
-        except AttributeError: pass
-        try:
-            for trait in self.accessory.traits:
-                if trait.trigger == "Active":
-                    actionList.append(trait)
-        except AttributeError: pass
+        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+            try: actionList = utils.merge(actionList, slot.allActions())
+            except AttributeError: pass
 
         return actionList
     
     def getAllTraits(self):
         traits = []
 
-        try: 
-            for trait in self.mainhand.traits:
-                traits.append(trait)
-        except AttributeError: pass
-        try:
-            for trait in self.offhand.traits:
-                traits.append(trait)
-        except AttributeError: pass
-        try:
-            for trait in self.armor.traits:
-                traits.append(trait)
-        except AttributeError: pass
-        try:
-            for trait in self.helmet.traits:
-                traits.append(trait)
-        except AttributeError: pass
-        try:
-            for trait in self.accessory.traits:
-                traits.append(trait)
-        except AttributeError: pass
+        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+            try: traits = utils.merge(traits, slot.traits)
+            except AttributeError: pass
 
         return traits
 
@@ -265,29 +217,10 @@ class Character(Object):
         # Redefined to return True in the enemy class
     
     def activateAllTraits(self, trigger, game, target):
-        try: 
-            for trait in self.mainhand.traits:
-                trait.activate(game, trigger, self.mainhand, self, target)
-        except AttributeError: pass
-        try:
-            for trait in self.offhand.traits:
-                trait.activate(game, trigger, self.offhand, self, target)
-        except AttributeError: pass
-        try:
-            for trait in self.armor.traits:
-                trait.activate(game, trigger, self.armor, self, target)
-        except AttributeError: pass
-        try:
-            for trait in self.helmet.traits:
-                trait.activate(game, trigger, self.helmet, self, target)
-        except AttributeError: pass
-        try:
-            for trait in self.accesory.traits:
-                trait.activate(game, trigger, self.accessory, self, target)
-        except AttributeError: pass
+        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+            for trait in slot.traits:
+                trait.activate(game, trigger, slot, self, target)
     
     def rechargeTraits(self, trigger):
-        traits = self.getAllTraits()
-
-        for trait in traits:
+        for trait in self.getAllTraits():
             trait.recharge(trigger)

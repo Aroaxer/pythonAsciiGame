@@ -69,22 +69,11 @@ class Player(Character):
     def getUpgrade(self):
         items = []
         itemNames = []
-
-        if self.mainhand != None:
-            items.append(self.mainhand)
-            itemNames.append(self.mainhand.name)
-        if self.offhand != None:
-            items.append(self.offhand)
-            itemNames.append(self.offhand.name)
-        if self.armor != None:
-            items.append(self.armor)
-            itemNames.append(self.armor.name)
-        if self.helmet != None:
-            items.append(self.helmet)
-            itemNames.append(self.helmet.name)
-        if self.accessory != None:
-            items.append(self.accessory)
-            itemNames.append(self.accessory.name)
+        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+            try:
+                items.append(slot)
+                itemNames.append(slot.name)
+            except AttributeError: pass
 
         choice = items[utils.promptChoice("Which item would you like to upgrade?", itemNames)]
         choice.upgrade()
@@ -95,8 +84,6 @@ class Player(Character):
         slots = []
         if type(item) == Weapon:
             slots.append("Mainhand")
-            if "Light" in item.specialTags:
-                slots.append("Offhand")
         elif type(item) == Armor:
             slots.append("Armor")
         elif type(item) == Helmet:
@@ -105,7 +92,8 @@ class Player(Character):
             slots.append("Offhand")
         elif type(item) == Accessory:
             slots.append("Accessory")
-                
+            
+        # This code may be necessary if I add items that can go in multiple slots
         if len(slots) == 1:
             self.putOn(item, slots[0])
         elif len(slots) > 1:
@@ -116,7 +104,14 @@ class Player(Character):
         actions = self.getFullActionList()
 
         display = ""
-        for index, action in enumerate(actions):
-            display += f"{index + 1}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") + (" - Free Action\n" if action.freeAction else "\n")
+        totalIndex = 1
+        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+            try:
+                if len(slot.allActions()) > 0:
+                    display += f"{slot.name}:\n"
+                    for action in slot.allActions():
+                        display += f"   {totalIndex}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") + (" - Free Action\n" if action.freeAction else "\n")
+                        totalIndex += 1
+            except Exception: pass
 
         return display
