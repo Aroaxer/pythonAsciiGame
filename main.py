@@ -66,7 +66,7 @@ class Game():
         self.getLoot(5)
 
     def beginLoop(self):
-        self.startNewEncounter(2)
+        self.startNewEncounter()
         shouldEnd = False
         while not shouldEnd:
             shouldEnd = self.loopCycle()
@@ -90,7 +90,7 @@ class Game():
             self.complEncsPerStage += 1
             if self.stage.length <= self.complEncsPerStage:
                 self.advanceStage()
-            self.startNewEncounter(2)
+            self.startNewEncounter()
 
     def kill(self, entity):
         for i, object in enumerate(self.allObjects):
@@ -132,13 +132,13 @@ class Game():
         for enem in self.enemies:
             print(enem.getInfo())
 
-    def startNewEncounter(self, enems):
+    def startNewEncounter(self):
         if self.complEncsPerStage == self.stage.length / 2 or self.complEncsPerStage == 0:
             self.getLoot(3)
 
         self.player.rechargeTraits("Encounter")
 
-        enc = self.stage.genEncounter(enems, self.complEncsPerStage)
+        enc = self.stage.genEncounter(self.complEncsPerStage)
         self.encounter = enc[0]
         self.enemies = enc[1]
         self.player.y = enc[0].height
@@ -167,7 +167,7 @@ class Game():
         if choice == amount:
             self.player.getUpgrade()
         elif choice != "Cancelled":
-            self.player.collect(loot[choice])
+            self.player.collect(copy.deepcopy(loot[choice]))
         
 
 game = Game()

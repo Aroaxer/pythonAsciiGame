@@ -65,7 +65,6 @@ class Character(Object):
 
     # target is an (x, y) tuple
     def move(self, area, game, cx = 0, cy = 0, target = None, ignoreSpd = False):
-        self.speedLeft = self.speed
 
         stX = self.x
         stY = self.y
@@ -123,6 +122,7 @@ class Character(Object):
         self.activateAllTraits("Turn", game, None)
 
         while self.actionsLeft > 0:
+            self.speedLeft = self.speed
             self.takeAction(game)
             if self.hp > self.maxHp:
                 self.hp = self.maxHp
