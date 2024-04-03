@@ -114,15 +114,18 @@ class Character(Object):
 
         self.activateAllTraits("Turn", game, None)
 
+        record = ""
         while self.actionsLeft > 0:
             self.speedLeft = self.speed
-            self.takeAction(game)
+            record = self.takeAction(game)
             if self.hp > self.maxHp:
                 self.hp = self.maxHp
 
+        return f"{self.name} {record}"
+
     def takeAction(self, *args):
         self.actionsLeft = 0
-        return None # This function is defined by subclasses
+        return "" # This function is defined by subclasses
     
     def takeDamage(self, damage, source, game, shouldTriggerTraits = True):
         if shouldTriggerTraits: self.activateAllTraits("Before Damage", game, source)

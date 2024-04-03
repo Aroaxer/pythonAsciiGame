@@ -142,11 +142,14 @@ class Enemy(Character):
 
         match action[0]:
             case "Active":
+                oldPlHp = game.player.hp
                 action[1].activate(game, "Active", action[1].tiedEquipment, self)
+                return f"used {action[1].name}" + (f" and did {oldPlHp - game.player.hp} damage" if oldPlHp != game.player.hp else "")
             case "Move":
                 while self.speedLeft > 0 and len(action[1]) > 1:
                     del action[1][-1]
                     self.move(game.encounter, game, target = action[1][-1])
+                return "moved"
 
     # Returns: ("Active", Action) / ("Move", route) / ("Wait")
     def determineBestAction(self, game):

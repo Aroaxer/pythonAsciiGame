@@ -84,8 +84,15 @@ class Game():
 
         self.player.takeTurn(self)
 
+        actionRecord = []
+
         for enemy in self.enemies:
-            enemy.takeTurn(self)
+            actionRecord.append(enemy.takeTurn(self))
+
+        if actionRecord == []:
+            actionRecord = ["Encounter Complete!"]
+
+        self.printEndRound(actionRecord)
 
         if len(self.enemies) == 0:
             self.completedEncounters += 1
@@ -93,6 +100,13 @@ class Game():
             if self.stage.length <= self.complEncsPerStage:
                 self.advanceStage()
             self.startNewEncounter()
+
+    def printEndRound(self, actionRecord):
+        self.emptyTerminal()
+        print(self.assembleMap())
+        for item in actionRecord:
+            print(item)
+        input("Press enter to continue\n")
 
     def kill(self, entity):
         for i, object in enumerate(self.allObjects):
@@ -107,8 +121,8 @@ class Game():
             print("\n\n\n")
             cyc += 1
 
-    def assembleMap(self, format): # Format is either "str" or "arr"
-        map = [["-" for i in range(self.encounter.width)] for j in range(self.encounter.height)]
+    def assembleMap(self, format = "str"): # Format is either "str" or "arr"
+        map = [["-" for _ in range(self.encounter.width)] for _ in range(self.encounter.height)]
 
         map[round(self.player.y - 1)][round(self.player.x - 1)] = "@"
 
