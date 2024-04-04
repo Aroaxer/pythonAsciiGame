@@ -4,6 +4,7 @@ import math
 
 class Trait():
     name = ""
+    tiedEquipment = None
     freeAction = False
 
     # Should be: "Active" / "Turn" / "Action" / "Before Damage" / "After Damage" / "Attack"

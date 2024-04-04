@@ -23,6 +23,8 @@ class Equippable(Item):
         self.extraActions = actionBoost
         self.extraSpeed = speedBoost
         self.traits = [copy.deepcopy(trait) for trait in newTraits]
+        for trait in self.traits:
+            trait.tiedEquipment = self
         self.specialTags = specialTags
         self.damage = damage
         self.defense = defense
