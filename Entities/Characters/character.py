@@ -14,7 +14,7 @@ class Character(Object):
     def getSpeed(self):
         total = self.spd
 
-        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try: total += slot.extraSpeed
             except AttributeError: pass
 
@@ -28,7 +28,7 @@ class Character(Object):
     def getActions(self):
         total = self.acs
         
-        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try: total += slot.extraActions
             except AttributeError: pass
 
@@ -43,14 +43,13 @@ class Character(Object):
     mainhand = None
     offhand = None
     armor = None
-    helmet = None
     accessory = None
 
     tempDamageModifier = 1
 
     def getDefense(self):
         total = 0
-        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try: total += slot.defense
             except AttributeError: pass
         return total
@@ -191,7 +190,7 @@ class Character(Object):
     def getFullActionList(self):
         actionList = []
 
-        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try: actionList = utils.merge(actionList, slot.allActions())
             except AttributeError: pass
 
@@ -200,7 +199,7 @@ class Character(Object):
     def getAllTraits(self):
         traits = []
 
-        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try: traits = utils.merge(traits, slot.traits)
             except AttributeError: pass
 
@@ -238,7 +237,7 @@ class Character(Object):
         # Redefined to return True in the enemy class
     
     def activateAllTraits(self, trigger, game, target):
-        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try:
                 for trait in slot.traits:
                     trait.activate(game, trigger, slot, self, target)

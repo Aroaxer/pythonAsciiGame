@@ -72,7 +72,7 @@ class Player(Character):
     def getUpgrade(self):
         items = []
         itemNames = []
-        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try:
                 if (not slot.upgraded) or (slot.upgradedForm):
                     items.append(slot)
@@ -88,7 +88,7 @@ class Player(Character):
     def getSkillDisplay(self):
         display = ""
         totalIndex = 1
-        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try:
                 display += f"\n{slot.name}" + (f" ({slot.damage} Damage)" if slot.damage else "")
                 for _ in slot.allActions():

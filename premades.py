@@ -156,22 +156,6 @@ enemArmrs = {
     "Weak Reflect" : Equip("Weak Reflect", 0, 10, traits = [c(traits["Spikes"])])
 }
 
-# Helms
-upgradedHelms = {
-    # Defensive
-    "Tortoise Helm" : Equip("Tortoise Helm", 0, 10, traits = [c(traits["Chain Reduction"]), c(traits["Chain Reduction"])]),
-
-    # Utility
-    "Warping Helm" : Equip("Warping Helm", 0, 5, traits = [c(acs["Teleport"]), c(traits["Repel"])])
-}
-helms = {
-    # Defensive
-    "Reactive Helm" : Equip("Reactive Helm", 0, 5, traits = [c(traits["Chain Reduction"])], upgradedForm = upgradedHelms["Tortoise Helm"]),
-
-    # Utility
-    "Phasing Helm" : Equip("Phasing Helm", 0, 0, traits = [c(acs["Teleport"])], upgradedForm = upgradedHelms["Warping Helm"])
-}
-
 # Accesories
 upgradedAccs = {
     # Defensive
@@ -199,8 +183,6 @@ for item in utils.merge(weps.values(), upgradedWeps.values(), enemWeps.values())
     item.slot = "Mainhand"
 for item in utils.merge(armors.values(), upgradedArmors.values(), enemArmrs.values()):
     item.slot = "Armor"
-for item in utils.merge(helms.values(), upgradedHelms.values()):
-    item.slot = "Helmet"
 for item in utils.merge(offs.values(), upgradedOffs.values()):
     item.slot = "Offhand"
 for item in utils.merge(accs.values(), upgradedAccs.values(), enemAcs.values()):
@@ -208,8 +190,8 @@ for item in utils.merge(accs.values(), upgradedAccs.values(), enemAcs.values()):
 
 # Loot Pools
 lootPools = {
-    "Standard" : utils.merge(weps.values(), armors.values(), offs.values(), helms.values(), accs.values()),
-    "Upgraded" : utils.merge(upgradedWeps.values(), upgradedArmors.values(), upgradedOffs.values(), upgradedHelms.values(), upgradedAccs.values())
+    "Standard" : utils.merge(weps.values(), armors.values(), offs.values(), accs.values()),
+    "Upgraded" : utils.merge(upgradedWeps.values(), upgradedArmors.values(), upgradedOffs.values(), upgradedAccs.values())
 }
 
 
