@@ -22,9 +22,9 @@ class Equippable(Item):
     def __init__(self, name, damage = 0, defense = 0, traits = [], specialTags = [], upgradedForm = None, actionBoost = 0, speedBoost = 0) -> None:
         self.extraActions = actionBoost
         self.extraSpeed = speedBoost
-        self.traits = traits
         for trait in self.traits:
-            trait.tiedEquipment = self
+            newTrait = copy.deepcopy(trait)
+            self.traits.append(newTrait)
         self.specialTags = specialTags
         self.damage = damage
         self.defense = defense

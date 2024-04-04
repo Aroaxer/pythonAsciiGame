@@ -17,10 +17,6 @@ class Trait():
     width = 1
     range = 1
 
-    # Stores tied equipment, initialized by the equipment
-    tiedEquipment = None
-
-
     # Determines effect when triggered
     effectKey = ""
     
