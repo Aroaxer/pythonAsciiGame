@@ -48,11 +48,11 @@ class Character(Object):
     tempDamageModifier = 1
 
     def getDefense(self):
-        total = 0
+        total = 100
         for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
-            try: total += slot.defense
+            try: total *= (slot.defense / 100)
             except AttributeError: pass
-        return total
+        return 100 - total
     defense = property(fget=getDefense)
 
     def __init__(self, name, hp, x, y, speed, actions = 1) -> None:
