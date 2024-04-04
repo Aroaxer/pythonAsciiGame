@@ -94,7 +94,10 @@ class Player(Character):
                 for _ in slot.allActions():
                     display += ":"
                     for action in slot.allActions():
-                        display += f"\n   {totalIndex}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") + (f", {action.range if action.range > 1 else "Melee"} Range" if action.range else "") + (f", {action.width}x{action.length} Area" if action.width + action.length > 2 else "") + (" - Free Action" if action.freeAction else "")
+                        display += f"\n   {totalIndex}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "")
+                        display += (f", {action.range} Range" if action.range else "") if action.range != 1 else "Melee"
+                        display += f", {action.width}x{action.length} Area" if action.width + action.length > 2 else ""
+                        display += " - Free Action" if action.freeAction else ""
                         totalIndex += 1
                     break
             except AttributeError: pass

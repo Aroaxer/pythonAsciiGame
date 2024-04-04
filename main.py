@@ -1,13 +1,9 @@
 import math
 import random
-import copy
 
-from Entities.object import Object
 from Entities.Characters.character import Character
 from Entities.Characters.enemy import Enemy
 from Entities.Characters.player import Player
-from Stages.Encounters.encounter import Encounter
-from Stages.stage import Stage
 
 import premades as pre
 import Stages.preStages as preS
