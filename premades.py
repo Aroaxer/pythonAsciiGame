@@ -2,11 +2,7 @@ import copy
 
 from Traits.trait import Trait
 from Traits.action import Action
-from Items.Gear.weapon import Weapon
-from Items.Gear.armor import Armor
-from Items.Gear.helmet import Helmet
-from Items.Gear.accessory import Accessory
-from Items.Gear.heldItem import HeldItem
+from Items.Gear.equippable import Equippable as Equip
 
 import utils
 
@@ -70,68 +66,68 @@ traits = {
     "Chain Reduction" : Trait("Chain Reduction", "Before Damage", "Minor Block")
 }
 
-# Weapons
+# Equips
 # This must be defined in this order
 upgradedWeps = {
     # Physical Melee
-    "Wind Blade" : Weapon("Wind Blade", 10, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"]), c(acs["Whirl"])]),
-    "Flamehammer" : Weapon("Flamehammer", 10, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"]), c(acs["Fireball"])]),
-    "Runed Halberd" : Weapon("Runed Halberd", 10, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Impale"]), c(acs["Slash"]), c(acs["Firebolt"])]),
+    "Wind Blade" : Equip("Wind Blade", 10, 0, traits = [c(acs["Basic Attack"]), c(acs["Slash"]), c(acs["Whirl"])]),
+    "Flamehammer" : Equip("Flamehammer", 10, 0, traits = [c(acs["Basic Attack"]), c(acs["Slam"]), c(acs["Fireball"])]),
+    "Runed Halberd" : Equip("Runed Halberd", 10, 0, traits = [c(acs["Basic Attack"]), c(acs["Impale"]), c(acs["Slash"]), c(acs["Firebolt"])]),
 
     # Physical Ranged
-    "Twinshot Bow" : Weapon("Twinshot Bow", 8, "Ranged", traits = [c(acs["Twin Shot"]), c(acs["Pierce"]), c(acs["Shove"])]),
-    "Handheld Ballista" : Weapon("Handheld Ballista", 8, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Shatterwave"])]),
+    "Twinshot Bow" : Equip("Twinshot Bow", 8, 0, traits = [c(acs["Twin Shot"]), c(acs["Pierce"]), c(acs["Shove"])]),
+    "Handheld Ballista" : Equip("Handheld Ballista", 8, 0, traits = [c(acs["Basic Shot"]), c(acs["Shatterwave"])]),
 
     # Magical Ranged
-    "Inferno Cane" : Weapon("Inferno Cane", 8, "Magic", traits = [c(acs["Enhanced Firebolt"]), c(acs["Fireball"]), c(acs["Flamethrower"])]),
-    "Archmage Rod" : Weapon("Archmage Rod", 4, "Magic", traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"]), c(acs["Arcane Shield"])])
+    "Inferno Cane" : Equip("Inferno Cane", 8, 0, traits = [c(acs["Enhanced Firebolt"]), c(acs["Fireball"]), c(acs["Flamethrower"])]),
+    "Archmage Rod" : Equip("Archmage Rod", 4, 0, traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"]), c(acs["Arcane Shield"])])
 }
 weps = {
     # Physical Melee
-    "Sword" : Weapon("Sword", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slash"])], upgradedForm = upgradedWeps["Wind Blade"]),
-    "Hammer" : Weapon("Hammer", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Slam"])], upgradedForm = upgradedWeps["Flamehammer"]),
-    "Spear" : Weapon("Spear", 5, "Melee", traits = [c(acs["Basic Attack"]), c(acs["Impale"])], upgradedForm = upgradedWeps["Runed Halberd"]),
+    "Sword" : Equip("Sword", 5, 0, traits = [c(acs["Basic Attack"]), c(acs["Slash"])], upgradedForm = upgradedWeps["Wind Blade"]),
+    "Hammer" : Equip("Hammer", 5, 0, traits = [c(acs["Basic Attack"]), c(acs["Slam"])], upgradedForm = upgradedWeps["Flamehammer"]),
+    "Spear" : Equip("Spear", 5, 0, traits = [c(acs["Basic Attack"]), c(acs["Impale"])], upgradedForm = upgradedWeps["Runed Halberd"]),
 
     # Physical Ranged
-    "Bow" : Weapon("Bow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Pierce"])], upgradedForm = upgradedWeps["Twinshot Bow"]),
-    "Crossbow" : Weapon("Crossbow", 4, "Ranged", traits = [c(acs["Basic Shot"]), c(acs["Shatter"])], upgradedForm = upgradedWeps["Handheld Ballista"]),
+    "Bow" : Equip("Bow", 4, 0, traits = [c(acs["Basic Shot"]), c(acs["Pierce"])], upgradedForm = upgradedWeps["Twinshot Bow"]),
+    "Crossbow" : Equip("Crossbow", 4, 0, traits = [c(acs["Basic Shot"]), c(acs["Shatter"])], upgradedForm = upgradedWeps["Handheld Ballista"]),
 
     # Magical Ranged
-    "Fire Staff" : Weapon("Fire Staff", 4, "Magic", traits = [c(acs["Firebolt"]), c(acs["Fireball"])], upgradedForm = upgradedWeps["Inferno Cane"]),
-    "Arcane Staff" : Weapon("Arcane Staff", 2, "Magic", traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"])], upgradedForm = upgradedWeps["Archmage Rod"])
+    "Fire Staff" : Equip("Fire Staff", 4, 0, traits = [c(acs["Firebolt"]), c(acs["Fireball"])], upgradedForm = upgradedWeps["Inferno Cane"]),
+    "Arcane Staff" : Equip("Arcane Staff", 2, 0, traits = [c(acs["Arcane Rays"]), c(acs["Magic Missiles"])], upgradedForm = upgradedWeps["Archmage Rod"])
 }
 
 enemWeps = {
-    "Weak Melee" : Weapon("Weak Melee", 2, "Melee", traits = [c(enemAcs["Melee"])]),
-    "Weak Ranged" : Weapon("Weak Ranged", 1, "Ranged", traits = [c(enemAcs["Ranged"])]),
-    "Weak Magic" : Weapon("Weak Magic", 2, "Magic", traits = [c(enemAcs["Magic"]), c(enemAcs["Fireball"])]),
+    "Weak Melee" : Equip("Weak Melee", 2, 0, traits = [c(enemAcs["Melee"])]),
+    "Weak Ranged" : Equip("Weak Ranged", 1, 0, traits = [c(enemAcs["Ranged"])]),
+    "Weak Magic" : Equip("Weak Magic", 2, 0, traits = [c(enemAcs["Magic"]), c(enemAcs["Fireball"])]),
 
-    "Medium Melee" : Weapon("Medium Melee", 3, "Melee", traits = [c(enemAcs["Melee"])]),
-    "Medium Ranged" : Weapon("Medium Ranged", 2, "Ranged", traits = [c(enemAcs["Ranged"])]),
-    "Medium Magic" : Weapon("Medium Magic", 2, "Magic", traits = [c(enemAcs["Magic"]), c(enemAcs["Fireball"])])
+    "Medium Melee" : Equip("Medium Melee", 3, 0, traits = [c(enemAcs["Melee"])]),
+    "Medium Ranged" : Equip("Medium Ranged", 2, 0, traits = [c(enemAcs["Ranged"])]),
+    "Medium Magic" : Equip("Medium Magic", 2, 0, traits = [c(enemAcs["Magic"]), c(enemAcs["Fireball"])])
 }
 
 # Other Helds
 upgradedOffs = {
     # Offensive
-    "Ritual Blade" : HeldItem("Ritual Blade", 8, traits = [c(acs["Ritual Stab"]), c(acs["Pull"])]),
-    "Chain Hooks" : HeldItem("Chain Hooks", 3, traits = [c(acs["Double Hook"])]),
-    "Shrouded Dagger" : HeldItem("Shrouded Dagger", 5, traits = [c(acs["Toss"]), c(acs["Parry"])]),
+    "Ritual Blade" : Equip("Ritual Blade", 8, 0, traits = [c(acs["Ritual Stab"]), c(acs["Pull"])]),
+    "Chain Hooks" : Equip("Chain Hooks", 3, 0, traits = [c(acs["Double Hook"])]),
+    "Shrouded Dagger" : Equip("Shrouded Dagger", 5, 0, traits = [c(acs["Toss"]), c(acs["Parry"])]),
 
     # Defensive
-    "Crystal Shield" : HeldItem("Crystal Shield", 2, traits=[c(acs["Block"]), c(traits["Spikes"])])
+    "Crystal Shield" : Equip("Crystal Shield", 2, 20, traits=[c(acs["Block"]), c(traits["Spikes"])])
 
     # Utility
 
 }
 offs = {
     # Offensive
-    "Ritual Dagger" : HeldItem("Ritual Dagger", 4, traits=[c(acs["Ritual Stab"])], upgradedForm = upgradedOffs["Ritual Blade"]),
-    "Rope Hook" : HeldItem("Rope Hook", 1, traits = [c(acs["Pull"])], upgradedForm = upgradedOffs["Chain Hooks"]),
-    "Kunai" : HeldItem("Kunai", 2, traits = [c(acs["Toss"])], upgradedForm = upgradedOffs["Shrouded Dagger"]),
+    "Ritual Dagger" : Equip("Ritual Dagger", 4, 0, traits=[c(acs["Ritual Stab"])], upgradedForm = upgradedOffs["Ritual Blade"]),
+    "Rope Hook" : Equip("Rope Hook", 1, 0, traits = [c(acs["Pull"])], upgradedForm = upgradedOffs["Chain Hooks"]),
+    "Kunai" : Equip("Kunai", 2, 0, traits = [c(acs["Toss"])], upgradedForm = upgradedOffs["Shrouded Dagger"]),
 
     # Defensive
-    "Shield" : HeldItem("Shield", 0, traits = [c(acs["Block"])], upgradedForm = upgradedOffs["Crystal Shield"])
+    "Shield" : Equip("Shield", 0, 10, traits = [c(acs["Block"])], upgradedForm = upgradedOffs["Crystal Shield"])
 
     # Utility
     
@@ -140,63 +136,75 @@ offs = {
 # Armor
 upgradedArmors = {
     # Defensive
-    "Battlerager Mail" : Armor("Battlerager Mail", 25, damage=5, traits = [c(traits["Spikes"]), c(acs["Charge"])]),
-    "Druidic Plate" : Armor("Druidic Plate", 40, traits = [c(traits["Regenerate"]), c(acs["Block"])]),
+    "Battlerager Mail" : Equip("Battlerager Mail", 5, 25, traits = [c(traits["Spikes"]), c(acs["Charge"])]),
+    "Druidic Plate" : Equip("Druidic Plate", 0, 40, traits = [c(traits["Regenerate"]), c(acs["Block"])]),
 
     # Utility
-    "Leathers of the Wind" : Armor("Leathers of the Wind", 10, speedBoost=5, actionBoost=2, traits=[c(acs["Hasten"])])
+    "Leathers of the Wind" : Equip("Leathers of the Wind", 0, 10, speedBoost=5, actionBoost=2, traits=[c(acs["Hasten"])])
 }
 armors = {
     # Defensive
-    "Spiked Mail" : Armor("Spiked Armor", 15, damage=2, traits = [c(traits["Spikes"])], upgradedForm = upgradedArmors["Battlerager Mail"]),
-    "Overgrown Plate" : Armor("Overgrown Plate", 25, traits = [c(traits["Regenerate"])], upgradedForm = upgradedArmors["Druidic Plate"]),
+    "Spiked Mail" : Equip("Spiked Equip", 2, 15, traits = [c(traits["Spikes"])], upgradedForm = upgradedArmors["Battlerager Mail"]),
+    "Overgrown Plate" : Equip("Overgrown Plate", 0, 25, traits = [c(traits["Regenerate"])], upgradedForm = upgradedArmors["Druidic Plate"]),
 
     # Utility
-    "Swift Leather" : Armor("Swift Leather", 0, speedBoost=2, actionBoost=1, upgradedForm = upgradedArmors["Leathers of the Wind"])
+    "Swift Leather" : Equip("Swift Leather", 0, 0, speedBoost=2, actionBoost=1, upgradedForm = upgradedArmors["Leathers of the Wind"])
 }
 
 enemArmrs = {
-    "Weak No Special" : Armor("Weak No Special", 10),
-    "Weak Reflect" : Armor("Weak Reflect", 10, damage=1, traits = [c(traits["Spikes"])])
+    "Weak No Special" : Equip("Weak No Special", 0, 10),
+    "Weak Reflect" : Equip("Weak Reflect", 0, 10, traits = [c(traits["Spikes"])])
 }
 
-# Helmets
+# Helms
 upgradedHelms = {
     # Defensive
-    "Tortoise Helm" : Helmet("Tortoise Helm", traits = [c(traits["Chain Reduction"]), c(traits["Chain Reduction"])]),
+    "Tortoise Helm" : Equip("Tortoise Helm", 0, 10, traits = [c(traits["Chain Reduction"]), c(traits["Chain Reduction"])]),
 
     # Utility
-    "Warping Helm" : Helmet("Warping Helm", traits = [c(acs["Teleport"]), c(traits["Repel"])])
+    "Warping Helm" : Equip("Warping Helm", 0, 5, traits = [c(acs["Teleport"]), c(traits["Repel"])])
 }
 helms = {
     # Defensive
-    "Reactive Helm" : Helmet("Reactive Helm", traits = [c(traits["Chain Reduction"])], upgradedForm = upgradedHelms["Tortoise Helm"]),
+    "Reactive Helm" : Equip("Reactive Helm", 0, 5, traits = [c(traits["Chain Reduction"])], upgradedForm = upgradedHelms["Tortoise Helm"]),
 
     # Utility
-    "Phasing Helm" : Helmet("Phasing Helm", traits = [c(acs["Teleport"])], upgradedForm = upgradedHelms["Warping Helm"])
+    "Phasing Helm" : Equip("Phasing Helm", 0, 0, traits = [c(acs["Teleport"])], upgradedForm = upgradedHelms["Warping Helm"])
 }
 
 # Accesories
 upgradedAccs = {
     # Defensive
-    "Barrier Necklace" : Accessory("Barrier Necklace", traits = [c(acs["Arcane Shield"]), c(traits["Chain Reduction"])]),
+    "Barrier Necklace" : Equip("Barrier Necklace", 0, 10, traits = [c(acs["Arcane Shield"]), c(traits["Chain Reduction"])]),
 
     # Utility
-    "Lightspeed Amulet" : Accessory("Lightspeed Amulet", speedBoost=2, actionBoost=2, traits = [c(acs["Hasten"])]),
-    "Repelling Gloves" : Accessory("Repelling Gloves", speedBoost=2, traits = [c(acs["Shove"]), c(traits["Repel"])])
+    "Lightspeed Amulet" : Equip("Lightspeed Amulet", 0, 0, speedBoost=2, actionBoost=2, traits = [c(acs["Hasten"])]),
+    "Repelling Gloves" : Equip("Repelling Gloves", 0, 5, speedBoost=2, traits = [c(acs["Shove"]), c(traits["Repel"])])
 
 }
 accs = {
     # Defensive
-    "Brooch of Shielding" : Accessory("Brooch of Shielding", traits = [c(acs["Arcane Shield"])], upgradedForm = upgradedAccs["Barrier Necklace"]),
+    "Brooch of Shielding" : Equip("Brooch of Shielding", 0, 5, traits = [c(acs["Arcane Shield"])], upgradedForm = upgradedAccs["Barrier Necklace"]),
 
     # Utility
-    "Hastening Amulet" : Accessory("Hastening Amulet", actionBoost=1, upgradedForm = upgradedAccs["Lightspeed Amulet"]),
-    "Shoving Gauntlets" : Accessory("Shoving Gauntlets", speedBoost=1, traits = [c(acs["Shove"])], upgradedForm = upgradedAccs["Repelling Gloves"])
+    "Hastening Amulet" : Equip("Hastening Amulet", 0, 0, actionBoost=1, upgradedForm = upgradedAccs["Lightspeed Amulet"]),
+    "Shoving Gauntlets" : Equip("Shoving Gauntlets", 0, 0, speedBoost=1, traits = [c(acs["Shove"])], upgradedForm = upgradedAccs["Repelling Gloves"])
 
     # Offensive
 
 }
+
+# Set slots
+for item in utils.merge(weps.values(), upgradedWeps.values(), enemWeps.values()):
+    item.slot = "Mainhand"
+for item in utils.merge(armors.values(), upgradedArmors.values(), enemArmrs.values()):
+    item.slot = "Armor"
+for item in utils.merge(helms.values(), upgradedHelms.values()):
+    item.slot = "Helmet"
+for item in utils.merge(offs.values(), upgradedOffs.values()):
+    item.slot = "Offhand"
+for item in utils.merge(accs.values(), upgradedAccs.values(), enemAcs.values()):
+    item.slot = "Accessory"
 
 # Loot Pools
 lootPools = {

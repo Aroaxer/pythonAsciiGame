@@ -1,9 +1,4 @@
 from Entities.Characters.character import Character
-from Items.Gear.weapon import Weapon
-from Items.Gear.armor import Armor
-from Items.Gear.helmet import Helmet
-from Items.Gear.heldItem import HeldItem
-from Items.Gear.accessory import Accessory
 from Items.Consumables.consumable import Consumable
 
 import premades as pre
@@ -84,39 +79,21 @@ class Player(Character):
         choice = items[utils.promptChoice("Which item would you like to upgrade?", itemNames)]
         choice.upgrade()
 
-
-
     def equip(self, item):
-        slots = []
-        if type(item) == Weapon:
-            slots.append("Mainhand")
-        elif type(item) == Armor:
-            slots.append("Armor")
-        elif type(item) == Helmet:
-            slots.append("Helmet")
-        elif type(item) == HeldItem:
-            slots.append("Offhand")
-        elif type(item) == Accessory:
-            slots.append("Accessory")
-            
-        # This code may be necessary if I add items that can go in multiple slots
-        if len(slots) == 1:
-            self.putOn(item, slots[0])
-        elif len(slots) > 1:
-            chosenSlot = slots[utils.promptChoice("What slot would you like to equip this in?", slots)]
-            self.putOn(item, chosenSlot)
+        self.putOn(item, item.slot)
 
     def getSkillDisplay(self):
         display = ""
         totalIndex = 1
         for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
             try:
+                display += f"\n{slot.name}" + (f" ({slot.damage} Damage)" if slot.damage else "")
                 for _ in slot.allActions():
-                    display += f"{slot.name} " + (f"({slot.damage} Damage)" if slot.damage else "") + ":\n"
+                    display += ":"
                     for action in slot.allActions():
-                        display += f"   {totalIndex}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") + (f", {action.range if action.range > 1 else "Melee"} Range" if action.range else "") + (f", {action.width}x{action.length} Area" if action.width + action.length > 2 else "") + (" - Free Action\n" if action.freeAction else "\n")
+                        display += f"\n   {totalIndex}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") + (f", {action.range if action.range > 1 else "Melee"} Range" if action.range else "") + (f", {action.width}x{action.length} Area" if action.width + action.length > 2 else "") + (" - Free Action" if action.freeAction else "")
                         totalIndex += 1
                     break
             except AttributeError: pass
 
-        return display
+        return display + "\n"

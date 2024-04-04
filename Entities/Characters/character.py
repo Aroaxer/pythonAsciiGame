@@ -48,6 +48,14 @@ class Character(Object):
 
     tempDamageModifier = 1
 
+    def getDefense(self):
+        total = 0
+        for slot in (self.mainhand, self.offhand, self.armor, self.helmet, self.accessory):
+            try: total += slot.defense
+            except AttributeError: pass
+        return total
+    defense = property(fget=getDefense)
+
     def __init__(self, name, hp, x, y, speed, actions = 1) -> None:
         self.name = name
         self.maxHp = hp
@@ -131,7 +139,7 @@ class Character(Object):
         if shouldTriggerTraits: self.activateAllTraits("Before Damage", game, source)
 
         try:
-            damage *= 1 - (self.armor.defense / 100)
+            damage *= 1 - (self.defense / 100)
         except AttributeError: pass
 
         damage *= self.tempDamageModifier
@@ -153,32 +161,32 @@ class Character(Object):
                         del self.mainhand
                     except AttributeError: pass
                     self.mainhand = item
-                    item.user = (self, "Mainhand")
+                    item.user = self
                 case "Offhand":
                     try:
                         del self.offhand
                     except AttributeError: pass
                     self.offhand = item
-                    item.user = (self, "Offhand")
+                    item.user = self
                 case "Armor":
                     try:
                         del self.armor
                     except AttributeError: pass
                     self.armor = item
-                    item.user = (self, "Armor")
+                    item.user = self
                 case "Helmet":
                     try:
                         del self.helmet
                     except AttributeError: pass
                     self.helmet = item
-                    item.user = (self, "Helmet")
+                    item.user = self
                 case "Accessory":
                     try:
                         del self.accessory
                     except AttributeError: pass
                     self.accessory = item
-                    item.user = (self, "Accessory")
-    
+                    item.user = self
+                    
     # Returns a list of all actions for all equipments
     def getFullActionList(self):
         actionList = []
