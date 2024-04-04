@@ -173,12 +173,6 @@ class Character(Object):
                     except AttributeError: pass
                     self.armor = item
                     item.user = self
-                case "Helmet":
-                    try:
-                        del self.helmet
-                    except AttributeError: pass
-                    self.helmet = item
-                    item.user = self
                 case "Accessory":
                     try:
                         del self.accessory
@@ -222,8 +216,6 @@ class Character(Object):
             try: infoStr += f"\nOffhand: {self.offhand.name}" + (f", {self.offhand.damage} Damage" if self.offhand.damage > 0 else "")
             except AttributeError: pass
             try: infoStr += f"\nArmor: {self.armor.name}" + (f", {self.armor.damage} Damage" if self.armor.damage > 0 else "")
-            except AttributeError: pass
-            try: infoStr += f"\nHelmet: {self.helmet.name}" + (f", {self.helmet.damage} Damage" if self.helmet.damage > 0 else "")
             except AttributeError: pass
             try: infoStr += f"\nAccesory: {self.accessory.name}" + (f", {self.accessory.damage} Damage" if self.accessory.damage > 0 else "")
             except AttributeError: pass
