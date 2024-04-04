@@ -50,9 +50,9 @@ class Character(Object):
     def getDefense(self):
         total = 100
         for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
-            try: total *= (slot.defense / 100)
+            try: total *= ((100 - slot.defense) / 100)
             except AttributeError: pass
-        return 100 - total
+        return (100 - total)
     defense = property(fget=getDefense)
 
     def __init__(self, name, hp, x, y, speed, actions = 1) -> None:

@@ -138,7 +138,7 @@ upgradedArmors = {
 }
 armors = {
     # Defensive
-    "Spiked Mail" : Equip("Spiked Equip", 2, 15, [traits["Spikes"]], upgradedForm = upgradedArmors["Battlerager Mail"]),
+    "Spiked Mail" : Equip("Spiked Mail", 2, 15, [traits["Spikes"]], upgradedForm = upgradedArmors["Battlerager Mail"]),
     "Overgrown Plate" : Equip("Overgrown Plate", 0, 25, [traits["Regenerate"]], upgradedForm = upgradedArmors["Druidic Plate"]),
     "Heavy Plate" : Equip("Heavy Plate", 0, 40, [traits["Chain Reduction"]], speedBoost=-1, upgradedForm = upgradedArmors["Titanic Plate"]),
 

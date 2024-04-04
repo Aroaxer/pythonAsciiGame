@@ -19,12 +19,10 @@ class Equippable(Item):
 
     upgradedForm = None
 
-    def __init__(self, name, damage = 0, defense = 0, traits = [], specialTags = [], upgradedForm = None, actionBoost = 0, speedBoost = 0) -> None:
+    def __init__(self, name, damage = 0, defense = 0, newTraits = [], specialTags = [], upgradedForm = None, actionBoost = 0, speedBoost = 0) -> None:
         self.extraActions = actionBoost
         self.extraSpeed = speedBoost
-        for trait in self.traits:
-            newTrait = copy.deepcopy(trait)
-            self.traits.append(newTrait)
+        self.traits = [copy.deepcopy(trait) for trait in newTraits]
         self.specialTags = specialTags
         self.damage = damage
         self.defense = defense
