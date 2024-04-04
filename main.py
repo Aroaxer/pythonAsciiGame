@@ -69,9 +69,8 @@ class Game():
 
     def beginLoop(self):
         self.startNewEncounter()
-        shouldEnd = False
-        while not shouldEnd:
-            shouldEnd = self.loopCycle()
+        while not self.ended:
+            self.loopCycle()
 
     def startPlayer(self):
         plr = Player(10, 0, 0, 2, 2)
@@ -167,6 +166,7 @@ class Game():
         self.player.x = math.ceil(enc[0].width / 2)
 
     def advanceStage(self):
+        self.player.hp = self.player.maxHp
         self.complEncsPerStage = 0
         nextStage = None
         while True:
@@ -193,3 +193,6 @@ class Game():
         
 
 game = Game()
+
+game.emptyTerminal()
+print("Game Over\n\n")

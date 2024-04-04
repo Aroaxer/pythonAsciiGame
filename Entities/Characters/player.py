@@ -13,6 +13,9 @@ class Player(Character):
     def takeAction(self, game):
         self.rechargeTraits("Action")
 
+        if self.hp > self.maxHp:
+            self.hp = self.maxHp
+
         self.speedLeft = self.speed
         self.actionsLeft -= 1
 
