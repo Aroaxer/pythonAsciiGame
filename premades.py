@@ -13,6 +13,7 @@ acs = {
     "Impale" : Action("Impale", "1x Damage", "Directional", maxCharges=1, length=3),
     "Ritual Stab" : Action("Ritual Stab", "Ritual Attack", maxCharges=2, recharge="Encounter"),
     "Whirl" : Action("Whirl", "1x Damage", "Centered", maxCharges=5, rechargePercent=0.2, width=3),
+    "Bloodwave" : Action("Bloodwave", "1.5x Damage", "Directional", maxCharges=5, recharge="Never", width=3, length=5),
     
     # Physical Ranged
     "Basic Shot" : Action("Basic Shot", "1x Damage", range=3),
@@ -64,6 +65,15 @@ traits = {
 
 # Equips
 # This must be defined in this order
+tier3Weps = {
+    # Physical Melee
+    "Vorpal Sword" : Equip("Vorpal Sword", 20, 0, [acs["Basic Attack"], acs["Whirl"]])
+
+    # Physical Ranged
+
+    # Magical Ranged
+
+}
 tier2Weps = {
     # Physical Melee
     "Wind Blade" : Equip("Wind Blade", 10, 0, [acs["Basic Attack"], acs["Slash"], acs["Whirl"]]),
