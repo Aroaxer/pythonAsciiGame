@@ -51,7 +51,7 @@ def promptCoords(prompt, game, source, cantBeEnemy):
     print(f"{prompt}\nEnter in format (x,y)")
 
     coords = None
-    while not (coords and max(abs(source[1] - coords[0]), abs(source[2] - coords[1])) <= source[0]):
+    while True:
 
         choice = promptRegEx(None, "\([0-9]+, *[0-9]+\)")
         coords = re.findall("[0-9]+", choice)
@@ -59,11 +59,21 @@ def promptCoords(prompt, game, source, cantBeEnemy):
         for i, entry in enumerate(coords):
             coords[i] = int(entry)
 
+        if not (coords and max(abs(source[1] - coords[0]), abs(source[2] - coords[1])) <= source[0]):
+            print("Point out of range")
+            continue
+
         if cantBeEnemy:
             for enemy in game.enemies:
                 if (enemy.x, enemy.y) == (coords[0], coords[1]):
                     coords = None
+                    print("This action can't target an enemy directly")
                     break
+            else:
+                break
+        else:
+            break
+        
 
     return coords
 
