@@ -138,7 +138,7 @@ class Game():
 
         print(self.player.getInfo(self))
 
-        print(f"{self.player.defense} Defense\n")
+        print(f"{self.player.defense} Defense\n{self.player.speed} Speed\n")
 
         for enem in self.enemies:
             try:
