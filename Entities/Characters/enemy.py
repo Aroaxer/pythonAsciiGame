@@ -158,6 +158,113 @@ class Enemy(Character):
 
                 self.putOn(pre.enemWeps["Crystal Heart"])
 
+
+            # Stage 4
+                # Fey Grove
+            case "Sprite":
+                self.mapIcon = "S"
+
+                actions = 2
+
+                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+            case "Quickling":
+                self.mapIcon = "Q"
+
+                speed = 3
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+            case "Dryad":
+                self.mapIcon = "D"
+
+                self.putOn(pre.enemWeps["Medium Magic"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+            case "Treant":
+                self.mapIcon = "T"
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+
+                # Boss
+            case "Archfey":
+                self.mapIcon = "#"
+
+                self.putOn(pre.enemWeps["Medium Magic"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+
+
+                # Scorched Desert
+            case "Giant Scorpion":
+                self.mapIcon = "S"
+
+                actions = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+            case "Sand Elemental":
+                self.mapIcon = "E"
+
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Ranged"])
+            case "Giant Snake":
+                self.mapIcon = "G"
+
+                actions = 2
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Vulture":
+                self.mapIcon = "V"
+
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+
+                # Boss
+            case "Sandworm":
+                self.mapIcon = "#"
+
+                actions = 2
+                speed = 3
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+
+
+                # Icy Tundra
+            case "Ice Elemental":
+                self.mapIcon = "E"
+
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Magic"])
+            case "Yeti":
+                self.mapIcon = "Y"
+
+                actions = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Snow Golem":
+                self.mapIcon = "S"
+
+                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+
+                # Boss
+            case "Frost Giant":
+                self.mapIcon = "#"
+
+                actions = 3
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            
+
             case _:
                 pass
 

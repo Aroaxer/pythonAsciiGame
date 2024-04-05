@@ -123,7 +123,6 @@ tier3Weps = {
     # Magical Ranged
     "Volcanic Staff" : Equip("Volcanic Staff", 16, 0, [acs["Flamestone"], acs["Meteor"], acs["Firestorm"], acs["Eruption"]]),
     "Lich's Cane" : Equip("Lich's Cane", 16, 0, [acs["Draining Rays"], acs["Arcane Lance"], acs["Power Word Kill"]])
-
 }
 tier2Weps = {
     # Physical Melee
@@ -221,7 +220,9 @@ armors = {
 
 enemArmrs = {
     "Weak No Special" : Equip("Weak No Special", 0, 10),
-    "Weak Reflect" : Equip("Weak Reflect", 0, 10, [traits["Spikes"]])
+    "Weak Reflect" : Equip("Weak Reflect", 0.5, 10, [traits["Spikes"]]),
+
+    "Medium No Special" : Equip("Medium No Special", 0, 20)
 }
 
 # Accesories
@@ -271,5 +272,8 @@ preEnemies = {
     "Shaded Forest" : [("Goblin", 10), ("Hobgoblin", 12), ("Bugbear", 14), ("Hobgoblin Devastator", 60)],
         "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Stone Giant", 70)],
     "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 100)],
-        "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 100)]
+        "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 100)],
+    "Fey Grove" : [("Sprite", 25), ("Quickling", 25), ("Dryad", 35), ("Treant", 50), ("Archfey", 125)],
+        "Scorched Desert" : [("Giant Scorpion", 40), ("Sand Elemental", 30), ("Giant Snake", 50), ("Vulture", 25), ("Sandworm", 150)],
+        "Icy Tundra" : [("Ice Elemental", 30), ("Yeti", 50), ("Snow Golem", 25), ("Frost Giant", 150)]
 }
