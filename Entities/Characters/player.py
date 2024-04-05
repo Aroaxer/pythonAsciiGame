@@ -74,7 +74,7 @@ class Player(Character):
         itemNames = []
         for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try:
-                if (not slot.upgraded) or (slot.upgradedForm):
+                if slot.upgradedForm:
                     items.append(slot)
                     itemNames.append(slot.name)
             except AttributeError: pass

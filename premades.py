@@ -47,7 +47,7 @@ acs = {
     "Shard Blast" : Action("Shard Blast", "1x Damage", "Directional", width=3, length=3),
     "Shardlance" : Action("Shardlance", "1x Damage", "Directional", length=7),
     "Condense" : Action("Condense", "Condense", "Self"),
-    "Crystal Rain" : Action("Crystal Rain", "Crystal Rain", "Point", maxCharges=1, recharge="Never"),
+    "Crystal Rain" : Action("Crystal Rain", "Crystal Rain", "Point", maxCharges=1, recharge="Never", range=5),
         # Thunderbolt
     "Thunderstrike" : Action("Thunderstrike", "Damage Repel 1", range=3),
     "Shockwave" : Action("Shockwave", "Damage Repel 1", "Centered", width=3, length=3),
@@ -74,8 +74,8 @@ acs = {
     # Utility
     "Hasten" : Action("Hasten", "Hasten", "Self", maxCharges=2, recharge="Encounter"),
     "Shove" : Action("Shove", "Repel 3"),
-    "Pull" : Action("Pull", "Damage Pull", maxCharges=1, range=4, freeAction=True),
-    "Damage Pull" : Action("Pull", "Pull", maxCharges=1, range=4, freeAction=True),
+    "Pull" : Action("Pull", "Pull", maxCharges=1, range=4, freeAction=True),
+    "Damage Pull" : Action("Pull", "Damage Pull", maxCharges=1, range=4, freeAction=True),
     "Double Hook" : Action("Double Hook", "Damage Pull", "Multi 2", maxCharges=1, range=5, freeAction=True),
     "Teleport" : Action("Teleport", "Teleport", "Point No Enemy", range=10),
     "Charge" : Action("Charge", "Charge", "Point No Enemy", maxCharges=1, range=5, width=3),
@@ -206,7 +206,7 @@ tier2Armors = {
     "Titanic Plate" : Equip("Titanic Plate", 0, 60, [traits["Chain Reduction"]], speedBoost=-1),
 
     # Utility
-    "Leathers of the Wind" : Equip("Leathers of the Wind", 0, 10, [acs["Hasten"]], speedBoost=5, actionBoost=2)
+    "Leathers of the Wind" : Equip("Leathers of the Wind", 0, 10, [acs["Hasten"]], speedBoost=3, actionBoost=2)
 }
 armors = {
     # Defensive
@@ -215,7 +215,7 @@ armors = {
     "Heavy Plate" : Equip("Heavy Plate", 0, 40, [traits["Chain Reduction"]], speedBoost=-1, upgr=tier2Armors["Titanic Plate"]),
 
     # Utility
-    "Swift Leather" : Equip("Swift Leather", 0, 0, [], speedBoost=2, actionBoost=1, upgr=tier2Armors["Leathers of the Wind"])
+    "Swift Leather" : Equip("Swift Leather", 0, 0, [], speedBoost=1, actionBoost=1, upgr=tier2Armors["Leathers of the Wind"])
 }
 
 enemArmrs = {
@@ -231,7 +231,7 @@ tier2Accs = {
     "Barrier Necklace" : Equip("Barrier Necklace", 0, 10, [acs["Arcane Shield"], traits["Chain Reduction"]]),
 
     # Utility
-    "Lightspeed Amulet" : Equip("Lightspeed Amulet", 0, 0, [acs["Hasten"]], speedBoost=2, actionBoost=2),
+    "Lightspeed Amulet" : Equip("Lightspeed Amulet", 0, 0, [acs["Hasten"]], speedBoost=2, actionBoost=1),
     "Repelling Gloves" : Equip("Repelling Gloves", 0, 5, [acs["Shove"], traits["Repel"]], speedBoost=2)
 
 }

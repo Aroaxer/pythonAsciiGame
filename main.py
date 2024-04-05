@@ -178,7 +178,15 @@ class Game():
         for item in loot:
             names.append(item.name)
 
-        names.append("Upgrade an Item")
+        upgrades = 0
+        for slot in (self.player.mainhand, self.player.offhand, self.player.armor, self.player.accessory):
+            try:
+                if slot.upgradedForm:
+                    upgrades += 1
+            except AttributeError: pass
+
+        if upgrades:
+            names.append("Upgrade an Item")
 
         choice = utils.promptChoice("You found some loot!", names)
 
