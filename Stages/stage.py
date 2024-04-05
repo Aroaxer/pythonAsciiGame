@@ -15,6 +15,7 @@ class Stage():
 
     enemies = []
     lootPool = []
+    lootAmount = 0
 
     length = 0
     enemCount = 0
@@ -22,7 +23,7 @@ class Stage():
     prevStages = []
     stageOrder = 0
 
-    def __init__(self, name, stageOrder, enemies, lootPool, minWidth, minHeight, maxWidth = -1, maxHeight = -1, length = 10, prevStages = [], enemCount = 0) -> None:
+    def __init__(self, name, stageOrder, enemies, lootPool, minWidth, minHeight, maxWidth = -1, maxHeight = -1, length = 10, prevStages = [], enemCount = 0, lootAmount = 3) -> None:
         self.name = name
         self.length = length
         self.enemCount = enemCount
@@ -35,6 +36,7 @@ class Stage():
         self.maxHeight = maxHeight if maxHeight > 0 else minHeight
         self.enemies = enemies
         self.lootPool = lootPool
+        self.lootAmount = lootAmount
 
     def genEncounter(self, encsSoFar):
         print("Generating Encounter")

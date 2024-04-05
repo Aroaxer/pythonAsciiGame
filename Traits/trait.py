@@ -69,7 +69,7 @@ class Trait():
         self.rechargePercent = rechargePercent
         
         # Things that should start with zero charges
-        if self.name in {"Bloodwave", "Bloodwhirl", "Kingkiller", "Crystal Rain"}:
+        if self.name in {"Bloodwave", "Bloodwhirl", "Divine Slash", "Radiant Pulse", "Divine Intervention", "Kingkiller", "Crystal Rain"}:
             self.charges = 0
 
         self.aiPrio = aiPrio
@@ -228,9 +228,11 @@ class Trait():
                 self.triggerEffectOn(game.player, user, game, equip)
 
     def triggerEffectOn(self, target, user, game, equipment):
-        # Disable Kingkiller if not used
+        # Disable Kingkiller / Twilight if not used
         if equipment.name == "Regal Flail":
             equipment.traits[2].charges = 0
+        elif equipment.name == "Dawnbreaker":
+            equipment.traits[3].charges = 0
 
         match self.effectKey:
             # Attacks
@@ -247,8 +249,8 @@ class Trait():
                     user.hp += 0.2
                     self.charges += 1
             case "Decapitate":
-                # Should only be used by Vorpal Sword
-                target.takeDamage(equipment.damage, user, game)
+                # Should only be used by Vorpal Sword or Excalibur
+                target.takeDamage(equipment.damage * 1.25, user, game)
                 if target.hp <= 0:
                     equipment.traits[1].charges += 1
                     equipment.traits[2].charges += 1
@@ -258,6 +260,12 @@ class Trait():
             case "Kingkiller":
                 user.move(game.encounter, game, target=(target.x, target.y), ignoreSpd = True)
                 target.takeDamage(equipment.damage * 2, user, game)
+                # Become briefly invulnerable on kill
+                if target.hp <= 0:
+                    user.tempDamageModifier = 0
+            case "Twilight":
+                user.move(game.encounter, game, target=(target.x, target.y), ignoreSpd = True)
+                target.takeDamage(equipment.damage * 3, user, game)
                 # Become briefly invulnerable on kill
                 if target.hp <= 0:
                     user.tempDamageModifier = 0
@@ -283,6 +291,8 @@ class Trait():
             # Defensive (Active)
             case "Block":
                 target.tempDamageModifier *= 0.5
+            case "Fortify":
+                target.tempDamageModifier *= 0.25
             case "Parry":
                 target.tempDamageModifier *= 0.75
             case "Invuln":
@@ -339,9 +349,11 @@ class Trait():
                     elif target.y > user.y:
                         target.move(game.encounter, game, cy=self.multi, ignoreSpd = True)
 
-                # Enable Kingkiller
+                # Enable Kingkiller / Twilight
                 if self.name == "Total Authority":
                     equipment.traits[2].charges += 1
+                elif self.name == "High Noon":
+                    equipment.traits[3].charges += 1
 
                 if self.name == "Walking Fortress":
                     user.tempDamageModifier = 0
@@ -351,6 +363,20 @@ class Trait():
             case "Living Deity":
                 user.hp += 1
                 user.actionsLeft += 5
+            
+            case "Palace Toggle":
+                equipment.specialTags["Palace"] = not equipment.specialTags["Palace"]
+
+                if equipment.specialTags["Palace"]:
+                    equipment.defense = 90
+                    user.mainhand.damage *= 1.25
+                    equipment.extraSpeed = -2
+                    equipment.extraActions = 1
+                else:
+                    equipment.defense = 75
+                    user.mainhand.damage *= (4/5)
+                    equipment.extraSpeed = 0
+                    equipment.extraActions = 0
 
             # Exc Alt should never be directly used
             case "Excalibur":
@@ -365,8 +391,6 @@ class Trait():
             case "Exc Alt":
                 target.takeDamage(equipment.damage * 0.5, user, game, False)
                 if target.hp <= 0:
-                    equipment.traits[1].charges += 0.5
-                    equipment.traits[2].charges += 0.5
                     equipment.traits[3].charges += 0.1
             case "Divine Intervention":
                 user.hp += user.maxHp / 4

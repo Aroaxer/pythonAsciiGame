@@ -62,12 +62,6 @@ class Game():
         self.allObjects = []
         self.player = self.startPlayer()
         self.getLoot(10)
-        self.getLoot(0)
-        self.getLoot(0)
-        self.getLoot(0)
-        self.getLoot(0)
-        self.getLoot(0)
-
     def beginLoop(self):
         self.startNewEncounter()
         while not self.ended:
@@ -156,7 +150,7 @@ class Game():
     def startNewEncounter(self):
         self.oldEnemInfo = {}
         if self.complEncsPerStage == self.stage.length / 2 or self.complEncsPerStage == 0:
-            self.getLoot(3)
+            self.getLoot(self.stage.lootAmount)
 
         self.player.rechargeTraits("Encounter")
 

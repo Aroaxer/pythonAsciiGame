@@ -18,14 +18,19 @@ acs = {
     "Bloodwave" : Action("Bloodwave", "1x Damage", "Directional", maxCharges=5, recharge="Never", width=3, length=5),
     "Bloodwhirl" : Action("Bloodwhirl", "1x Damage", "Centered", maxCharges=5, recharge="Never", width=5),
         # Excalibur
-    "Holy Blade" : Action("Holy Blade", "1x Damage"),
+    "Holy Blade" : Action("Holy Blade", "Decapitate"),
     "Divine Slash" : Action("Divine Slash", "1x Damage", "Directional", maxCharges=10, recharge="Never", width=5, length=7),
     "Radiant Pulse" : Action("Radiant Pulse", "1x Damage", "Centered", maxCharges=10, recharge="Never", width=7),
-    "Divine Intervention" : Action("Divine Intervention", "Divine Intervention", maxCharges=1, recharge="Never", width=11),
+    "Divine Intervention" : Action("Divine Intervention", "Divine Intervention", "Self", maxCharges=1, recharge="Never", width=11),
         # Gaian Maul
     "Stone Swing" : Action("Stone Swing", "Damage Repel 1", "Directional", width=3),
     "Terran Crush" : Action("Terran Crush", "Damage Repel 2", "Directional", maxCharges=2, width=3, length=3),
-    "Earthwake" : Action("Earthwake", "Damage Repel 3", "Centered", maxCharges=2, recharge="Encounter", range=5, width=5),
+    "Earthwake" : Action("Earthwake", "Damage Repel 3", "Point", maxCharges=2, recharge="Encounter", range=5, width=5),
+        # Mjolnir
+    "Storm Swing" : Action("Storm Swing", "Damage Repel 1", "Directional", width=5, length=2),
+    "Lightning Slam" : Action("Lightning Slam", "Damage Repel 2", "Directional", maxCharges=3, width=5),
+    "Thunderwave" : Action("Thunderwave", "Damage Repel 3", "Point", maxCharges=3, recharge="Encounter", range=7, width=7),
+    "Superstorm" : Action("Superstorm", "Superstorm", "Centered", maxCharges=1, recharge="Never", width=25),
         # Dragonlance
     "Dragon's Arm" : Action("Dragon's Arm", "1x Damage", range=2),
     "Dragon's Tail" : Action("Dragon's Tail", "Damage Repel 1", "Centered", width=3),
@@ -35,6 +40,11 @@ acs = {
     "Royal Strike" : Action("Royal Strike", "Royal Strike"),
     "Total Authority" : Action("Total Authority", "Repel 50", "Centered", maxCharges=2, recharge="Encounter", width=75),
     "Kingkiller" : Action("Kingkiller", "Kingkiller", maxCharges=1, recharge="Never", range=75, freeAction=True),
+        # Dawnbreaker
+    "Dawn Strike" : Action("Dawn Strike", "Damage Repel 1", "Directional", width=3),
+    "Radiant Rush" : Action("Radiant Rush", "Charge", "Point No Enemy", range=3, width=3),
+    "High Noon" : Action("High Noon", "Repel 75", "Centered", maxCharges=2, recharge="Encounter", width=125),
+    "Twilight" : Action("Twilight", "Twilight", maxCharges=1, recharge="Never", range=125, freeAction=True),
     
     # Physical Ranged
     "Basic Shot" : Action("Basic Shot", "1x Damage", range=3),
@@ -90,7 +100,9 @@ acs = {
     "Parry" : Action("Parry", "Parry", "Self", maxCharges=3, recharge="Encounter", freeAction=True),
     "Repel" : Action("Repel", "Repel 1", "Centered", maxCharges=1, rechargePercent=0.5, width=5, freeAction=True),
     "Arcane Shield" : Action("Arcane Shield", "Invuln", "Self", maxCharges=2, recharge="Encounter", rechargePercent=0.5),
-        # T3 Accessories
+        # T3 Items
+    "Fortify" : Action("Fortify", "Fortify", "Self"),
+    "Palace Toggle" : Action("Palace Toggle", "Palace Toggle", "Self", maxCharges=1, rechargePercent=0.25),
     "Walking Fortress" : Action("Walking Fortress", "Repel 1", "Centered", maxCharges=3, recharge="Encounter", width=5)
 }
 
@@ -111,13 +123,22 @@ traits = {
     "Chain Reduction" : Trait("Chain Reduction", "Before Damage", "Minor Block"),
     "Charge Deity" : Trait("Charge Deity", "Attack", "Charge Deity"),
     "Holy Radiance" : Trait("Holy Radiance", "Turn", "Holy Radiance", "Centered", width=7),
-    "Excalibur" : Trait("Excalibur", "Attack", "Excalibur", width=3)
+    "Excalibur" : Trait("Excalibur", "Attack", "Excalibur", width=3),
+    "Mjolnir" : Trait("Mjolnir", "After Damage", "Mjolnir", "Self")
 }
 
 # Equips
 # This must be defined in this order
 
 # Other Helds
+tier3Offs = {
+    # Offensive
+
+    # Defensive
+    "Palace Shield" : Equip("Palace Shield", 0, 75, [acs["Fortify"], acs["Repel"], acs["Palace Toggle"], traits["Chain Reduction"]], specialTags={"Palace" : False})
+
+    # Utility
+}
 tier2Offs = {
     # Offensive
     "Ritual Blade" : Equip("Ritual Blade", 8, 0, [acs["Ritual Stab"], acs["Pull"]]),
@@ -126,7 +147,7 @@ tier2Offs = {
 
     # Defensive
     "Crystal Shield" : Equip("Crystal Shield", 2, 30, [acs["Block"], traits["Spikes"]]),
-    "Castle Shield" : Equip("Castle Shield", 0, 50, [acs["Block"], acs["Repel"]])
+    "Castle Shield" : Equip("Castle Shield", 0, 50, [acs["Block"], acs["Repel"]], upgr=tier3Offs["Palace Shield"])
 
     # Utility
 
@@ -146,9 +167,15 @@ offs = {
 }
 
 # Armor
+tier3Armors = {
+    # Defensive
+    "Stormwrath Mail" : Equip("Stormwrath Mail", 10, 40, [traits["Spikes"], traits["Repel"], acs["Charge"]])
+
+    # Utility
+}
 tier2Armors = {
     # Defensive
-    "Battlerager Mail" : Equip("Battlerager Mail", 5, 25, [traits["Spikes"], acs["Charge"]]),
+    "Battlerager Mail" : Equip("Battlerager Mail", 5, 25, [traits["Spikes"], acs["Charge"]], upgr=tier3Armors["Stormwrath Mail"]),
     "Druidic Plate" : Equip("Druidic Plate", 0, 40, [traits["Regenerate"], acs["Block"]]),
     "Titanic Plate" : Equip("Titanic Plate", 0, 60, [traits["Chain Reduction"]], speedBoost=-1),
 
@@ -207,7 +234,10 @@ accs = {
 # Tier 4 weapons require an extra tier 3 item
 tier4Weps = {
     # Physical Melee
-    "Excalibur" : Equip("Excalibur", 20, 30, [acs["Holy Blade"], acs["Divine Slash"], acs["Radiant Pulse"], acs["Divine Intervention"], traits["Holy Radiance"], traits["Excalibur"]])
+    "Excalibur" : Equip("Excalibur", 25, 30, [acs["Holy Blade"], acs["Divine Slash"], acs["Radiant Pulse"], acs["Divine Intervention"], traits["Holy Radiance"], traits["Excalibur"]], speedBoost=1),
+    "Mjolnir" : Equip("Mjolnir", 40, 40, [acs["Storm Swing"], acs["Lightning Slam"], acs["Shockwave"], acs["Superstorm"], traits["Repel"], traits["Excalibur"]]),
+
+    "Dawnbreaker" : Equip("Dawnbreaker", 36, 60, [acs["Dawn Strike"], acs["Radiant Rush"], acs["High Noon"], acs["Twilight"], traits["Holy Radiance"], traits["Chain Reduction"]])
 
     # Physical Ranged
 
@@ -216,9 +246,9 @@ tier4Weps = {
 tier3Weps = {
     # Physical Melee
     "Vorpal Sword" : Equip("Vorpal Sword", 20, 10, [acs["Decapitate"], acs["Bloodwave"], acs["Bloodwhirl"]], speedBoost=1, upgr=(tier4Weps["Excalibur"], tier3Accs["Radiant Crown"])),
-    "Gaian Maul" : Equip("Gaian Maul", 20, 20, [acs["Stone Swing"], acs["Terran Crush"], acs["Earthwake"]]),
+    "Gaian Maul" : Equip("Gaian Maul", 20, 20, [acs["Stone Swing"], acs["Terran Crush"], acs["Earthwake"]], upgr=(tier4Weps["Mjolnir"], tier3Armors["Stormwrath Mail"])),
     "Dragonlance" : Equip("Dragonlance", 20, 10, [acs["Dragon's Arm"], acs["Dragon's Tail"], acs["Dragon's Breath"], acs["Dragon's Wings"]], actionBoost=1),
-    "Regal Flail" : Equip("Regal Flail", 18, 40, [acs["Royal Strike"], acs["Total Authority"], acs["Kingkiller"]]),
+    "Regal Flail" : Equip("Regal Flail", 18, 40, [acs["Royal Strike"], acs["Total Authority"], acs["Kingkiller"]], upgr=(tier4Weps["Dawnbreaker"], tier3Offs["Palace Shield"])),
 
     # Physical Ranged
     "Trinity Bow" : Equip("Trinity Bow", 16, 0, [acs["Flame Arrows"], acs["Frost Arrow"], acs["Shock Arrow"]]),
@@ -279,9 +309,9 @@ enemWeps = {
 # Set slots
 for item in utils.merge(weps.values(), tier2Weps.values(), tier3Weps.values(), tier4Weps.values(), enemWeps.values()):
     item.slot = "Mainhand"
-for item in utils.merge(armors.values(), tier2Armors.values(), enemArmrs.values()):
+for item in utils.merge(armors.values(), tier2Armors.values(), tier3Offs.values(), enemArmrs.values()):
     item.slot = "Armor"
-for item in utils.merge(offs.values(), tier2Offs.values()):
+for item in utils.merge(offs.values(), tier2Offs.values(), tier3Offs.values()):
     item.slot = "Offhand"
 for item in utils.merge(accs.values(), tier2Accs.values(), tier3Accs.values(), enemAcs.values()):
     item.slot = "Accessory"
