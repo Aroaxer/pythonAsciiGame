@@ -336,7 +336,7 @@ class Trait():
             # Utility (Passive)
             case "Momentum":
                 if target.hp <= 0:
-                    user.actionsLeft += 1
+                    user.actionsLeft += 0.25
 
             # Misc
             case "Repel" | "Damage Repel":

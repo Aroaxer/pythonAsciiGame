@@ -122,7 +122,7 @@ class Character(Object):
         self.activateAllTraits("Turn", game, None)
 
         record = ""
-        while self.actionsLeft > 0:
+        while self.actionsLeft >= 1:
             self.speedLeft = self.speed
             record = self.takeAction(game)
             if self.hp > self.maxHp:
