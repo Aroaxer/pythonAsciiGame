@@ -9,7 +9,7 @@ class Trait():
 
     # Should be: "Active" / "Turn" / "Action" / "Before Damage" / "After Damage" / "Attack"
     trigger = ""
-    # Should be: "Standard" / "Directional" / "Point" / "Point No Enemy" / "Multi {number}" / "Self" / "Centered" / "Global" / "Copy Target" /"Damage Source" / "Custom"
+    # Should be: "Standard" / "Directional" / "Point" / "Point No Enemy" / "Multi {number}" / "Self" / "Centered" / "Copy Target" / "Damage Source" / "Custom"
     targeting = None
     multi = None
     
@@ -40,6 +40,9 @@ class Trait():
         if effectKey[:5] == "Repel":
             self.multi = int(effectKey[5:])
             effectKey = "Repel"
+        if effectKey[:12] == "Damage Repel":
+            self.multi = int(effectKey[12:])
+            effectKey = "Damage Repel"
         self.effectKey = effectKey
         if targeting == "N/A":
             if trigger == "After Damage" or trigger == "Before Damage":
@@ -51,7 +54,6 @@ class Trait():
         if targeting[:5] == "Multi":
             self.multi = int(targeting[5:])
             targeting = "Multi"
-        
 
         self.targeting = targeting
 
@@ -65,6 +67,10 @@ class Trait():
         self.charges = self.maxCharges
         self.rechargePeriod = recharge
         self.rechargePercent = rechargePercent
+        
+        # Things that should start with zero charges
+        if self.effectKey in {"Bloodwave", "Bloodwhirl", "Kingkiller", "Crystal Rain"}:
+            self.charges = 0
 
         self.aiPrio = aiPrio
 
@@ -222,6 +228,10 @@ class Trait():
                 self.triggerEffectOn(game.player, user, game, equip)
 
     def triggerEffectOn(self, target, user, game, equipment):
+        # Disable Kingkiller if not used
+        if equipment.name == "Regal Flail":
+            equipment.traits[2].charges = 0
+
         match self.effectKey:
             # Attacks
             case "1x Damage":
@@ -234,8 +244,37 @@ class Trait():
                 target.takeDamage(equipment.damage, user, game)
                 if target.hp <= 0:
                     user.actionsLeft += 1
-                    user.hp += 0.5
+                    user.hp += 0.2
                     self.charges += 1
+            case "Decapitate":
+                # Should only be used by Vorpal Sword
+                target.takeDamage(equipment.damage, user, game)
+                if target.hp <= 0:
+                    equipment.traits[1].charges += 1
+                    equipment.traits[2].charges += 2
+            case "Royal Strike":
+                target.takeDamage(equipment.damage, user, game)
+                user.tempDamageModifier *= 0.8
+            case "Kingkiller":
+                user.move(game.encounter, game, target=(target.x, target.y), ignoreSpd = True)
+                target.takeDamage(equipment.damage * 1.5, user, game)
+                # Become briefly invulnerable on kill
+                if target.hp <= 0:
+                    user.tempDamageModifier = 0
+            case "Crystal Rain":
+                self.charges = 0
+                target.takeDamage(equipment.damage, user, game)
+
+                # Reset area
+                self.width = 1
+                self.length = 1
+            case "Draining Rays":
+                target.takeDamage(equipment.damage * 0.5, user, game)
+                if target.hp <= 0:
+                    user.hp += 0.1
+            case "Power Word Kill":
+                if target.hp <= target.maxHp / 2:
+                    target.hp = 0
 
             # Passive Damage
             case "Spikes":
@@ -247,36 +286,65 @@ class Trait():
             case "Parry":
                 target.tempDamageModifier *= 0.75
             case "Invuln":
-                target.tempDamageModifier *= 0
+                target.tempDamageModifier = 0
 
             # Defensive (Passive)
             case "Regenerate":
-                target.hp += target.maxHp / 10
+                target.hp += 0.2
             case "Minor Block":
-                target.tempDamageModifier *= 0.9
+                target.tempDamageModifier *= 0.8
             
             # Utility (Active)
             case "Hasten":
                 target.actionsLeft += 2
-            case "Pull":
-                target.takeDamage(equipment.damage, user, game)
-
+            case "Pull" | "Damage Pull":
+                if self.effectKey == "Damage Pull":
+                    target.takeDamage(equipment.damage, user, game)
                 target.move(game.encounter, game, target=(user.x, user.y), ignoreSpd = True)
-            case "Teleport":
+            case "Teleport" | "Charge":
                 user.x, user.y = target[0], target[1]
+                if self.effectKey == "Charge":
+                    # Temporarily runs '1x Damage' on a region around self
+                    self.effectKey = "1x Damage"
+                    
+                    x1 = target[0] - math.floor(self.width / 2)
+                    y1 = target[1] - math.floor(self.length / 2)
+
+                    self.triggerOnRegion((x1, y1), (x1 + self.width - 1, y1 + self.length - 1), user, game, equipment, user.testEnem())
+
+                    # Resets effect key so it can be reused
+                    self.effectKey = "Charge"
+            case "Condense":
+                # Should only be used by Crystal Arbalest
+                equipment.traits[3].charges += 1
+                equipment.traits[3].width += 2
+                equipment.traits[3].length += 2
 
             # Utility (Passive)
 
             # Misc
-            case "Repel":
-                if target.x < user.x:
-                    target.move(game.encounter, game, cx=-self.multi, ignoreSpd = True)
-                elif target.x > user.x:
-                    target.move(game.encounter, game, cx=self.multi, ignoreSpd = True)
-                if target.y < user.y:
-                    target.move(game.encounter, game, cy=-self.multi, ignoreSpd = True)
-                elif target.y > user.y:
-                    target.move(game.encounter, game, cy=self.multi, ignoreSpd = True)
+            case "Repel" | "Damage Repel":
+                if self.effectKey == "Damage Repel":
+                    target.takeDamage(equipment.damage, user, game)
+                if target.speed > 0:
+                    if target.x < user.x:
+                        target.move(game.encounter, game, cx=-self.multi, ignoreSpd = True)
+                    elif target.x > user.x:
+                        target.move(game.encounter, game, cx=self.multi, ignoreSpd = True)
+                    if target.y < user.y:
+                        target.move(game.encounter, game, cy=-self.multi, ignoreSpd = True)
+                    elif target.y > user.y:
+                        target.move(game.encounter, game, cy=self.multi, ignoreSpd = True)
+
+                # Enable Kingkiller
+                if self.name == "Total Authority":
+                    equipment.traits[2].charges += 1
+            case "Charge Deity":
+                if target.hp <= 0:
+                    equipment.traits[2].charges += 0.2
+            case "Living Deity":
+                user.hp += 1
+                user.actionsLeft += 5
 
             case _:
                 pass

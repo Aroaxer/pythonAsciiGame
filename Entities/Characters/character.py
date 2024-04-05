@@ -149,12 +149,15 @@ class Character(Object):
                 game.kill(self)
             else:
                 game.ended = True
+
+        # Trigger attack riders
+        if shouldTriggerTraits: source.activateAllTraits("Attack", game, self)
         
         if shouldTriggerTraits: self.activateAllTraits("After Damage", game, source)
 
-    def putOn(self, item, slot):
+    def putOn(self, item):
         item = copy.deepcopy(item)
-        match slot:
+        match item.slot:
                 case "Mainhand":
                     try:
                         del self.mainhand
@@ -209,7 +212,7 @@ class Character(Object):
                 plannedAction = "Move"
         except AttributeError: pass
 
-        infoStr = f"{self.name}: {math.ceil(self.hp)}/{self.maxHp} Health" + (f" (-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "") + (f"\n   Will {plannedAction}" if plannedAction else "")
+        infoStr = f"{self.name}: {round(self.hp, 2)}/{self.maxHp} Health" + (f" (-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "") + (f"\n   Will {plannedAction}" if plannedAction else "")
         if detailed:
             try: infoStr += f"\nMainhand: {self.mainhand.name}, {self.mainhand.damage} Damage"
             except AttributeError: pass

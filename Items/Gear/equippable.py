@@ -19,7 +19,7 @@ class Equippable(Item):
 
     upgradedForm = None
 
-    def __init__(self, name, damage = 0, defense = 0, newTraits = [], specialTags = {}, upgradedForm = None, actionBoost = 0, speedBoost = 0) -> None:
+    def __init__(self, name, damage = 0, defense = 0, newTraits = [], specialTags = {}, upgr = None, actionBoost = 0, speedBoost = 0) -> None:
         self.extraActions = actionBoost
         self.extraSpeed = speedBoost
         self.traits = [copy.deepcopy(trait) for trait in newTraits]
@@ -28,22 +28,22 @@ class Equippable(Item):
         self.specialTags = specialTags
         self.damage = damage
         self.defense = defense
-        self.upgradedForm = upgradedForm
+        self.upgradedForm = upgr
         super().__init__(name)
 
     def upgrade(self):
         if self.upgraded and self.upgradedForm != None:
             match self.slot:
                 case "Mainhand":
-                    self.user.putOn(copy.deepcopy(self.upgradedForm), "Mainhand")
+                    self.user.putOn(copy.deepcopy(self.upgradedForm))
                 case "Offhand":
-                    self.user.putOn(copy.deepcopy(self.upgradedForm), "Offhand")
+                    self.user.putOn(copy.deepcopy(self.upgradedForm))
                 case "Armor":
-                    self.user.putOn(copy.deepcopy(self.upgradedForm), "Armor")
+                    self.user.putOn(copy.deepcopy(self.upgradedForm))
                 case "Helmet":
-                    self.user.putOn(copy.deepcopy(self.upgradedForm), "Helmet")
+                    self.user.putOn(copy.deepcopy(self.upgradedForm))
                 case "Accessory":
-                    self.user.putOn(copy.deepcopy(self.upgradedForm), "Accessory")
+                    self.user.putOn(copy.deepcopy(self.upgradedForm))
         else:
             if self.extraSpeed > 0:
                 self.extraSpeed += max(1, math.floor(self.extraSpeed / 2))

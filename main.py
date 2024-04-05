@@ -62,6 +62,9 @@ class Game():
         self.allObjects = []
         self.player = self.startPlayer()
         self.getLoot(10)
+        self.getLoot(0)
+        self.getLoot(0)
+        self.getLoot(0)
 
     def beginLoop(self):
         self.startNewEncounter()
@@ -70,7 +73,7 @@ class Game():
 
     def startPlayer(self):
         plr = Player(10, 0, 0, 2, 2)
-        plr.putOn(pre.weps["Sword"], "Mainhand")
+        plr.putOn(pre.weps["Sword"])
 
         return plr
 

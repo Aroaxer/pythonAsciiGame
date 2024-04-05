@@ -67,7 +67,7 @@ class Player(Character):
         if type(item) == Consumable:
             pass
         else:
-            self.equip(item)
+            self.putOn(item)
 
     def getUpgrade(self):
         items = []
@@ -82,9 +82,6 @@ class Player(Character):
         choice = items[utils.promptChoice("Which item would you like to upgrade?", itemNames)]
         choice.upgrade()
 
-    def equip(self, item):
-        self.putOn(item, item.slot)
-
     def getSkillDisplay(self):
         display = ""
         totalIndex = 1
@@ -94,7 +91,7 @@ class Player(Character):
                 for _ in slot.allActions():
                     display += ":"
                     for action in slot.allActions():
-                        display += f"\n   {totalIndex}: {action.name}" + ((f", {action.charges} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "")
+                        display += f"\n   {totalIndex}: {action.name}" + ((f", {round(action.charges, 3)} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "")
                         display += (f", {action.range} Range" if action.range else "") if action.range != 1 else ", Melee"
                         display += f", {action.width}x{action.length} Area" if action.width + action.length > 2 else ""
                         display += " - Free Action" if action.freeAction else ""

@@ -21,19 +21,19 @@ class Enemy(Character):
             case "Wild Boar":
                 self.mapIcon = "B"
 
-                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Melee"])
             case "Spitting Cobra":
                 self.mapIcon = "C"
                 self.preferredDist = 2
 
-                self.putOn(pre.enemWeps["Weak Ranged"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Ranged"])
 
                 # Boss
             case "Forest Golem":
                 self.mapIcon = "#"
                 
-                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
-                self.putOn(pre.enemArmrs["Weak Reflect"], "Armor")
+                self.putOn(pre.enemWeps["Weak Melee"])
+                self.putOn(pre.enemArmrs["Weak Reflect"])
 
 
             # Stage 2
@@ -41,20 +41,20 @@ class Enemy(Character):
             case "Goblin":
                 self.mapIcon = "G"
 
-                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Melee"])
             case "Hobgoblin":
                 self.mapIcon = "H"
                 self.preferredDist = 2
 
-                self.putOn(pre.enemWeps["Weak Ranged"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Ranged"])
             case "Bugbear":
                 self.mapIcon = "B"
                 self.difficultyValue = 2
                 
                 speed = 2
 
-                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
-                self.putOn(pre.enemArmrs["Weak No Special"], "Armor")
+                self.putOn(pre.enemWeps["Weak Melee"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
                 
                 # Boss
             case "Hobgoblin Devastator":
@@ -63,7 +63,8 @@ class Enemy(Character):
 
                 actions = 2
 
-                self.putOn(pre.enemWeps["Weak Magic"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Magic"])
+
 
                 # Dark Cave
                 # Note: Also references 'Goblin' from Shaded Forest
@@ -72,13 +73,13 @@ class Enemy(Character):
 
                 speed = 2
 
-                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Melee"])
             case "Giant Spider":
                 self.mapIcon = "S"
 
                 actions = 3
 
-                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Melee"])
 
                 # Boss
             case "Stone Giant":
@@ -86,7 +87,7 @@ class Enemy(Character):
 
                 actions = 4
 
-                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Melee"])
             
 
             # Stage 3
@@ -96,15 +97,15 @@ class Enemy(Character):
                 
                 speed = 0
 
-                self.putOn(pre.enemWeps["Weak Ranged"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Ranged"])
             case "Stone Golem":
                 self.mapIcon = "S"
                 self.difficultyValue = 2
 
                 speed = 2
 
-                self.putOn(pre.enemWeps["Weak Melee"], "Mainhand")
-                self.putOn(pre.enemArmrs["Weak No Special"], "Armor")
+                self.putOn(pre.enemWeps["Weak Melee"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
             case "Golem Mage":
                 self.mapIcon = "M"
                 self.preferredDist = 3
@@ -112,21 +113,50 @@ class Enemy(Character):
 
                 actions = 2
 
-                self.putOn(pre.enemWeps["Weak Magic"], "Mainhand")
+                self.putOn(pre.enemWeps["Weak Magic"])
 
                 # Boss
-            case 'Iron Golem':
+            case "Iron Golem":
                 self.mapIcon = "#"
 
                 speed = 3
                 actions = 2
 
-                self.putOn(pre.enemWeps["Medium Melee"], "Mainhand")
-                self.putOn(pre.enemArmrs["Weak No Special"], "Armor")
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
 
-                
-                
 
+                # Crystal Cavern
+            case "Gem Crawler":
+                self.mapIcon = "C"
+
+                speed = 3
+
+                self.putOn(pre.enemWeps["Weak Melee"])
+            case "Crystal Golem":
+                self.mapIcon = "G"
+
+                speed = 2
+                actions = 2
+
+                self.putOn(pre.enemWeps["Weak Melee"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+            case "Jeweled Spire":
+                self.mapIcon = "S"
+
+                speed = 0
+                
+                self.putOn(pre.enemWeps["Weak Ranged"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+
+                # Boss
+            case "Crystal Heart":
+                self.mapIcon = "H"
+
+                speed = 0
+                actions = 2
+
+                self.putOn(pre.enemWeps["Crystal Heart"])
 
             case _:
                 pass
@@ -149,7 +179,7 @@ class Enemy(Character):
                 while self.speedLeft > 0 and len(action[1]) > 1:
                     del action[1][-1]
                     self.move(game.encounter, game, target = action[1][-1])
-                return "moved"
+                return "moved" if self.speed > 0 else "waited"
 
     # Returns: ("Active", Action) / ("Move", route) / ("Wait")
     def determineBestAction(self, game):
@@ -176,7 +206,7 @@ class Enemy(Character):
         plr = game.player
         dist = max(abs(plr.x - self.x), abs(plr.y - self.y))
 
-        return action.range >= dist
+        return action.range >= dist and action.charges != 0
     
     def isWithinDistance(self, distance, point):
         return max(abs(self.x - point[0]), abs(self.y - point[1])) <= distance
