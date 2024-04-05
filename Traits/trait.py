@@ -381,6 +381,10 @@ class Trait():
                     equipment.extraSpeed = 0
                     equipment.extraActions = 0
 
+            # Charge Superstorm
+            case "Mjolnir":
+                equipment.traits[3].charges += 0.25
+
             # Exc Alt should never be directly used
             case "Excalibur":
                 self.effectKey = "Exc Alt"

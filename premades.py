@@ -63,7 +63,7 @@ acs = {
         # Trinity Bow
     "Flame Arrows" : Action("Flame Arrows", "0.5x Damage", "Multi 3", range=4),
     "Frost Arrow" : Action("Frost Arrow", "1x Damage", "Directional", width=3, length=5),
-    "Shock Arrow" : Action("Shoch Arrow", "1.5x Damage", range=6),
+    "Shock Arrow" : Action("Shock Arrow", "1.5x Damage", range=6),
         # Crystal Arbalest
     "Shard Blast" : Action("Shard Blast", "1x Damage", "Directional", width=3, length=3),
     "Shardlance" : Action("Shardlance", "1x Damage", "Directional", length=7),
