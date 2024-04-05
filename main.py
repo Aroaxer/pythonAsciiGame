@@ -61,7 +61,7 @@ class Game():
     def resetGame(self):
         self.allObjects = []
         self.player = self.startPlayer()
-        self.getLoot(10)
+        self.getLoot(0, pre.weps)
     def beginLoop(self):
         self.startNewEncounter()
         while not self.ended:
@@ -170,8 +170,11 @@ class Game():
         else:
             self.stage = nextStages[0][0]
 
-    def getLoot(self, amount):
-        loot = utils.getXRandom(self.stage.lootPool, amount)
+    def getLoot(self, amount, category = None):
+        if category:
+            loot = list(category.values())
+        else:
+            loot = utils.getXRandom(self.stage.lootPool, amount)
 
         names = []
         for item in loot:

@@ -36,6 +36,12 @@ acs = {
     "Dragon's Tail" : Action("Dragon's Tail", "Damage Repel 1", "Centered", width=3),
     "Dragon's Breath" : Action("Dragon's Breath", "Damage Repel 1", "Directional", maxCharges=1, width=3, length=5),
     "Dragon's Wings" : Action("Dragon's Wings", "Charge", "Point No Enemy", maxCharges=3, range=7, width=3),
+        # Aetheryte
+    "Aetherial Lance" : Action("Aetherial Lance", "1.5x Damage", range=3),
+    "Cloud Whirl" : Action("Cloud Whirl", "Damage Repel 2", "Centered", width=5),
+    "Spatial Thrust" : Action("Spatial Thrust", "Damage Repel 1", "Directional", maxCharges=2, width=3, length=7),
+    "Sky Call" : Action("Sky Call", "Damage Pull", "Centered", maxCharges=2, width=7),
+    "Void Phase" : Action("Void Phase", "Charge", "Point No Enemy", maxCharges=4, range=9, width=5),
         # Regal Flail
     "Royal Strike" : Action("Royal Strike", "Royal Strike"),
     "Total Authority" : Action("Total Authority", "Repel 50", "Centered", maxCharges=2, recharge="Encounter", width=75),
@@ -122,6 +128,7 @@ traits = {
     "Regenerate" : Trait("Regenerate", "Turn", "Regenerate"),
     "Chain Reduction" : Trait("Chain Reduction", "Before Damage", "Minor Block"),
     "Charge Deity" : Trait("Charge Deity", "Attack", "Charge Deity"),
+    "Momentum" : Trait("Momentum", "Attack", "Momentum"),
     "Holy Radiance" : Trait("Holy Radiance", "Turn", "Holy Radiance", "Centered", width=7),
     "Excalibur" : Trait("Excalibur", "Attack", "Excalibur", width=3),
     "Mjolnir" : Trait("Mjolnir", "After Damage", "Mjolnir", "Self")
@@ -169,9 +176,10 @@ offs = {
 # Armor
 tier3Armors = {
     # Defensive
-    "Stormwrath Mail" : Equip("Stormwrath Mail", 10, 40, [traits["Spikes"], traits["Repel"], acs["Charge"]])
+    "Stormwrath Mail" : Equip("Stormwrath Mail", 10, 40, [traits["Spikes"], traits["Repel"], acs["Charge"]]),
 
     # Utility
+    "Aetherial Robes" : Equip("Aetherial Robes", 0, 20, [acs["Hasten"], traits["Momentum"]], speedBoost=3, actionBoost=2)
 }
 tier2Armors = {
     # Defensive
@@ -180,7 +188,7 @@ tier2Armors = {
     "Titanic Plate" : Equip("Titanic Plate", 0, 60, [traits["Chain Reduction"]], speedBoost=-1),
 
     # Utility
-    "Leathers of the Wind" : Equip("Leathers of the Wind", 0, 10, [acs["Hasten"]], speedBoost=3, actionBoost=2)
+    "Leathers of the Wind" : Equip("Leathers of the Wind", 0, 10, [acs["Hasten"]], speedBoost=2, actionBoost=2, upgr=tier3Armors["Aetherial Robes"])
 }
 armors = {
     # Defensive
@@ -236,7 +244,7 @@ tier4Weps = {
     # Physical Melee
     "Excalibur" : Equip("Excalibur", 25, 30, [acs["Holy Blade"], acs["Divine Slash"], acs["Radiant Pulse"], acs["Divine Intervention"], traits["Holy Radiance"], traits["Excalibur"]], speedBoost=1),
     "Mjolnir" : Equip("Mjolnir", 40, 40, [acs["Storm Swing"], acs["Lightning Slam"], acs["Shockwave"], acs["Superstorm"], traits["Repel"], traits["Excalibur"]]),
-
+    "Aetheryte" : Equip("Aetheryte", 40, 30, [acs["Aetherial Lance"], acs["Cloud Whirl"], acs["Spatial Thrust"], acs["Sky Call"], acs["Void Phase"]], actionBoost=1),
     "Dawnbreaker" : Equip("Dawnbreaker", 36, 60, [acs["Dawn Strike"], acs["Radiant Rush"], acs["High Noon"], acs["Twilight"], traits["Holy Radiance"], traits["Chain Reduction"]])
 
     # Physical Ranged
@@ -247,7 +255,7 @@ tier3Weps = {
     # Physical Melee
     "Vorpal Sword" : Equip("Vorpal Sword", 20, 10, [acs["Decapitate"], acs["Bloodwave"], acs["Bloodwhirl"]], speedBoost=1, upgr=(tier4Weps["Excalibur"], tier3Accs["Radiant Crown"])),
     "Gaian Maul" : Equip("Gaian Maul", 20, 20, [acs["Stone Swing"], acs["Terran Crush"], acs["Earthwake"]], upgr=(tier4Weps["Mjolnir"], tier3Armors["Stormwrath Mail"])),
-    "Dragonlance" : Equip("Dragonlance", 20, 10, [acs["Dragon's Arm"], acs["Dragon's Tail"], acs["Dragon's Breath"], acs["Dragon's Wings"]], actionBoost=1),
+    "Dragonlance" : Equip("Dragonlance", 20, 10, [acs["Dragon's Arm"], acs["Dragon's Tail"], acs["Dragon's Breath"], acs["Dragon's Wings"]], actionBoost=1, upgr=(tier4Weps["Aetheryte"], tier3Armors["Aetherial Robes"])),
     "Regal Flail" : Equip("Regal Flail", 18, 40, [acs["Royal Strike"], acs["Total Authority"], acs["Kingkiller"]], upgr=(tier4Weps["Dawnbreaker"], tier3Offs["Palace Shield"])),
 
     # Physical Ranged
@@ -309,7 +317,7 @@ enemWeps = {
 # Set slots
 for item in utils.merge(weps.values(), tier2Weps.values(), tier3Weps.values(), tier4Weps.values(), enemWeps.values()):
     item.slot = "Mainhand"
-for item in utils.merge(armors.values(), tier2Armors.values(), tier3Offs.values(), enemArmrs.values()):
+for item in utils.merge(armors.values(), tier2Armors.values(), tier3Armors.values(), enemArmrs.values()):
     item.slot = "Armor"
 for item in utils.merge(offs.values(), tier2Offs.values(), tier3Offs.values()):
     item.slot = "Offhand"

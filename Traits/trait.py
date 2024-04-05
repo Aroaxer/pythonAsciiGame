@@ -334,6 +334,9 @@ class Trait():
                 equipment.traits[3].length += 2
 
             # Utility (Passive)
+            case "Momentum":
+                if target.hp <= 0:
+                    user.actionsLeft += 1
 
             # Misc
             case "Repel" | "Damage Repel":

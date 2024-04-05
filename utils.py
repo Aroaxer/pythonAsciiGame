@@ -43,6 +43,7 @@ def promptRegEx(prompt, regEx):
         found = re.search(regEx, choice)
         if found != None and found.group() == choice:
             break
+        print("Invalid format")
 
     return choice
 
@@ -53,11 +54,15 @@ def promptCoords(prompt, game, source, cantBeEnemy):
     coords = None
     while True:
 
-        choice = promptRegEx(None, "\([0-9]+, *[0-9]+\)")
+        choice = promptRegEx(None, "\(?[0-9]+, *[0-9]+\)?")
         coords = re.findall("[0-9]+", choice)
 
         for i, entry in enumerate(coords):
             coords[i] = int(entry)
+
+        if not(coords[0] in range(1, game.encounter.width + 1) and coords[1] in range(1, game.encounter.height + 1)):
+            print("Point outside map")
+            continue
 
         if not (coords and max(abs(source[1] - coords[0]), abs(source[2] - coords[1])) <= source[0]):
             print("Point out of range")
@@ -87,6 +92,6 @@ def promptMultipleIds(prompt, options, count):
 
     while len(ids) != count:
         choice = promptRegEx(None, "[0-9]+(, *[0-9]+)*")
-        ids = re.findall("[0-9]+", choice)
+        ids = merge(ids, re.findall("[0-9]+", choice))
 
     return ids
