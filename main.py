@@ -1,5 +1,4 @@
 import math
-import random
 
 from Entities.Characters.character import Character
 from Entities.Characters.enemy import Enemy

@@ -64,15 +64,30 @@ acs = {
     "Flame Arrows" : Action("Flame Arrows", "0.5x Damage", "Multi 3", range=4),
     "Frost Arrow" : Action("Frost Arrow", "1x Damage", "Directional", width=3, length=5),
     "Shock Arrow" : Action("Shock Arrow", "1.5x Damage", range=6),
+        # Tsunami
+    "Tidesplinter" : Action("Tidesplinter", "0.5x Damage", "Multi 4", range=5),
+    "Tidal Wave" : Action("Tidal Wave", "1x Damage", "Directional", width=5,length=9),
+    "Whirlpool" : Action("Whirlpool", "Damage Repel 3", "Centered", width=5),
+    "Surf" : Action("Surf", "Charge", "Point No Enemy", range=5, width=3),
         # Crystal Arbalest
     "Shard Blast" : Action("Shard Blast", "1x Damage", "Directional", width=3, length=3),
     "Shardlance" : Action("Shardlance", "1x Damage", "Directional", length=7),
     "Condense" : Action("Condense", "Condense", "Self"),
     "Crystal Rain" : Action("Crystal Rain", "Crystal Rain", "Point", maxCharges=1, recharge="Never", range=5),
+        # Skypiercer
+    "Cloudburst" : Action("Cloudburst", "1x Damage", "Directional", width=3, length=5),
+    "Starspear" : Action("Starspear", "1.5x Damage", "Directional", length=15),
+    "Accumulate" : Action("Accumulate", "Condense", "Self"),
+    "Skyfall" : Action("Skyfall", "Crystal Rain", "Point", maxCharges=1, recharge="Never", range=10),
         # Thunderbolt
     "Thunderstrike" : Action("Thunderstrike", "Damage Repel 1", range=3),
-    "Shockwave" : Action("Shockwave", "Damage Repel 1", "Centered", width=3, length=3),
+    "Shockwave" : Action("Shockwave", "Damage Repel 1", "Centered", width=3),
     "Living Deity" : Action("Living Deity", "Living Deity", "Self", maxCharges=1, recharge="Never"),
+        # Surpremacy
+    "Power" : Action("Power", "1.5x Damage", range=4),
+    "Command" : Action("Command", "Damage Repel 2", "Centered", width=5),
+    "Destroy" : Action("Destroy", "Damage Repel 1", "Directional", width=3, length=5),
+    "Embodiment" : Action("Embodiment", "Living Deity", "Self", maxCharges=1, recharge="Never"),
 
     # Magical
     "Firebolt" : Action("Firebolt", "1x Damage", maxCharges=1, range=3),
@@ -131,7 +146,10 @@ traits = {
     "Momentum" : Trait("Momentum", "Attack", "Momentum"),
     "Holy Radiance" : Trait("Holy Radiance", "Turn", "Holy Radiance", "Centered", width=7),
     "Excalibur" : Trait("Excalibur", "Attack", "Excalibur", width=3),
-    "Mjolnir" : Trait("Mjolnir", "After Damage", "Mjolnir", "Self")
+    "Mjolnir" : Trait("Mjolnir", "After Damage", "Mjolnir", "Self"),
+    "Coating" : Trait("Coating", "Attack", "1x Damage"),
+    "Knockback" : Trait("Knockback", "Attack", "Repel 1"),
+    "Embodiment" : Trait("Embodiment", "Attack", "Embodiment")
 }
 
 # Equips
@@ -140,6 +158,7 @@ traits = {
 # Other Helds
 tier3Offs = {
     # Offensive
+    "Oceanic Coating" : Equip("Oceanic Coating", 10, 0, [traits["Coating"], traits["Knockback"], traits["Knockback"]]),
 
     # Defensive
     "Palace Shield" : Equip("Palace Shield", 0, 75, [acs["Fortify"], acs["Repel"], acs["Palace Toggle"], traits["Chain Reduction"]], specialTags={"Palace" : False})
@@ -151,6 +170,7 @@ tier2Offs = {
     "Ritual Blade" : Equip("Ritual Blade", 8, 0, [acs["Ritual Stab"], acs["Pull"]]),
     "Chain Hooks" : Equip("Chain Hooks", 3, 0, [acs["Double Hook"]]),
     "Shrouded Dagger" : Equip("Shrouded Dagger", 5, 0, [acs["Toss"], acs["Parry"]]),
+    "Forceful Coating" : Equip("Forceful Coating", 5, 0, [traits["Coating"], traits["Knockback"]], upgr=tier3Offs["Oceanic Coating"]),
 
     # Defensive
     "Crystal Shield" : Equip("Crystal Shield", 2, 30, [acs["Block"], traits["Spikes"]]),
@@ -164,6 +184,7 @@ offs = {
     "Ritual Dagger" : Equip("Ritual Dagger", 4, 0, [acs["Ritual Stab"]], upgr=tier2Offs["Ritual Blade"]),
     "Rope Hook" : Equip("Rope Hook", 1, 0, [acs["Damage Pull"]], upgr=tier2Offs["Chain Hooks"]),
     "Kunai" : Equip("Kunai", 2, 0, [acs["Toss"]], upgr=tier2Offs["Shrouded Dagger"]),
+    "Weapon Coating" : Equip("Weapon Coating", 2, 0, [traits["Coating"]], upgr=tier2Offs["Forceful Coating"]),
 
     # Defensive
     "Kite Shield" : Equip("Kite Shield", 0, 20, [acs["Block"]], speedBoost=1, upgr=tier2Offs["Crystal Shield"]),
@@ -211,9 +232,10 @@ enemArmrs = {
 tier3Accs = {
     # Defensive
     "Fortress Necklace" : Equip("Fortress Necklace", 0, 50, [acs["Walking Fortress"], traits["Chain Reduction"]]),
-    "Radiant Crown" : Equip("Radiant Crown", 8, 30, [traits["Holy Radiance"]], speedBoost=1)
+    "Radiant Crown" : Equip("Radiant Crown", 8, 30, [traits["Holy Radiance"]], speedBoost=1),
 
     # Utility
+    "Aerial Gauntlets" : Equip("Aerial Gauntlets", 0, 10, [acs["Shove"], acs["Teleport"], traits["Repel"], traits["Repel"]], speedBoost=3, actionBoost=1)
 }
 tier2Accs = {
     # Defensive
@@ -223,7 +245,6 @@ tier2Accs = {
     # Utility
     "Lightspeed Amulet" : Equip("Lightspeed Amulet", 0, 0, [acs["Hasten"]], speedBoost=2, actionBoost=1),
     "Repelling Gloves" : Equip("Repelling Gloves", 0, 5, [acs["Shove"], traits["Repel"]], speedBoost=2)
-
 }
 accs = {
     # Defensive
@@ -233,21 +254,21 @@ accs = {
     # Utility
     "Hastening Amulet" : Equip("Hastening Amulet", 0, 0, actionBoost=1, upgr=tier2Accs["Lightspeed Amulet"]),
     "Shoving Gauntlets" : Equip("Shoving Gauntlets", 0, 0, [acs["Shove"]], speedBoost=1, upgr=tier2Accs["Repelling Gloves"])
-
-    # Offensive
-
 }
 
-# Tier 3/4 weapons generally have something special
+# Tier 3/4 weapons generally have a special gimmick
 # Tier 4 weapons require an extra tier 3 item
 tier4Weps = {
     # Physical Melee
     "Excalibur" : Equip("Excalibur", 25, 30, [acs["Holy Blade"], acs["Divine Slash"], acs["Radiant Pulse"], acs["Divine Intervention"], traits["Holy Radiance"], traits["Excalibur"]], speedBoost=1),
     "Mjolnir" : Equip("Mjolnir", 40, 40, [acs["Storm Swing"], acs["Lightning Slam"], acs["Shockwave"], acs["Superstorm"], traits["Repel"], traits["Mjolnir"]]),
     "Aetheryte" : Equip("Aetheryte", 40, 30, [acs["Aetherial Lance"], acs["Cloud Whirl"], acs["Spatial Thrust"], acs["Sky Call"], acs["Void Phase"]], actionBoost=1),
-    "Dawnbreaker" : Equip("Dawnbreaker", 36, 60, [acs["Dawn Strike"], acs["Radiant Rush"], acs["High Noon"], acs["Twilight"], traits["Holy Radiance"], traits["Chain Reduction"]])
+    "Dawnbreaker" : Equip("Dawnbreaker", 36, 60, [acs["Dawn Strike"], acs["Radiant Rush"], acs["High Noon"], acs["Twilight"], traits["Holy Radiance"], traits["Chain Reduction"]]),
 
     # Physical Ranged
+    "Tsunami" :  Equip("Tsunami", 32, 10, [acs["Tidesplinter"], acs["Tidal Wave"], acs["Whirlpool"], acs["Surf"]], speedBoost=1),
+    "Skypiercer" : Equip("Skypiercer", 32, 10, [acs["Cloudburst"], acs["Starspear"], acs["Accumulate"], acs["Skyfall"]]),
+    "Surpremacy" : Equip("Surpremacy", 30, 40, [acs["Power"], acs["Command"], acs["Destroy"], acs["Embodiment"], traits["Embodiment"]], speedBoost=2)
 
     # Magical Ranged
 }
@@ -259,9 +280,9 @@ tier3Weps = {
     "Regal Flail" : Equip("Regal Flail", 18, 40, [acs["Royal Strike"], acs["Total Authority"], acs["Kingkiller"]], upgr=(tier4Weps["Dawnbreaker"], tier3Offs["Palace Shield"])),
 
     # Physical Ranged
-    "Trinity Bow" : Equip("Trinity Bow", 16, 0, [acs["Flame Arrows"], acs["Frost Arrow"], acs["Shock Arrow"]]),
-    "Crystal Arbalest" : Equip("Crystal Arbalest", 16, 0, [acs["Shard Blast"], acs["Shardlance"], acs["Condense"], acs["Crystal Rain"]]),
-    "Thunderbolt" : Equip("Thunderbolt", 15, 25, [acs["Thunderstrike"], acs["Shockwave"], acs["Living Deity"], traits["Charge Deity"]], speedBoost=1),
+    "Trinity Bow" : Equip("Trinity Bow", 16, 0, [acs["Flame Arrows"], acs["Frost Arrow"], acs["Shock Arrow"]], upgr=(tier4Weps["Tsunami"], tier3Offs["Oceanic Coating"])),
+    "Crystal Arbalest" : Equip("Crystal Arbalest", 16, 0, [acs["Shard Blast"], acs["Shardlance"], acs["Condense"], acs["Crystal Rain"]], upgr=(tier4Weps["Skypiercer"], tier3Accs["Aerial Gauntlets"])),
+    "Thunderbolt" : Equip("Thunderbolt", 15, 25, [acs["Thunderstrike"], acs["Shockwave"], acs["Living Deity"], traits["Charge Deity"]], speedBoost=1, upgr=(tier4Weps["Surpremacy"], tier3Accs["Fortress Necklace"])),
 
     # Magical Ranged
     "Volcanic Staff" : Equip("Volcanic Staff", 16, 0, [acs["Flamestone"], acs["Meteor"], acs["Firestorm"], acs["Eruption"]]),

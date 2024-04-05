@@ -362,10 +362,14 @@ class Trait():
                     user.tempDamageModifier = 0
             case "Charge Deity":
                 if target.hp <= 0:
-                    equipment.traits[2].charges += 0.2
+                    equipment.traits[2].charges += 0.1
             case "Living Deity":
                 user.hp += 1
                 user.actionsLeft += 5
+            
+            case "Embodiment":
+                if target.hp <= 0:
+                    equipment.traits[3].charges += 0.2
             
             case "Palace Toggle":
                 equipment.specialTags["Palace"] = not equipment.specialTags["Palace"]
