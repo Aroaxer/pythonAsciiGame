@@ -62,9 +62,6 @@ class Game():
         self.allObjects = []
         self.player = self.startPlayer()
         self.getLoot(10)
-        self.getLoot(0)
-        self.getLoot(0)
-        self.getLoot(0)
 
     def beginLoop(self):
         self.startNewEncounter()
