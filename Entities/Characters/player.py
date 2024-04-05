@@ -74,9 +74,16 @@ class Player(Character):
         itemNames = []
         for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try:
-                if slot.upgradedForm:
+                if slot.upgradedForm and type(slot.upgradedForm) != tuple:
                     items.append(slot)
                     itemNames.append(slot.name)
+                else:
+                    for compareSlot in (self.mainhand, self.offhand, self.armor, self.accessory):
+                        try:
+                            if slot.upgradedForm[1].name == compareSlot.name:
+                                items.append(slot)
+                                itemNames.append(slot.name)
+                        except (AttributeError, TypeError): pass
             except AttributeError: pass
 
         choice = items[utils.promptChoice("Which item would you like to upgrade?", itemNames)]

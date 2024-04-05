@@ -17,6 +17,11 @@ acs = {
     "Decapitate" : Action("Decapitate", "Decapitate"),
     "Bloodwave" : Action("Bloodwave", "1x Damage", "Directional", maxCharges=5, recharge="Never", width=3, length=5),
     "Bloodwhirl" : Action("Bloodwhirl", "1x Damage", "Centered", maxCharges=5, recharge="Never", width=5),
+        # Excalibur
+    "Holy Blade" : Action("Holy Blade", "1x Damage"),
+    "Divine Slash" : Action("Divine Slash", "1x Damage", "Directional", maxCharges=10, recharge="Never", width=5, length=7),
+    "Radiant Pulse" : Action("Radiant Pulse", "1x Damage", "Centered", maxCharges=10, recharge="Never", width=7),
+    "Divine Intervention" : Action("Divine Intervention", "Divine Intervention", maxCharges=1, recharge="Never", width=11),
         # Gaian Maul
     "Stone Swing" : Action("Stone Swing", "Damage Repel 1", "Directional", width=3),
     "Terran Crush" : Action("Terran Crush", "Damage Repel 2", "Directional", maxCharges=2, width=3, length=3),
@@ -84,7 +89,9 @@ acs = {
     "Block" : Action("Block", "Block", "Self"),
     "Parry" : Action("Parry", "Parry", "Self", maxCharges=3, recharge="Encounter", freeAction=True),
     "Repel" : Action("Repel", "Repel 1", "Centered", maxCharges=1, rechargePercent=0.5, width=5, freeAction=True),
-    "Arcane Shield" : Action("Arcane Shield", "Invuln", "Self", maxCharges=2, recharge="Encounter", rechargePercent=0.5)
+    "Arcane Shield" : Action("Arcane Shield", "Invuln", "Self", maxCharges=2, recharge="Encounter", rechargePercent=0.5),
+        # T3 Accessories
+    "Walking Fortress" : Action("Walking Fortress", "Repel 1", "Centered", maxCharges=3, recharge="Encounter", width=5)
 }
 
 enemAcs = {
@@ -102,73 +109,13 @@ traits = {
     "Repel" : Trait("Repel", "After Damage", "Repel 1"),
     "Regenerate" : Trait("Regenerate", "Turn", "Regenerate"),
     "Chain Reduction" : Trait("Chain Reduction", "Before Damage", "Minor Block"),
-    "Charge Deity" : Trait("Charge Deity", "Attack", "Charge Deity", "Copy Target")
+    "Charge Deity" : Trait("Charge Deity", "Attack", "Charge Deity"),
+    "Holy Radiance" : Trait("Holy Radiance", "Turn", "Holy Radiance", "Centered", width=7),
+    "Excalibur" : Trait("Excalibur", "Attack", "Excalibur", width=3)
 }
 
 # Equips
 # This must be defined in this order
-# Tier 3 weapons generally have something special
-tier3Weps = {
-    # Physical Melee
-    "Vorpal Sword" : Equip("Vorpal Sword", 20, 0, [acs["Decapitate"], acs["Bloodwave"], acs["Bloodwhirl"]], speedBoost=1),
-    "Gaian Maul" : Equip("Gaian Maul", 20, 10, [acs["Stone Swing"], acs["Terran Crush"], acs["Earthwake"]]),
-    "Dragonlance" : Equip("Dragonlance", 20, 0, [acs["Dragon's Arm"], acs["Dragon's Tail"], acs["Dragon's Breath"], acs["Dragon's Wings"]], actionBoost=1),
-    "Regal Flail" : Equip("Regal Flail", 18, 40, [acs["Royal Strike"], acs["Total Authority"], acs["Kingkiller"]]),
-
-    # Physical Ranged
-    "Trinity Bow" : Equip("Trinity Bow", 16, 0, [acs["Flame Arrows"], acs["Frost Arrow"], acs["Shock Arrow"]]),
-    "Crystal Arbalest" : Equip("Crystal Arbalest", 16, 0, [acs["Shard Blast"], acs["Shardlance"], acs["Condense"], acs["Crystal Rain"]]),
-    "Thunderbolt" : Equip("Thunderbolt", 15, 25, [acs["Thunderstrike"], acs["Shockwave"], acs["Living Deity"], traits["Charge Deity"]], speedBoost=1),
-
-    # Magical Ranged
-    "Volcanic Staff" : Equip("Volcanic Staff", 16, 0, [acs["Flamestone"], acs["Meteor"], acs["Firestorm"], acs["Eruption"]]),
-    "Lich's Cane" : Equip("Lich's Cane", 16, 0, [acs["Draining Rays"], acs["Arcane Lance"], acs["Power Word Kill"]])
-}
-tier2Weps = {
-    # Physical Melee
-    "Wind Blade" : Equip("Wind Blade", 10, 0, [acs["Basic Attack"], acs["Slash"], acs["Whirl"]], upgr=tier3Weps["Vorpal Sword"]),
-    "Flamehammer" : Equip("Flamehammer", 10, 0, [acs["Basic Attack"], acs["Slam"], acs["Fireball"]], upgr=tier3Weps["Gaian Maul"]),
-    "Runed Halberd" : Equip("Runed Halberd", 10, 0, [acs["Basic Attack"], acs["Impale"], acs["Slash"], acs["Firebolt"]], upgr=tier3Weps["Dragonlance"]),
-    "Defender Flail" : Equip("Defender Flail", 9, 20, [acs["Basic Attack"], acs["Charge"], acs["Parry"]], upgr=tier3Weps["Regal Flail"]),
-
-    # Physical Ranged
-    "Twinshot Bow" : Equip("Twinshot Bow", 8, 0, [acs["Twin Shot"], acs["Pierce"], acs["Shove"]], upgr=tier3Weps["Trinity Bow"]),
-    "Handheld Ballista" : Equip("Handheld Ballista", 8, 0, [acs["Basic Shot"], acs["Shatterwave"]], upgr=tier3Weps["Crystal Arbalest"]),
-    "Storm Spear" : Equip("Storm Spear", 7, 15, [acs["Throw"], acs["Impale"], acs["Call Lightning"]], upgr=tier3Weps["Thunderbolt"]),
-
-    # Magical Ranged
-    "Inferno Cane" : Equip("Inferno Cane", 8, 0, [acs["Enhanced Firebolt"], acs["Fireball"], acs["Flamethrower"]], upgr=tier3Weps["Volcanic Staff"]),
-    "Archmage Rod" : Equip("Archmage Rod", 8, 0, [acs["Arcane Rays"], acs["Magic Missiles"], acs["Arcane Shield"]], upgr=tier3Weps["Lich's Cane"])
-}
-weps = {
-    # Physical Melee
-    "Sword" : Equip("Sword", 5, 0, [acs["Basic Attack"], acs["Slash"]], upgr=tier2Weps["Wind Blade"]),
-    "Hammer" : Equip("Hammer", 5, 0, [acs["Basic Attack"], acs["Slam"]], upgr=tier2Weps["Flamehammer"]),
-    "Spear" : Equip("Spear", 5, 0, [acs["Basic Attack"], acs["Impale"]], upgr=tier2Weps["Runed Halberd"]),
-    "Mace" : Equip("Mace", 4, 10, [acs["Basic Attack"], acs["Charge"]], upgr=tier2Weps["Defender Flail"]),
-
-    # Physical Ranged
-    "Bow" : Equip("Bow", 4, 0, [acs["Basic Shot"], acs["Pierce"]], upgr=tier2Weps["Twinshot Bow"]),
-    "Crossbow" : Equip("Crossbow", 4, 0, [acs["Basic Shot"], acs["Shatter"]], upgr=tier2Weps["Handheld Ballista"]),
-    "Javelin" : Equip("Javelin", 4, 5, [acs["Throw"], acs["Impale"]], upgr=tier2Weps["Storm Spear"]),
-
-    # Magical Ranged
-    "Fire Staff" : Equip("Fire Staff", 4, 0, [acs["Firebolt"], acs["Fireball"]], upgr=tier2Weps["Inferno Cane"]),
-    "Arcane Staff" : Equip("Arcane Staff", 4, 0, [acs["Arcane Rays"], acs["Magic Missiles"]], upgr=tier2Weps["Archmage Rod"])
-}
-
-enemWeps = {
-    "Weak Melee" : Equip("Weak Melee", 2, 0, [enemAcs["Melee"]]),
-    "Weak Ranged" : Equip("Weak Ranged", 1, 0, [enemAcs["Ranged"]]),
-    "Weak Magic" : Equip("Weak Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
-
-    "Medium Melee" : Equip("Medium Melee", 3, 0, [enemAcs["Melee"]]),
-    "Medium Ranged" : Equip("Medium Ranged", 2, 0, [enemAcs["Ranged"]]),
-    "Medium Magic" : Equip("Medium Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
-
-    # Special
-    "Crystal Heart" : Equip("Crystal Heart", 2, 20, [enemAcs["Call"], enemAcs["Beam"]])
-}
 
 # Other Helds
 tier2Offs = {
@@ -226,9 +173,17 @@ enemArmrs = {
 }
 
 # Accesories
+tier3Accs = {
+    # Defensive
+    "Fortress Necklace" : Equip("Fortress Necklace", 0, 50, [acs["Walking Fortress"], traits["Chain Reduction"]]),
+    "Radiant Crown" : Equip("Radiant Crown", 8, 30, [traits["Holy Radiance"]], speedBoost=1)
+
+    # Utility
+}
 tier2Accs = {
     # Defensive
-    "Barrier Necklace" : Equip("Barrier Necklace", 0, 10, [acs["Arcane Shield"], traits["Chain Reduction"]]),
+    "Barrier Necklace" : Equip("Barrier Necklace", 0, 30, [acs["Arcane Shield"], traits["Chain Reduction"]], upgr=tier3Accs["Fortress Necklace"]),
+    "Holy Circlet" : Equip("Holy Circlet", 0, 20, [traits["Regenerate"]], upgr=tier3Accs["Radiant Crown"]),
 
     # Utility
     "Lightspeed Amulet" : Equip("Lightspeed Amulet", 0, 0, [acs["Hasten"]], speedBoost=2, actionBoost=1),
@@ -237,7 +192,8 @@ tier2Accs = {
 }
 accs = {
     # Defensive
-    "Brooch of Shielding" : Equip("Brooch of Shielding", 0, 5, [acs["Arcane Shield"]], upgr=tier2Accs["Barrier Necklace"]),
+    "Brooch of Shielding" : Equip("Brooch of Shielding", 0, 15, [acs["Arcane Shield"]], upgr=tier2Accs["Barrier Necklace"]),
+    "Healing Wreath" : Equip("Healing Wreath", 0, 10, [traits["Regenerate"]], upgr=tier2Accs["Holy Circlet"]),
 
     # Utility
     "Hastening Amulet" : Equip("Hastening Amulet", 0, 0, actionBoost=1, upgr=tier2Accs["Lightspeed Amulet"]),
@@ -247,14 +203,87 @@ accs = {
 
 }
 
+# Tier 3/4 weapons generally have something special
+# Tier 4 weapons require an extra tier 3 item
+tier4Weps = {
+    # Physical Melee
+    "Excalibur" : Equip("Excalibur", 20, 30, [acs["Holy Blade"], acs["Divine Slash"], acs["Radiant Pulse"], acs["Divine Intervention"], traits["Holy Radiance"], traits["Excalibur"]])
+
+    # Physical Ranged
+
+    # Magical Ranged
+}
+tier3Weps = {
+    # Physical Melee
+    "Vorpal Sword" : Equip("Vorpal Sword", 20, 10, [acs["Decapitate"], acs["Bloodwave"], acs["Bloodwhirl"]], speedBoost=1, upgr=(tier4Weps["Excalibur"], tier3Accs["Radiant Crown"])),
+    "Gaian Maul" : Equip("Gaian Maul", 20, 20, [acs["Stone Swing"], acs["Terran Crush"], acs["Earthwake"]]),
+    "Dragonlance" : Equip("Dragonlance", 20, 10, [acs["Dragon's Arm"], acs["Dragon's Tail"], acs["Dragon's Breath"], acs["Dragon's Wings"]], actionBoost=1),
+    "Regal Flail" : Equip("Regal Flail", 18, 40, [acs["Royal Strike"], acs["Total Authority"], acs["Kingkiller"]]),
+
+    # Physical Ranged
+    "Trinity Bow" : Equip("Trinity Bow", 16, 0, [acs["Flame Arrows"], acs["Frost Arrow"], acs["Shock Arrow"]]),
+    "Crystal Arbalest" : Equip("Crystal Arbalest", 16, 0, [acs["Shard Blast"], acs["Shardlance"], acs["Condense"], acs["Crystal Rain"]]),
+    "Thunderbolt" : Equip("Thunderbolt", 15, 25, [acs["Thunderstrike"], acs["Shockwave"], acs["Living Deity"], traits["Charge Deity"]], speedBoost=1),
+
+    # Magical Ranged
+    "Volcanic Staff" : Equip("Volcanic Staff", 16, 0, [acs["Flamestone"], acs["Meteor"], acs["Firestorm"], acs["Eruption"]]),
+    "Lich's Cane" : Equip("Lich's Cane", 16, 0, [acs["Draining Rays"], acs["Arcane Lance"], acs["Power Word Kill"]])
+}
+tier2Weps = {
+    # Physical Melee
+    "Wind Blade" : Equip("Wind Blade", 10, 10, [acs["Basic Attack"], acs["Slash"], acs["Whirl"]], upgr=tier3Weps["Vorpal Sword"]),
+    "Flamehammer" : Equip("Flamehammer", 10, 10, [acs["Basic Attack"], acs["Slam"], acs["Fireball"]], upgr=tier3Weps["Gaian Maul"]),
+    "Runed Halberd" : Equip("Runed Halberd", 10, 10, [acs["Basic Attack"], acs["Impale"], acs["Slash"], acs["Firebolt"]], upgr=tier3Weps["Dragonlance"]),
+    "Defender Flail" : Equip("Defender Flail", 9, 30, [acs["Basic Attack"], acs["Charge"], acs["Parry"]], upgr=tier3Weps["Regal Flail"]),
+
+    # Physical Ranged
+    "Twinshot Bow" : Equip("Twinshot Bow", 8, 0, [acs["Twin Shot"], acs["Pierce"], acs["Shove"]], upgr=tier3Weps["Trinity Bow"]),
+    "Handheld Ballista" : Equip("Handheld Ballista", 8, 0, [acs["Basic Shot"], acs["Shatterwave"]], upgr=tier3Weps["Crystal Arbalest"]),
+    "Storm Spear" : Equip("Storm Spear", 7, 15, [acs["Throw"], acs["Impale"], acs["Call Lightning"]], upgr=tier3Weps["Thunderbolt"]),
+
+    # Magical Ranged
+    "Inferno Cane" : Equip("Inferno Cane", 8, 0, [acs["Enhanced Firebolt"], acs["Fireball"], acs["Flamethrower"]], upgr=tier3Weps["Volcanic Staff"]),
+    "Archmage Rod" : Equip("Archmage Rod", 8, 0, [acs["Arcane Rays"], acs["Magic Missiles"], acs["Arcane Shield"]], upgr=tier3Weps["Lich's Cane"])
+}
+weps = {
+    # Physical Melee
+    "Sword" : Equip("Sword", 5, 10, [acs["Basic Attack"], acs["Slash"]], upgr=tier2Weps["Wind Blade"]),
+    "Hammer" : Equip("Hammer", 5, 10, [acs["Basic Attack"], acs["Slam"]], upgr=tier2Weps["Flamehammer"]),
+    "Spear" : Equip("Spear", 5, 10, [acs["Basic Attack"], acs["Impale"]], upgr=tier2Weps["Runed Halberd"]),
+    "Mace" : Equip("Mace", 4, 20, [acs["Basic Attack"], acs["Charge"]], upgr=tier2Weps["Defender Flail"]),
+
+    # Physical Ranged
+    "Bow" : Equip("Bow", 4, 0, [acs["Basic Shot"], acs["Pierce"]], upgr=tier2Weps["Twinshot Bow"]),
+    "Crossbow" : Equip("Crossbow", 4, 0, [acs["Basic Shot"], acs["Shatter"]], upgr=tier2Weps["Handheld Ballista"]),
+    "Javelin" : Equip("Javelin", 4, 5, [acs["Throw"], acs["Impale"]], upgr=tier2Weps["Storm Spear"]),
+
+    # Magical Ranged
+    "Fire Staff" : Equip("Fire Staff", 4, 0, [acs["Firebolt"], acs["Fireball"]], upgr=tier2Weps["Inferno Cane"]),
+    "Arcane Staff" : Equip("Arcane Staff", 4, 0, [acs["Arcane Rays"], acs["Magic Missiles"]], upgr=tier2Weps["Archmage Rod"])
+}
+
+enemWeps = {
+    "Weak Melee" : Equip("Weak Melee", 2, 0, [enemAcs["Melee"]]),
+    "Weak Ranged" : Equip("Weak Ranged", 1, 0, [enemAcs["Ranged"]]),
+    "Weak Magic" : Equip("Weak Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
+
+    "Medium Melee" : Equip("Medium Melee", 3, 0, [enemAcs["Melee"]]),
+    "Medium Ranged" : Equip("Medium Ranged", 2, 0, [enemAcs["Ranged"]]),
+    "Medium Magic" : Equip("Medium Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
+
+    # Special
+    "Crystal Heart" : Equip("Crystal Heart", 2, 20, [enemAcs["Call"], enemAcs["Beam"]])
+}
+
+
 # Set slots
-for item in utils.merge(weps.values(), tier2Weps.values(), tier3Weps.values(), enemWeps.values()):
+for item in utils.merge(weps.values(), tier2Weps.values(), tier3Weps.values(), tier4Weps.values(), enemWeps.values()):
     item.slot = "Mainhand"
 for item in utils.merge(armors.values(), tier2Armors.values(), enemArmrs.values()):
     item.slot = "Armor"
 for item in utils.merge(offs.values(), tier2Offs.values()):
     item.slot = "Offhand"
-for item in utils.merge(accs.values(), tier2Accs.values(), enemAcs.values()):
+for item in utils.merge(accs.values(), tier2Accs.values(), tier3Accs.values(), enemAcs.values()):
     item.slot = "Accessory"
 
 # Loot Pools

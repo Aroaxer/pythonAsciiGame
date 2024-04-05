@@ -5,6 +5,7 @@ from Items.item import Item
 
 class Equippable(Item):
     user = None
+    canUpgrade = False
     extraActions = 0
     extraSpeed = 0
 
@@ -28,6 +29,8 @@ class Equippable(Item):
         self.damage = damage
         self.defense = defense
         self.upgradedForm = upgr
+        if upgr and type(upgr) != tuple:
+            self.canUpgrade = True
         super().__init__(name)
 
     def upgrade(self):

@@ -156,6 +156,9 @@ class Character(Object):
         if shouldTriggerTraits: self.activateAllTraits("After Damage", game, source)
 
     def putOn(self, item):
+        if type(item) == tuple:
+            item = item[0]
+
         item = copy.deepcopy(item)
         match item.slot:
                 case "Mainhand":

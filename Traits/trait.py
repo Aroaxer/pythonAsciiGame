@@ -69,7 +69,7 @@ class Trait():
         self.rechargePercent = rechargePercent
         
         # Things that should start with zero charges
-        if self.effectKey in {"Bloodwave", "Bloodwhirl", "Kingkiller", "Crystal Rain"}:
+        if self.name in {"Bloodwave", "Bloodwhirl", "Kingkiller", "Crystal Rain"}:
             self.charges = 0
 
         self.aiPrio = aiPrio
@@ -251,13 +251,13 @@ class Trait():
                 target.takeDamage(equipment.damage, user, game)
                 if target.hp <= 0:
                     equipment.traits[1].charges += 1
-                    equipment.traits[2].charges += 2
+                    equipment.traits[2].charges += 1
             case "Royal Strike":
                 target.takeDamage(equipment.damage, user, game)
                 user.tempDamageModifier *= 0.8
             case "Kingkiller":
                 user.move(game.encounter, game, target=(target.x, target.y), ignoreSpd = True)
-                target.takeDamage(equipment.damage * 1.5, user, game)
+                target.takeDamage(equipment.damage * 2, user, game)
                 # Become briefly invulnerable on kill
                 if target.hp <= 0:
                     user.tempDamageModifier = 0
@@ -293,6 +293,9 @@ class Trait():
                 target.hp += 0.2
             case "Minor Block":
                 target.tempDamageModifier *= 0.8
+            case "Holy Radiance":
+                target.takeDamage(equipment.damage / 4, user, game, False)
+                user.hp += 0.05
             
             # Utility (Active)
             case "Hasten":
@@ -339,12 +342,36 @@ class Trait():
                 # Enable Kingkiller
                 if self.name == "Total Authority":
                     equipment.traits[2].charges += 1
+
+                if self.name == "Walking Fortress":
+                    user.tempDamageModifier = 0
             case "Charge Deity":
                 if target.hp <= 0:
                     equipment.traits[2].charges += 0.2
             case "Living Deity":
                 user.hp += 1
                 user.actionsLeft += 5
+
+            # Exc Alt should never be directly used
+            case "Excalibur":
+                self.effectKey = "Exc Alt"
+
+                x1 = target.x - math.floor(self.width / 2)
+                y1 = target.y - math.floor(self.length / 2)
+
+                self.triggerOnRegion((x1, y1), (x1 + self.width - 1, y1 + self.length - 1), user, game, equipment, user.testEnem())
+
+                self.effectKey = "Excalibur"
+            case "Exc Alt":
+                target.takeDamage(equipment.damage * 0.5, user, game, False)
+                if target.hp <= 0:
+                    equipment.traits[1].charges += 0.5
+                    equipment.traits[2].charges += 0.5
+                    equipment.traits[3].charges += 0.1
+            case "Divine Intervention":
+                user.hp += user.maxHp / 4
+                user.actionsLeft += 3
+                user.tempDamageModifier = 0
 
             case _:
                 pass

@@ -62,6 +62,11 @@ class Game():
         self.allObjects = []
         self.player = self.startPlayer()
         self.getLoot(10)
+        self.getLoot(0)
+        self.getLoot(0)
+        self.getLoot(0)
+        self.getLoot(0)
+        self.getLoot(0)
 
     def beginLoop(self):
         self.startNewEncounter()
@@ -164,12 +169,12 @@ class Game():
     def advanceStage(self):
         self.player.hp = self.player.maxHp
         self.complEncsPerStage = 0
-        nextStage = None
-        while True:
-            nextStage = preS.stages[self.stage.stageOrder][random.randint(0, len(preS.stages[self.stage.stageOrder]) - 1)]
-            if len(nextStage.prevStages) == 0 or self.stage.name in nextStage.prevStages:
-                self.stage = nextStage
-                break
+        nextStages = [(stage, stage.name) for stage in preS.stages[self.stage.stageOrder] if self.stage.name in stage.prevStages or not len(stage.prevStages)]
+
+        if len(nextStages) > 1:    
+            self.stage = nextStages[utils.promptChoice("Which stage would you like to go to next?", [stage[1] for stage in nextStages])][0]
+        else:
+            self.stage = nextStages[0][0]
 
     def getLoot(self, amount):
         loot = utils.getXRandom(self.stage.lootPool, amount)
@@ -178,14 +183,25 @@ class Game():
         for item in loot:
             names.append(item.name)
 
-        upgrades = 0
+        upgradeable = False
         for slot in (self.player.mainhand, self.player.offhand, self.player.armor, self.player.accessory):
             try:
-                if slot.upgradedForm:
-                    upgrades += 1
+                if slot.upgradedForm and type(slot.upgradedForm) != tuple:
+                    upgradeable = True
+                    break
+                else:
+                    for compareSlot in (self.player.mainhand, self.player.offhand, self.player.armor, self.player.accessory):
+                        try:
+                            if slot.upgradedForm[1].name == compareSlot.name:
+                                upgradeable = True
+                                break
+                        except (AttributeError, TypeError): pass
+                    else:
+                        continue
+                    break
             except AttributeError: pass
 
-        if upgrades:
+        if upgradeable:
             names.append("Upgrade an Item")
 
         choice = utils.promptChoice("You found some loot!", names)
