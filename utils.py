@@ -46,14 +46,24 @@ def promptRegEx(prompt, regEx):
 
     return choice
 
-def promptCoords(prompt):
+# Source is (range, x, y)
+def promptCoords(prompt, game, source, cantBeEnemy):
     print(f"{prompt}\nEnter in format (x,y)")
 
-    choice = promptRegEx(None, "\([0-9]+, *[0-9]+\)")
-    coords = re.findall("[0-9]+", choice)
+    coords = None
+    while not (coords and max(abs(source[1] - coords[0]), abs(source[2] - coords[1])) <= source[0]):
 
-    for i, entry in enumerate(coords):
-        coords[i] = int(entry)
+        choice = promptRegEx(None, "\([0-9]+, *[0-9]+\)")
+        coords = re.findall("[0-9]+", choice)
+
+        for i, entry in enumerate(coords):
+            coords[i] = int(entry)
+
+        if cantBeEnemy:
+            for enemy in game.enemies:
+                if (enemy.x, enemy.y) == (coords[0], coords[1]):
+                    coords = None
+                    break
 
     return coords
 

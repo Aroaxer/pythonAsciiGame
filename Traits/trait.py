@@ -184,7 +184,7 @@ class Trait():
                     return ("Up", "Down", "Left", "Right")[target]
                 
                 case "Point" | "Point No Enemy":
-                    targetX, targetY = utils.promptCoords("What point would you like to target?")
+                    targetX, targetY = utils.promptCoords("What point would you like to target?", game, (self.range, user.x, user.y), (self.targeting == "Point No Enemy"))
                     return targetX, targetY
                 
                 case "Multi":
