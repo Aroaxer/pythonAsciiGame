@@ -102,10 +102,20 @@ acs = {
     "Meteor" : Action("Meteor", "1x Damage", "Point", maxCharges=1, range=5, width=3),
     "Firestorm" : Action("Firestorm", "Damage Repel 2", "Centered", maxCharges=3, recharge="Encounter", width=5),
     "Eruption" : Action("Eruption", "1.5x Damage", "Centered", maxCharges=1, recharge="Encounter", rechargePercent=0.25, width=9),
+        # Infernum
+    "Hellfire" : Action("Hellfire", "1.5x Damage", range=5),
+    "Call Flames" : Action("Call Flames", "1x Damage", "Point", maxCharges=3, range=7, width=5),
+    "Flamewave" : Action("Flamewave", "Damage Repel 2", "Centered", maxCharges=3, width=5),
+    "Inferno" : Action("Inferno", "1.5x Damage", "Centered", maxCharges=1, recharge="Encounter", rechargePercent=0.5, width=13),
         # Lich's Cane
     "Draining Rays" : Action("Draining Rays", "Draining Rays", "Multi 3", range=5),
     "Arcane Lance" : Action("Arcane Lance", "Damage Repel 4", maxCharges=1, range=4),
-    "Power Word Kill" : Action("Power Word Kill", "Power Word Kill", maxCharges=2, range=10),
+    "Power Word Kill" : Action("Power Word Kill", "Power Word Kill", maxCharges=1, range=10),
+        # Arcanaloth
+    "Life Drain" : Action("Life Drain", "Draining Rays", "Multi 4", range=7),
+    "Conjured Blade" : Action("Conjured Blade", "Damage Repel 2", "Directional", maxCharges=2, width=5, length=2),
+    "Conjured Spear" : Action("Conjured Spear", "Damage Repel 5", maxCharges=2, range=5),
+    "Obliterate" : Action("Obliterate", "Power Word Kill", "Point", maxCharges=1, range=15, width=3),
 
     # Utility
     "Hasten" : Action("Hasten", "Hasten", "Self", maxCharges=2, recharge="Encounter"),
@@ -147,7 +157,7 @@ traits = {
     "Holy Radiance" : Trait("Holy Radiance", "Turn", "Holy Radiance", "Centered", width=7),
     "Excalibur" : Trait("Excalibur", "Attack", "Excalibur", width=3),
     "Mjolnir" : Trait("Mjolnir", "After Damage", "Mjolnir", "Self"),
-    "Coating" : Trait("Coating", "Attack", "1x Damage"),
+    "Coating" : Trait("Coating", "Attack", "Spikes"),
     "Knockback" : Trait("Knockback", "Attack", "Repel 1"),
     "Embodiment" : Trait("Embodiment", "Attack", "Embodiment")
 }
@@ -161,9 +171,8 @@ tier3Offs = {
     "Oceanic Coating" : Equip("Oceanic Coating", 10, 0, [traits["Coating"], traits["Knockback"], traits["Knockback"]]),
 
     # Defensive
+    "Fiery Shield" : Equip("Fiery Shield", 5, 50, [acs["Fortify"], traits["Spikes"]]),
     "Palace Shield" : Equip("Palace Shield", 0, 75, [acs["Fortify"], acs["Repel"], acs["Palace Toggle"], traits["Chain Reduction"]], specialTags={"Palace" : False})
-
-    # Utility
 }
 tier2Offs = {
     # Offensive
@@ -175,9 +184,6 @@ tier2Offs = {
     # Defensive
     "Crystal Shield" : Equip("Crystal Shield", 2, 30, [acs["Block"], traits["Spikes"]]),
     "Castle Shield" : Equip("Castle Shield", 0, 50, [acs["Block"], acs["Repel"]], upgr=tier3Offs["Palace Shield"])
-
-    # Utility
-
 }
 offs = {
     # Offensive
@@ -189,9 +195,6 @@ offs = {
     # Defensive
     "Kite Shield" : Equip("Kite Shield", 0, 20, [acs["Block"]], speedBoost=1, upgr=tier2Offs["Crystal Shield"]),
     "Tower Shield" : Equip("Tower Shield", 0, 30, [acs["Block"]], upgr=tier2Offs["Castle Shield"])
-
-    # Utility
-    
 }
 
 # Armor
@@ -200,7 +203,8 @@ tier3Armors = {
     "Stormwrath Mail" : Equip("Stormwrath Mail", 10, 40, [traits["Spikes"], traits["Repel"], acs["Charge"]]),
 
     # Utility
-    "Aetherial Robes" : Equip("Aetherial Robes", 0, 20, [acs["Hasten"], traits["Momentum"]], speedBoost=3, actionBoost=2)
+    "Aetherial Robes" : Equip("Aetherial Robes", 0, 20, [acs["Hasten"], traits["Momentum"]], speedBoost=3, actionBoost=2),
+    "Enchanter's Robes" : Equip("Enchanter's Robes", 10, 20, [acs["Hasten"], traits["Coating"]], speedBoost=2, actionBoost=1)
 }
 tier2Armors = {
     # Defensive
@@ -209,7 +213,8 @@ tier2Armors = {
     "Titanic Plate" : Equip("Titanic Plate", 0, 60, [traits["Chain Reduction"]], speedBoost=-1),
 
     # Utility
-    "Leathers of the Wind" : Equip("Leathers of the Wind", 0, 10, [acs["Hasten"]], speedBoost=2, actionBoost=2, upgr=tier3Armors["Aetherial Robes"])
+    "Leathers of the Wind" : Equip("Leathers of the Wind", 0, 10, [acs["Hasten"]], speedBoost=2, actionBoost=2, upgr=tier3Armors["Aetherial Robes"]),
+    "Infusing Robes" : Equip("Infusing Robes", 5, 10, [traits["Coating"]], speedBoost=1)
 }
 armors = {
     # Defensive
@@ -218,7 +223,8 @@ armors = {
     "Heavy Plate" : Equip("Heavy Plate", 0, 40, [traits["Chain Reduction"]], speedBoost=-1, upgr=tier2Armors["Titanic Plate"]),
 
     # Utility
-    "Swift Leather" : Equip("Swift Leather", 0, 0, [], speedBoost=1, actionBoost=1, upgr=tier2Armors["Leathers of the Wind"])
+    "Swift Leather" : Equip("Swift Leather", 0, 0, [], speedBoost=1, actionBoost=1, upgr=tier2Armors["Leathers of the Wind"]),
+    "Channeling Robes" : Equip("Channeling Robes", 2, 0, [traits["Coating"]], upgr=tier2Armors["Infusing Robes"])
 }
 
 enemArmrs = {
@@ -268,9 +274,11 @@ tier4Weps = {
     # Physical Ranged
     "Tsunami" :  Equip("Tsunami", 32, 10, [acs["Tidesplinter"], acs["Tidal Wave"], acs["Whirlpool"], acs["Surf"]], speedBoost=1),
     "Skypiercer" : Equip("Skypiercer", 32, 10, [acs["Cloudburst"], acs["Starspear"], acs["Accumulate"], acs["Skyfall"]]),
-    "Surpremacy" : Equip("Surpremacy", 30, 40, [acs["Power"], acs["Command"], acs["Destroy"], acs["Embodiment"], traits["Embodiment"]], speedBoost=2)
+    "Surpremacy" : Equip("Surpremacy", 30, 40, [acs["Power"], acs["Command"], acs["Destroy"], acs["Embodiment"], traits["Embodiment"]], speedBoost=2),
 
     # Magical Ranged
+    "Infernum" : Equip("Infernum", 32, 0, [acs["Hellfire"], acs["Call Flames"], acs["Flamewave"], acs["Inferno"]], actionBoost=1),
+    "Arcanaloth" : Equip("Arcanaloth", 32, 0, [acs["Life Drain"], acs["Conjured Blade"], acs["Conjured Spear"], acs["Obliterate"]])
 }
 tier3Weps = {
     # Physical Melee
@@ -285,8 +293,8 @@ tier3Weps = {
     "Thunderbolt" : Equip("Thunderbolt", 15, 25, [acs["Thunderstrike"], acs["Shockwave"], acs["Living Deity"], traits["Charge Deity"]], speedBoost=1, upgr=(tier4Weps["Surpremacy"], tier3Accs["Fortress Necklace"])),
 
     # Magical Ranged
-    "Volcanic Staff" : Equip("Volcanic Staff", 16, 0, [acs["Flamestone"], acs["Meteor"], acs["Firestorm"], acs["Eruption"]]),
-    "Lich's Cane" : Equip("Lich's Cane", 16, 0, [acs["Draining Rays"], acs["Arcane Lance"], acs["Power Word Kill"]])
+    "Volcanic Staff" : Equip("Volcanic Staff", 16, 0, [acs["Flamestone"], acs["Meteor"], acs["Firestorm"], acs["Eruption"]], upgr=(tier4Weps["Infernum"], tier3Offs["Fiery Shield"])),
+    "Lich's Cane" : Equip("Lich's Cane", 16, 0, [acs["Draining Rays"], acs["Arcane Lance"], acs["Power Word Kill"]], upgr=(tier4Weps["Arcanaloth"], tier3Armors["Enchanter's Robes"]))
 }
 tier2Weps = {
     # Physical Melee
