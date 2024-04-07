@@ -281,12 +281,14 @@ class Enemy(Character):
             case "Active":
                 oldPlHp = game.player.hp
                 action[1].activate(game, "Active", action[1].tiedEquipment, self)
-                return f"used {action[1].name}" + (f" and did {oldPlHp - game.player.hp} damage" if oldPlHp != game.player.hp else "")
+                return f"used {action[1].name}" + (f" and did {oldPlHp - game.player.hp} damage" if oldPlHp != game.player.hp else " and did no damage")
             case "Move":
                 while self.speedLeft > 0 and len(action[1]) > 1:
                     del action[1][-1]
                     self.move(game.encounter, game, target = action[1][-1])
-                return "moved" if self.speed > 0 else "waited"
+                return "moved"
+            case "Wait":
+                return("waited")
 
     # Returns: ("Active", Action) / ("Move", route) / ("Wait")
     def determineBestAction(self, game):
@@ -297,6 +299,9 @@ class Enemy(Character):
         for action in actions:
             if self.checkCanUse(action, game) and (currentBestAction == "Move" or action.aiPrio > currentBestAction.aiPrio):
                 currentBestAction = action
+
+        if self.speed <= 0:
+            return("Wait")
 
         if currentBestAction == "Move":
             move = aStar.getRoute((self.x, self.y), (game.player.x, game.player.y), self, game)

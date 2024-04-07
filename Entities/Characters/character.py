@@ -73,43 +73,45 @@ class Character(Object):
             cx = target[0] - self.x
             cy = target[1] - self.y
 
-        while abs(cx) > 0 and (self.speedLeft > 0 or ignoreSpd):
-            # Copies the sign but moves by one
-            stX = self.x
-            self.x += (cx / abs(cx))
-           
-            if self.x > area.width:
-                self.x = stX
-            elif self.x < 1:
-                self.x = stX
-            else:
-                for object in game.allObjects:
-                    if self.x == object.x and self.y == object.y and object.collides and object != self:
-                        self.x = stX
-                if self.x == game.player.x and self.y == game.player.y and game.player != self:
-                        self.x = stX
 
-            cx -= (cx / abs(cx))
-            self.speedLeft -= 1
+        while (abs(cx) or abs(cy)) and (self.speedLeft or ignoreSpd):
+            if abs(cx) and (self.speedLeft or ignoreSpd):
+                # Copies the sign but moves by one
+                stX = self.x
+                self.x += (cx / abs(cx))
+            
+                if self.x > area.width:
+                    self.x = stX
+                elif self.x < 1:
+                    self.x = stX
+                else:
+                    for object in game.allObjects:
+                        if self.x == object.x and self.y == object.y and object.collides and object != self:
+                            self.x = stX
+                    if self.x == game.player.x and self.y == game.player.y and game.player != self:
+                            self.x = stX
 
-        while abs(cy) > 0 and (self.speedLeft > 0 or ignoreSpd):
-            # Copies the sign but moves by one
-            stY = self.y
-            self.y += (cy / abs(cy))
-           
-            if self.y > area.height:
-                self.y = stY
-            elif self.y < 1:
-                self.y = stY
-            else:
-                for object in game.allObjects:
-                    if self.y == object.y and self.x == object.x and object.collides and object != self:
-                        self.y = stY
-                if self.x == game.player.x and self.y == game.player.y and game.player != self:
-                        self.y = stY
+                cx -= (cx / abs(cx))
+                self.speedLeft -= 1
 
-            cy -= (cy / abs(cy))
-            self.speedLeft -= 1
+            if abs(cy) and (self.speedLeft or ignoreSpd):
+                # Copies the sign but moves by one
+                stY = self.y
+                self.y += (cy / abs(cy))
+            
+                if self.y > area.height:
+                    self.y = stY
+                elif self.y < 1:
+                    self.y = stY
+                else:
+                    for object in game.allObjects:
+                        if self.y == object.y and self.x == object.x and object.collides and object != self:
+                            self.y = stY
+                    if self.x == game.player.x and self.y == game.player.y and game.player != self:
+                            self.y = stY
+
+                cy -= (cy / abs(cy))
+                self.speedLeft -= 1
 
     def takeTurn(self, game):
         self.tempDamageModifier = 1
