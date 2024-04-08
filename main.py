@@ -21,6 +21,7 @@ class Game():
     oldEnemInfo = {}
 
     ended = False
+    endType = "You Died"
 
     def getEnemies(self):
         enems = []
@@ -166,8 +167,12 @@ class Game():
 
         if len(nextStages) > 1:    
             self.stage = nextStages[utils.promptChoice("Which stage would you like to go to next?", [stage[1] for stage in nextStages])][0]
-        else:
+        elif nextStages:
             self.stage = nextStages[0][0]
+        else:
+            self.endType = "You Won!"
+            self.ended = True
+            
 
     def getLoot(self, amount, category = None):
         if category:
@@ -211,4 +216,4 @@ class Game():
 game = Game()
 
 game.emptyTerminal()
-print("Game Over\n\n")
+print(f"{game.endType}\n\n")
