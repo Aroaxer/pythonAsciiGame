@@ -152,7 +152,7 @@ class Character(Object):
             else:
                 game.ended = True
 
-        # Trigger attack riders
+        # Trigger on-attack traits
         if shouldTriggerTraits: source.activateAllTraits("Attack", game, self)
         
         if shouldTriggerTraits: self.activateAllTraits("After Damage", game, source)
@@ -211,13 +211,14 @@ class Character(Object):
         plannedAction = False
         try:
             plannedAction = self.determineBestAction(game)
-            if plannedAction[0] != "Move":
+            if plannedAction[0] not in {"Move", "Wait"}:
                 plannedAction = f"Use {plannedAction[1].name}"
             else:
-                plannedAction = "Move"
+                plannedAction = plannedAction[0]
         except AttributeError: pass
 
-        infoStr = f"{self.name}: {round(self.hp, 2)}/{self.maxHp} Health" + (f" (-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "") + (f"\n   Will {plannedAction}" if plannedAction else "")
+        infoStr = f"{self.name}: {round(self.hp, 2)}/{self.maxHp} Health" + (f" (-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "")
+        acsInfo = f"\n   Will {plannedAction}" if plannedAction else ""
         if detailed:
             try: infoStr += f"\nMainhand: {self.mainhand.name}, {self.mainhand.damage} Damage"
             except AttributeError: pass
@@ -227,7 +228,7 @@ class Character(Object):
             except AttributeError: pass
             try: infoStr += f"\nAccesory: {self.accessory.name}" + (f", {self.accessory.damage} Damage" if self.accessory.damage > 0 else "")
             except AttributeError: pass
-        return infoStr
+        return infoStr, acsInfo
     
     def isInRegion(self, topLeft, botRight):
         return (self.x >= topLeft[0] and self.y >= topLeft[1]) and (self.x <= botRight[0] and self.y <= botRight[1])

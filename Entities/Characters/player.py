@@ -98,8 +98,9 @@ class Player(Character):
                 for _ in slot.allActions():
                     display += ":"
                     for action in slot.allActions():
-                        display += f"\n   {totalIndex}: {action.name}" + ((f", {round(action.charges, 3)} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "")
-                        display += (f", {action.range} Range" if action.range else "") if action.range != 1 else ", Melee"
+                        display += f"\n   {totalIndex}: {action.name}"
+                        display += ((f", {round(action.charges, 3)} Charge" + ("s" if action.charges != 1 else "")) if action.maxCharges >= 0 else "") if not (action.recharge == "Never") else (f", {action.charges} Ready" if action.charges >= 1 else ", Not Ready")
+                        display += (f", {action.range} Range" if action.range else "") if action.range != 1 else (", Melee" if action.targeting != "Centered" else ", Centered")
                         display += f", {action.width}x{action.length} Area" if action.width + action.length > 2 else ""
                         display += " - Free Action" if action.freeAction else ""
                         totalIndex += 1

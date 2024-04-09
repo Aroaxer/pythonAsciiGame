@@ -134,16 +134,27 @@ class Game():
 
         print(self.assembleMap("str"))
 
-        print(self.player.getInfo(self))
+        print("".join(self.player.getInfo(self)))
 
         print(f"{self.player.defense} Defense\n{self.player.speed} Speed\n")
 
+        allInfos = []
         for enem in self.enemies:
             try:
-                print(enem.getInfo(self, oldHp = self.oldEnemInfo[enem]))
+                allInfos.append(enem.getInfo(self, oldHp = self.oldEnemInfo[enem]))
             except KeyError:
-                print(enem.getInfo(self))
+                allInfos.append(enem.getInfo(self))
             self.oldEnemInfo[enem] = enem.hp
+
+        prevInfos = {}
+        for entry in allInfos:
+            if entry not in prevInfos.keys():
+                prevInfos[entry] = 1
+            else:
+                prevInfos[entry] += 1
+        
+        for entry in prevInfos.keys():
+            print(entry[0] + (f" (x{prevInfos[entry]})" if prevInfos[entry] > 1 else "") + entry[1])
             
 
     def startNewEncounter(self):

@@ -21,16 +21,16 @@ acs = {
     "Holy Blade" : Action("Holy Blade", "Decapitate"),
     "Divine Slash" : Action("Divine Slash", "1x Damage", "Directional", maxCharges=10, recharge="Never", width=5, length=7),
     "Radiant Pulse" : Action("Radiant Pulse", "1x Damage", "Centered", maxCharges=10, recharge="Never", width=7),
-    "Divine Intervention" : Action("Divine Intervention", "Divine Intervention", "Self", maxCharges=1, recharge="Never", width=11),
+    "Divine Intervention" : Action("Divine Intervention", "Divine Intervention", "Self", maxCharges=1, recharge="Never", width=11, length=11),
         # Gaian Maul
     "Stone Swing" : Action("Stone Swing", "Damage Repel 1", "Directional", width=3),
     "Terran Crush" : Action("Terran Crush", "Damage Repel 2", "Directional", maxCharges=2, width=3, length=3),
     "Earthwake" : Action("Earthwake", "Damage Repel 3", "Point", maxCharges=2, recharge="Encounter", range=5, width=5),
         # Mjolnir
     "Storm Swing" : Action("Storm Swing", "Damage Repel 1", "Directional", width=5, length=2),
-    "Lightning Slam" : Action("Lightning Slam", "Damage Repel 2", "Directional", maxCharges=3, width=5),
+    "Lightning Slam" : Action("Lightning Slam", "Damage Repel 2", "Directional", maxCharges=3, width=5, length=5),
     "Thunderwave" : Action("Thunderwave", "Damage Repel 3", "Point", maxCharges=3, recharge="Encounter", range=7, width=7),
-    "Superstorm" : Action("Superstorm", "Superstorm", "Centered", maxCharges=1, recharge="Never", width=25),
+    "Superstorm" : Action("Superstorm", "Damage Repel 20", "Centered", maxCharges=1, recharge="Never", width=25),
         # Dragonlance
     "Dragon's Arm" : Action("Dragon's Arm", "1x Damage", range=2),
     "Dragon's Tail" : Action("Dragon's Tail", "Damage Repel 1", "Centered", width=3),

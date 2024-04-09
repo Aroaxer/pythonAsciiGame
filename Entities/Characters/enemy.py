@@ -300,7 +300,7 @@ class Enemy(Character):
             if self.checkCanUse(action, game) and (currentBestAction == "Move" or action.aiPrio > currentBestAction.aiPrio):
                 currentBestAction = action
 
-        if self.speed <= 0:
+        if self.speed <= 0 and currentBestAction == "Move":
             return("Wait")
 
         if currentBestAction == "Move":
