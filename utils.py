@@ -15,9 +15,12 @@ def merge(*args):
     return list
 
 # Returns an index for the entry chosen, starting with 0
-def promptChoice(startMessage, options):
+# Separators should be a dictionary {Position : Text}
+def promptChoice(startMessage, options, separators = {}):
     print(f"{startMessage}\n")
     for index, option in enumerate(options):
+        if index + 1 in separators.keys():
+            print(separators[index + 1])
         print(f"{index + 1}: {option}")
     print("\nEnter an index to make a selection, or 'cancel' to cancel this action.")
     while True:

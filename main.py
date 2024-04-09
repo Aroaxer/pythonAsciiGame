@@ -62,9 +62,10 @@ class Game():
         self.allObjects = []
         self.player = self.startPlayer()
         self.emptyTerminal()
-        self.getLoot(0, pre.weps, customMsg="What weapon would you like to start with?")
+        self.getLoot(0, pre.weps, customMsg="What weapon would you like to start with?", separators={1:" Melee", 5:"\n Ranged", 8:"\n Magic"})
         self.emptyTerminal()
-        self.getLoot(0, utils.merge(pre.offs.values(), pre.armors.values(), pre.accs.values()), allowUpgrade=False, customMsg="What extra item would you like to start with?")
+        self.getLoot(0, utils.merge(pre.offs.values(), pre.armors.values(), pre.accs.values()), allowUpgrade=False, 
+                     customMsg="What extra item would you like to start with?", separators={1:" Offhand", 7:"\n Armor", 12:"\n Accesory"})
 
     def beginLoop(self):
         self.startNewEncounter()
@@ -188,7 +189,7 @@ class Game():
             self.ended = True
             
 
-    def getLoot(self, amount, category = None, allowUpgrade = True, customMsg = None):
+    def getLoot(self, amount, category = None, allowUpgrade = True, customMsg = None, separators = {}):
         if category:
             try:
                 loot = list(category.values())
@@ -223,7 +224,7 @@ class Game():
         if upgradeable and allowUpgrade:
             names.append("Upgrade an Item")
 
-        choice = utils.promptChoice((customMsg if customMsg else "You found some loot!"), names)
+        choice = utils.promptChoice((customMsg if customMsg else "You found some loot!"), names, separators)
 
         if choice == amount:
             self.player.getUpgrade()
