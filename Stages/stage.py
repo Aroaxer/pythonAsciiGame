@@ -4,6 +4,9 @@ import math
 from Stages.Encounters.encounter import Encounter
 from Entities.Characters.enemy import Enemy
 
+import premades as pre
+import utils
+
 class Stage():
     name = ""
 
@@ -22,6 +25,7 @@ class Stage():
     # Stores the names of the stages that this stage can follow
     prevStages = []
     stageOrder = 0
+    valUpgrades = ()
 
     def __init__(self, name, stageOrder, enemies, lootPool, minWidth, minHeight, maxWidth = -1, maxHeight = -1, length = 10, prevStages = [], enemCount = 0, lootAmount = 3) -> None:
         self.name = name
@@ -29,6 +33,15 @@ class Stage():
         self.enemCount = enemCount
         self.prevStages = prevStages
         self.stageOrder = stageOrder
+
+        temp = []
+        if self.stageOrder > 1:
+            temp = utils.merge(temp, pre.allItems[1])
+        if self.stageOrder > 2:
+            temp = utils.merge(temp, pre.allItems[2])
+        if self.stageOrder > 3:
+            temp = utils.merge(pre.allItems[3])
+        self.valUpgrades = temp
 
         self.minWidth = minWidth
         self.minHeight = minHeight

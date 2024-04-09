@@ -203,31 +203,28 @@ class Game():
         for item in loot:
             names.append(item.name)
 
-        upgradeable = False
+        options = []
         for slot in (self.player.mainhand, self.player.offhand, self.player.armor, self.player.accessory):
             try:
-                if slot.upgradedForm and type(slot.upgradedForm) != tuple:
-                    upgradeable = True
-                    break
+                if slot.upgradedForm and type(slot.upgradedForm) != tuple and slot.upgradedForm.name in [item.name for item in self.stage.valUpgrades]:
+                    options.append(slot)
                 else:
                     for compareSlot in (self.player.mainhand, self.player.offhand, self.player.armor, self.player.accessory):
                         try:
-                            if slot.upgradedForm[1].name == compareSlot.name:
-                                upgradeable = True
+                            if slot.upgradedForm[1].name == compareSlot.name and slot.upgradedForm[0].name in [item.name for item in self.stage.valUpgrades]:
+                                options.append(slot)
                                 break
                         except (AttributeError, TypeError): pass
-                    else:
-                        continue
-                    break
             except AttributeError: pass
 
-        if upgradeable and allowUpgrade:
+        if options and allowUpgrade:
             names.append("Upgrade an Item")
 
         choice = utils.promptChoice((customMsg if customMsg else "You found some loot!"), names, separators)
 
         if choice == amount:
-            self.player.getUpgrade()
+            upgradeOption = utils.promptChoice("Which item would you like to upgrade?", [item.name for item in options])
+            options[upgradeOption].upgrade()
         elif choice != "Cancelled":
             self.player.collect(loot[choice])
         

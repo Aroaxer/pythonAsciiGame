@@ -342,6 +342,12 @@ enemWeps = {
     "Crystal Heart" : Equip("Crystal Heart", 2, 20, [enemAcs["Call"], enemAcs["Beam"]])
 }
 
+allItems = (
+    utils.merge(weps.values(), armors.values(), offs.values(), accs.values()),
+    utils.merge(tier2Weps.values(), tier2Armors.values(), tier2Offs.values(), tier2Accs.values()),
+    utils.merge(tier3Weps.values(), tier3Armors.values(), tier3Offs.values(), tier3Accs.values()),
+    tier4Weps.values()
+)
 
 # Set slots
 for item in utils.merge(weps.values(), tier2Weps.values(), tier3Weps.values(), tier4Weps.values(), enemWeps.values()):
