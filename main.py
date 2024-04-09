@@ -61,7 +61,11 @@ class Game():
     def resetGame(self):
         self.allObjects = []
         self.player = self.startPlayer()
-        self.getLoot(0, pre.weps)
+        self.emptyTerminal()
+        self.getLoot(0, pre.weps, customMsg="What weapon would you like to start with?")
+        self.emptyTerminal()
+        self.getLoot(0, utils.merge(pre.offs.values(), pre.armors.values(), pre.accs.values()), allowUpgrade=False, customMsg="What extra item would you like to start with?")
+
     def beginLoop(self):
         self.startNewEncounter()
         while not self.ended:
@@ -69,7 +73,6 @@ class Game():
 
     def startPlayer(self):
         plr = Player(10, 0, 0, 2, 2)
-        plr.putOn(pre.weps["Sword"])
 
         return plr
 
@@ -160,7 +163,7 @@ class Game():
 
     def startNewEncounter(self):
         self.oldEnemInfo = {}
-        if self.complEncsPerStage == self.stage.length / 2 or self.complEncsPerStage == 0:
+        if (self.complEncsPerStage == self.stage.length / 2 or self.complEncsPerStage == 0) and self.completedEncounters > 0:
             self.getLoot(self.stage.lootAmount)
 
         self.player.rechargeTraits("Encounter")
@@ -185,9 +188,13 @@ class Game():
             self.ended = True
             
 
-    def getLoot(self, amount, category = None):
+    def getLoot(self, amount, category = None, allowUpgrade = True, customMsg = None):
         if category:
-            loot = list(category.values())
+            try:
+                loot = list(category.values())
+            except AttributeError:
+                loot = category
+            amount = len(loot)
         else:
             loot = utils.getXRandom(self.stage.lootPool, amount)
 
@@ -213,10 +220,10 @@ class Game():
                     break
             except AttributeError: pass
 
-        if upgradeable:
+        if upgradeable and allowUpgrade:
             names.append("Upgrade an Item")
 
-        choice = utils.promptChoice("You found some loot!", names)
+        choice = utils.promptChoice((customMsg if customMsg else "You found some loot!"), names)
 
         if choice == amount:
             self.player.getUpgrade()
