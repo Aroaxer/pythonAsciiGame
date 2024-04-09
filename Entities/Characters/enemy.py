@@ -288,7 +288,7 @@ class Enemy(Character):
                     self.move(game.encounter, game, target = action[1][-1])
                 return "moved"
             case "Wait":
-                return("waited")
+                return "waited"
 
     # Returns: ("Active", Action) / ("Move", route) / ("Wait")
     def determineBestAction(self, game):
