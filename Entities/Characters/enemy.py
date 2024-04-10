@@ -1,9 +1,8 @@
-import math
-
 from Entities.Characters.character import Character
 import premades as pre
 
 import aStar
+import settings
 
 class Enemy(Character):
     preferredDist = 0
@@ -151,7 +150,7 @@ class Enemy(Character):
 
                 # Boss
             case "Crystal Heart":
-                self.mapIcon = "H"
+                self.mapIcon = "#"
 
                 speed = 0
                 actions = 2
@@ -269,7 +268,7 @@ class Enemy(Character):
                 pass
 
 
-        super().__init__(name, hp, x, y, speed, actions)
+        super().__init__(name, hp * settings.enemyHpMod, x, y, speed, actions)
 
     def takeAction(self, game):
         self.speedLeft = self.speed

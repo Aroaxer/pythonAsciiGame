@@ -1,9 +1,7 @@
 from Entities.Characters.character import Character
 from Items.Consumables.consumable import Consumable
 
-import premades as pre
-
-import utils
+import settings
 
 class Player(Character):
 
@@ -34,13 +32,10 @@ class Player(Character):
             self.readAsMove(action, game)
         except Exception:
             try:
-                try:
                     trait = self.getFullActionList()[int(action) - 1]
                     if not trait.activate(game, "Active", trait.tiedEquipment, user = self):
                         self.actionsLeft += 1
-                except IndexError:
-                    raise ValueError
-            except ValueError:
+            except (ValueError, IndexError):
                 if not action == "pass":
                     self.actionsLeft += 1
 
@@ -53,15 +48,15 @@ class Player(Character):
         enArr = entered.replace(" ", "").split(",")
         for entry in enArr:
             change = int(entry[1:])
-            match entry[0]:
-                case "l":
-                    self.move(game.encounter, game, cx = -change)
-                case "r":
-                    self.move(game.encounter, game, cx = change)
-                case "u":
-                    self.move(game.encounter, game, cy = -change)
-                case "d":
-                    self.move(game.encounter, game, cy = change)
+            if entry[0] == settings.moveControls[0]:
+                self.move(game.encounter, game, cy = -change)
+            elif entry[0] == settings.moveControls[1]:
+                self.move(game.encounter, game, cx = -change)
+            elif entry[0] == settings.moveControls[2]:
+                self.move(game.encounter, game, cy = change)
+            elif entry[0] == settings.moveControls[3]:
+                self.move(game.encounter, game, cx = change)
+
 
     def collect(self, item):
         if type(item) == Consumable:

@@ -1,4 +1,5 @@
 import math
+import re
 
 from Entities.Characters.character import Character
 from Entities.Characters.enemy import Enemy
@@ -7,6 +8,7 @@ from Entities.Characters.player import Player
 import premades as pre
 import Stages.preStages as preS
 import utils
+import settings
 
 class Game():
     # Properties
@@ -52,9 +54,8 @@ class Game():
         self.allObjects = remove
         self.allObjects.extend(objs)
     objects = property(fget = getObjects, fset = setObjects)
-    
-    # Start game
-    def __init__(self) -> None:
+
+    def beginGame(self):
         self.resetGame()
         self.beginLoop()
 
@@ -76,6 +77,59 @@ class Game():
         plr = Player(10, 0, 0, 2, 2)
 
         return plr
+    
+    def mainMenu(self):
+        while True:
+            self.emptyTerminal()
+
+            option = input(f"Enter 'Start' to start the game\nEnter 'Quit' to stop the game\nEnter 'Settings' to open the settings menu\n\nCurrent movement: up='{settings.moveControls[0]}', left='{settings.moveControls[1]}', down='{settings.moveControls[2]}', right='{settings.moveControls[3]}'\n" +
+                           f"Enter the movement direction followed by a number to move up to your speed such as: '{settings.moveControls[0]}2' moves up 2\nSeparate multiple movements in one action (totaling at most your speed) with commas such as: '{settings.moveControls[2]}1, {settings.moveControls[1]}1' moves down 1 then left 1\n\n" + 
+                           f"You have two actions per turn by default\nUse actions by entering their assigned index\nWhen targeting an AOE action, area is formatted as width by height when targeting vertically\nCharges are restored through various means, usually at the end of your turn\n\n")
+
+            match option.lower():
+                case "start":
+                    self.beginGame()
+                    input(f"{self.endType}\n\nPress enter to return to main menu\n")
+                case "quit":
+                    self.endType = "Game exited"
+                    break
+                case "settings":
+                    self.settingsMenu()
+
+    def settingsMenu(self):
+        self.emptyTerminal()
+
+        category = input(f"Which setting would you like to change?\n'Movement' is set to (up='{settings.moveControls[0]}', left='{settings.moveControls[1]}', down='{settings.moveControls[2]}', right='{settings.moveControls[3]}')\n" +
+                         f"'Enemy health' is set to: {settings.enemyHpMod * 100}%\nEnter cancel to return\n\n")
+        
+        self.emptyTerminal()
+        
+        match category.lower():
+            case "movement":
+                while True:
+                    entry = input("\nEnter four characters to use as movement\nThey are respectively: up, left, down, right\nThese characters cannot be numbers, spaces, or commas\nEnter cancel to cancel\n\n")
+                    re.sub("[\d ,]", "", entry)
+
+                    if len(entry) == 4:
+                        settings.moveControls = [entry[0], entry[1], entry[2], entry[3]]
+                        break
+                    elif entry.lower() == "cancel":
+                        break
+
+                    print("That is not a valid set of characters")
+
+            case "enemy health":
+                while True:
+                    entry = input("\nEnter a percentage modifier\nThis value must be an integer\nEnter cancel to cancel\n\n")
+                    
+                    if entry.lower() == "cancel":
+                        break
+
+                    try:
+                        settings.enemyHpMod = int(entry) / 100
+                        break
+                    except ValueError:
+                        print("That is not a valid percentage")
 
     # Run game
     def loopCycle(self):
@@ -160,7 +214,6 @@ class Game():
         
         for entry in prevInfos.keys():
             print(entry[0] + (f" (x{prevInfos[entry]})" if prevInfos[entry] > 1 else "") + entry[1])
-            
 
     def startNewEncounter(self):
         self.oldEnemInfo = {}
@@ -186,8 +239,7 @@ class Game():
             self.stage = nextStages[0][0]
         else:
             self.endType = "You Won!"
-            self.ended = True
-            
+            self.ended = True 
 
     def getLoot(self, amount, category = None, allowUpgrade = True, customMsg = None, separators = {}):
         if category:
@@ -230,6 +282,8 @@ class Game():
         
 
 game = Game()
+
+game.mainMenu()
 
 game.emptyTerminal()
 print(f"{game.endType}\n\n")

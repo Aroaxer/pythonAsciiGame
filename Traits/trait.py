@@ -177,14 +177,20 @@ class Trait():
                     if len(validEnems) == 0:
                         return "Cancelled"
                     target = utils.promptChoice("Which enemy would you like to target?", validEnems)
+                    if target == "Cancelled":
+                        return "Cancelled"
                     return validsReturn[target]
                 
                 case "Directional":
                     target = utils.promptChoice("Which direction would you like to attack?", ("Up", "Down", "Left", "Right"))
+                    if target == "Cancelled":
+                        return "Cancelled"
                     return ("Up", "Down", "Left", "Right")[target]
                 
                 case "Point" | "Point No Enemy":
                     targetX, targetY = utils.promptCoords("What point would you like to target?", game, (self.range, user.x, user.y), (self.targeting == "Point No Enemy"))
+                    if target == "Cancelled":
+                        return "Cancelled"
                     return targetX, targetY
                 
                 case "Multi":
@@ -198,6 +204,9 @@ class Trait():
                         return "Cancelled"
                     
                     targets = utils.promptMultipleIds("Which enemies would you like to target?", validEnems, self.multi)
+                    
+                    if target == "Cancelled":
+                        return "Cancelled"
 
                     finalTargets = []
                     for entry in targets:
