@@ -40,7 +40,7 @@ class Stage():
         if self.stageOrder > 2:
             temp = utils.merge(temp, pre.allItems[2])
         if self.stageOrder > 3:
-            temp = utils.merge(pre.allItems[3])
+            temp = utils.merge(temp, pre.allItems[3])
         self.valUpgrades = temp
 
         self.minWidth = minWidth

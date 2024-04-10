@@ -259,7 +259,7 @@ class Game():
             names.append(item.name)
 
         options = []
-        for slot in (self.player.mainhand, self.player.offhand, self.player.armor, self.player.accessory, self.player.accessory2):
+        for slot in (self.player.mainhand, self.player.offhand, self.player.armor, self.player.accessory):
             try:
                 if slot.upgradedForm and type(slot.upgradedForm) != tuple and slot.upgradedForm.name in [item.name for item in self.stage.valUpgrades]:
                     options.append(slot)

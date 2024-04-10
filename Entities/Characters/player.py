@@ -67,7 +67,7 @@ class Player(Character):
     def getSkillDisplay(self):
         display = ""
         totalIndex = 1
-        for slot in (self.mainhand, self.offhand, self.armor, self.accessory, self.accessory2):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try:
                 display += f"\n{slot.name}" + (f" ({slot.damage} Damage)" if slot.damage else "")
                 for _ in slot.allActions():
