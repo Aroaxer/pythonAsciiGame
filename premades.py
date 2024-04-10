@@ -143,7 +143,12 @@ enemAcs = {
     "Magic" : Action("Magic", "1x Damage", aiPrio=1, range = 3, maxCharges=1),
     "Fireball" : Action("Fireball", "1.5x Damage", aiPrio=2, range = 3, maxCharges=1, rechargePercent=0.5),
     "Call" : Action("Call", "Pull", range=10, maxCharges=1, rechargePercent=0.5, aiPrio=1),
-    "Beam" : Action("Beam", "1x Damage", range=3, aiPrio=2)
+    "Beam" : Action("Beam", "1x Damage", range=3, aiPrio=2),
+    # Asmodeus
+    "Strike" : Action("Strike", "Damage Repel 1", aiPrio=2),
+    "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
+    "Summon Lesser" : Action("Summon Lesser", "Summon Lesser", aiPrio=3, maxCharges=1, rechargePercent=0.25),
+    "Summon Greater" : Action("Summon Greater", "Summon Greater", aiPrio=4, maxCharges=1, rechargePercent=0.2)
 }
 
 # Traits
@@ -339,7 +344,8 @@ enemWeps = {
     "Medium Magic" : Equip("Medium Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
 
     # Special
-    "Crystal Heart" : Equip("Crystal Heart", 2, 20, [enemAcs["Call"], enemAcs["Beam"]])
+    "Crystal Heart" : Equip("Crystal Heart", 2, 20, [enemAcs["Call"], enemAcs["Beam"]]),
+    "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]])
 }
 
 allItems = (
