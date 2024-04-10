@@ -1,7 +1,6 @@
 import utils
 import math
 
-
 class Trait():
     name = ""
     tiedEquipment = None
@@ -416,6 +415,30 @@ class Trait():
                 user.hp += user.maxHp / 4
                 user.actionsLeft += 3
                 user.tempDamageModifier = 0
+
+            # Asmodeus
+            case "Summon Lesser":
+                for x in range(user.x - 1, user.x + 2):
+                    for y in range(user.y - 1, user.y + 2):
+                        if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                            for object in game.allObjects:
+                                if x == object.x and y == object.y:
+                                    break
+                            else:
+                                if x != game.player.x and y != game.player.y:
+                                    game.spawn("Lesser Devil", 25, x, y)
+            case "Summon Greater":
+                for x, y in ((user.x - 1, user.y), (user.x + 1, user.y)):
+                    if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                        for object in game.allObjects:
+                            if x == object.x and y == object.y:
+                                break
+                        else:
+                            if x != game.player.x and y != game.player.y:
+                                game.spawn("Greater Devil", 70, x, y)
+
+
+
 
             case _:
                 pass

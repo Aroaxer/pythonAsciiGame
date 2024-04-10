@@ -15,10 +15,10 @@ class Game():
     player = None
     allObjects = []
     encounter = None
-    stage = preS.stages[0][0]
+    stage = preS.stages[6][1]
 
-    completedEncounters = 0
-    complEncsPerStage = 0
+    completedEncounters = 11
+    complEncsPerStage = 11
 
     oldEnemInfo = {}
 
@@ -89,7 +89,7 @@ class Game():
             match option.lower():
                 case "start":
                     self.beginGame()
-                    input(f"{self.endType}\n\nPress enter to return to main menu\n")
+                    break
                 case "quit":
                     self.endType = "Game exited"
                     break
@@ -282,6 +282,9 @@ class Game():
             options[upgradeOption].upgrade()
         elif choice != "Cancelled":
             self.player.collect(loot[choice])
+    
+    def spawn(self, name, hp, x, y):
+        self.allObjects.append(Enemy(name, hp, x, y))
         
 
 game = Game()

@@ -145,10 +145,10 @@ enemAcs = {
     "Call" : Action("Call", "Pull", range=10, maxCharges=1, rechargePercent=0.5, aiPrio=1),
     "Beam" : Action("Beam", "1x Damage", range=3, aiPrio=2),
     # Asmodeus
-    "Strike" : Action("Strike", "Damage Repel 1", aiPrio=2),
+    "Strike" : Action("Strike", "Damage Repel 1", aiPrio=4),
     "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
-    "Summon Lesser" : Action("Summon Lesser", "Summon Lesser", aiPrio=3, maxCharges=1, rechargePercent=0.25),
-    "Summon Greater" : Action("Summon Greater", "Summon Greater", aiPrio=4, maxCharges=1, rechargePercent=0.2)
+    "Summon Lesser" : Action("Summon Lesser", "Summon Lesser", aiPrio=2, maxCharges=1, rechargePercent=0.25),
+    "Summon Greater" : Action("Summon Greater", "Summon Greater", aiPrio=3, maxCharges=1, rechargePercent=0.2)
 }
 
 # Traits
@@ -389,9 +389,5 @@ preEnemies = {
     "Astral Plane" : [("Astral Spirit", 40), ("Githyanki", 60), ("Wanderer", 50), ("Vlaakith", 250)],
         "The Abyss" : [("Winged Demon", 40), ("Hulking Demon", 70), ("Nimble Demon", 50), ("Yeenoghu", 300)],
     "Mount Celestia" : [("Angel", 50), ("Seraph", 40), ("Archangel", 70), ("Deity", 300)],
-        "The Nine Hells" : [("Bone Devil", 50), ("Ice Devil", 60), ("Chain Devil", 60), ("Pit Fiend", 80), ("Asmodeus", 1000)],
-    "Special" : {
-        "Lesser Devil" : ("Lesser Devil", 25),
-        "Greater Devil" : ("Greater Devil", 70)
-    }
+        "The Nine Hells" : [("Bone Devil", 50), ("Ice Devil", 60), ("Chain Devil", 60), ("Pit Fiend", 80), ("Asmodeus", 1000)]
 }

@@ -489,6 +489,24 @@ class Enemy(Character):
             case "Asmodeus":
                 self.mapIcon = "Ω"
 
+                actions = 3
+                speed = 2
+                
+                self.putOn(pre.enemWeps["Asmodeus"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Lesser Devil":
+                self.mapIcon = "L"
+
+                self.putOn(pre.enemWeps["Weak Melee"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+            case "Greater Devil":
+                self.mapIcon = "G"
+
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+                
 
             case _:
                 pass
