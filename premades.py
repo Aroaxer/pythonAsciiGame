@@ -375,7 +375,17 @@ preEnemies = {
         "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Stone Giant", 70)],
     "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 100)],
         "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 100)],
-    "Fey Grove" : [("Sprite", 25), ("Quickling", 25), ("Dryad", 35), ("Treant", 50), ("Archfey", 125)],
-        "Scorched Desert" : [("Giant Scorpion", 40), ("Sand Elemental", 30), ("Giant Snake", 50), ("Vulture", 25), ("Sandworm", 150)],
-        "Icy Tundra" : [("Ice Elemental", 30), ("Yeti", 50), ("Snow Golem", 25), ("Frost Giant", 150)]
+    "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 125)],
+        "Scorched Desert" : [("Giant Scorpion", 30), ("Sand Elemental", 20), ("Giant Snake", 40), ("Vulture", 25), ("Sandworm", 150)],
+        "Icy Tundra" : [("Ice Elemental", 20), ("Yeti", 40), ("Snow Golem", 20), ("Frost Giant", 150)],
+    "Royal Palace" : [("Guard", 40), ("Archer", 25), ("Dark Knight", 50), ("Warlock", 30), ("Royal Champion", 200)],
+        "The Antitower" : [("Tome Spirit", 40), ("Rune Golem", 60), ("Magician", 40), ("Enchanted Golem", 250)],
+    "Astral Plane" : [("Astral Spirit", 40), ("Githyanki", 60), ("Wanderer", 50), ("Vlaakith", 250)],
+        "The Abyss" : [("Winged Demon", 40), ("Hulking Demon", 70), ("Nimble Demon", 50), ("Yeenoghu", 300)],
+    "Mount Celestia" : [("Angel", 50), ("Seraph", 40), ("Archangel", 70), ("Deity", 300)],
+        "The Nine Hells" : [("Bone Devil", 50), ("Ice Devil", 60), ("Chain Devil", 60), ("Pit Fiend", 80), ("Asmodeus", 500)],
+    "Special" : {
+        "Lesser Devil" : ("Lesser Devil", 25),
+        "Greater Devil" : ("Greater Devil", 70)
+    }
 }
