@@ -262,7 +262,233 @@ class Enemy(Character):
 
                 self.putOn(pre.enemWeps["Medium Melee"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
+
+            # Stage 5
+                # Royal Palace
+            case "Guard":
+                self.mapIcon = "G"
+
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Archer":
+                self.mapIcon = "A"
+
+                preferredDist = 2
+                actions = 2
+
+                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+            case "Dark Knight":
+                self.mapIcon = "K"
+
+                speed = 3
+                actions = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Warlock":
+                self.mapIcon = "W"
+
+                preferredDist = 3
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Magic"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+
+                # Boss
+            case "Royal Champion":
+                self.mapIcon = "#"
+
+                speed = 3
+                actions = 3
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+
+                # The Antitower
+            case "Tome Spirit":
+                self.mapIcon = "S"
+
+                preferredDist = 3
+                speed = 2
+                
+                self.putOn(pre.enemWeps["Medium Magic"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+            case "Rune Golem":
+                self.mapIcon = "G"
+
+                actions = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Magician":
+                self.mapIcon = "M"
+
+                preferredDist = 3
+                speed = 3
+
+                self.putOn(pre.enemWeps["Medium Magic"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+
+                # Boss
+            case "Enchanted Golem":
+                self.mapIcon = "#"
+
+                speed = 5
+                actions = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+
+            # Stage 6
+                # Astral Plane
+            case "Astral Spirit":
+                self.mapIcon = "S"
+
+                speed = 3
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+            case "Githyanki":
+                self.mapIcon = "G"
+
+                actions = 2
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Wanderer":
+                self.mapIcon = "W"
+
+                actions = 3
+                preferredDist = 2
+                
+                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+
+                # Boss
+            case "Vlaakith":
+                self.mapIcon = "#"
+
+                actions = 4
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
             
+                # The Abyss
+            case "Winged Demon":
+                self.mapIcon = "W"
+
+                preferredDist = 2
+                actions = 2
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+            case "Hulking Demon":
+                self.mapIcon = "H"
+
+                actions = 3
+                
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Nimble Demon":
+                self.mapIcon = "N"
+
+                actions = 2
+                speed = 3
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
+
+                # Boss
+            case "Yeenoghu":
+                self.mapIcon = "#"
+
+                actions = 6
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            
+            # Stage 7
+                # Mount Celestia
+            case "Angel":
+                self.mapIcon = "a"
+
+                actions = 2
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Seraph":
+                self.mapIcon = "S"
+
+                actions = 3
+                preferredDist = 2
+
+                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Archangel":
+                self.mapIcon = "A"
+
+                actions = 3
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            
+                # Boss
+            case "Deity":
+                self.mapIcon = "#"
+
+                actions = 4
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            
+                # The Nine Hells
+            case "Bone Devil":
+                self.mapIcon = "B"
+
+                actions = 2
+                speed = 2
+                preferredDist = 2
+
+                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Ice Devil":
+                self.mapIcon = "I"
+
+                actions = 3
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Chain Devil":
+                self.mapIcon = "C"
+
+                # Intentionally prefers distance 1
+                actions = 2
+                speed = 3
+
+                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Pit Fiend":
+                self.mapIcon = "F"
+                
+                actions = 3
+                speed = 2
+
+                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemArmrs["Medium No Special"])
+            
+                # Asmodeus
+            case "Asmodeus":
+                self.mapIcon = "Ω"
+
 
             case _:
                 pass
