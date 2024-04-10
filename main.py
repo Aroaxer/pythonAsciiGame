@@ -15,10 +15,10 @@ class Game():
     player = None
     allObjects = []
     encounter = None
-    stage = preS.stages[6][1]
+    stage = preS.stages[0][0]
 
-    completedEncounters = 11
-    complEncsPerStage = 11
+    completedEncounters = 0
+    complEncsPerStage = 0
 
     oldEnemInfo = {}
 
@@ -259,7 +259,7 @@ class Game():
             names.append(item.name)
 
         options = []
-        for slot in (self.player.mainhand, self.player.offhand, self.player.armor, self.player.accessory):
+        for slot in (self.player.mainhand, self.player.offhand, self.player.armor, self.player.accessory, self.player.accessory2):
             try:
                 if slot.upgradedForm and type(slot.upgradedForm) != tuple and slot.upgradedForm.name in [item.name for item in self.stage.valUpgrades]:
                     options.append(slot)

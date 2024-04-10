@@ -497,12 +497,15 @@ class Enemy(Character):
             case "Lesser Devil":
                 self.mapIcon = "L"
 
+                speed = 2
+
                 self.putOn(pre.enemWeps["Weak Melee"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
             case "Greater Devil":
                 self.mapIcon = "G"
 
                 speed = 2
+                actions = 2
 
                 self.putOn(pre.enemWeps["Medium Melee"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
@@ -561,7 +564,7 @@ class Enemy(Character):
         plr = game.player
         dist = max(abs(plr.x - self.x), abs(plr.y - self.y))
 
-        return action.range >= dist and action.charges != 0
+        return action.range >= dist and (action.charges >= 1 or action.charges < 0)
     
     def isWithinDistance(self, distance, point):
         return max(abs(self.x - point[0]), abs(self.y - point[1])) <= distance

@@ -44,12 +44,13 @@ class Character(Object):
     offhand = None
     armor = None
     accessory = None
+    accessory2 = None
 
     tempDamageModifier = 1
 
     def getDefense(self):
         total = 100
-        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory, self.accessory2):
             try: total *= ((100 - slot.defense) / 100)
             except AttributeError: pass
         return (100 - total)
@@ -182,17 +183,32 @@ class Character(Object):
                     self.armor = item
                     item.user = self
                 case "Accessory":
-                    try:
-                        del self.accessory
-                    except AttributeError: pass
-                    self.accessory = item
+                    print("Getting accessory")
+                    slot = 0
+                    if self.accessory and self.accessory2:
+                        slot = utils.promptChoice("Which accessory slot should this go in?", (self.accessory.name, self.accessory2.name))
+                    elif self.accessory:
+                        slot = 1
+
+                    match slot:
+                        case 0:
+                            try:
+                                del self.accessory
+                            except AttributeError: pass
+                            self.accessory = item
+                        case 1:
+                            try:
+                                del self.accessory2
+                            except AttributeError: pass
+                            self.accessory2 = item
+
                     item.user = self
                     
     # Returns a list of all actions for all equipments
     def getFullActionList(self):
         actionList = []
 
-        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory, self.accessory2):
             try: actionList = utils.merge(actionList, slot.allActions())
             except AttributeError: pass
 
@@ -201,7 +217,7 @@ class Character(Object):
     def getAllTraits(self):
         traits = []
 
-        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory, self.accessory2):
             try: traits = utils.merge(traits, slot.traits)
             except AttributeError: pass
 
@@ -238,7 +254,7 @@ class Character(Object):
         # Redefined to return True in the enemy class
     
     def activateAllTraits(self, trigger, game, target):
-        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory, self.accessory2):
             try:
                 for trait in slot.traits:
                     trait.activate(game, trigger, slot, self, target)

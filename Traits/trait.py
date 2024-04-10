@@ -298,11 +298,11 @@ class Trait():
 
             # Defensive (Active)
             case "Block":
-                target.tempDamageModifier *= 0.5
+                target.tempDamageModifier *= 0.3
             case "Fortify":
-                target.tempDamageModifier *= 0.25
+                target.tempDamageModifier *= 0.1
             case "Parry":
-                target.tempDamageModifier *= 0.75
+                target.tempDamageModifier *= 0.8
             case "Invuln":
                 target.tempDamageModifier = 0
 
@@ -310,7 +310,7 @@ class Trait():
             case "Regenerate":
                 target.hp += 0.2
             case "Minor Block":
-                target.tempDamageModifier *= 0.8
+                target.tempDamageModifier *= 0.75
             case "Holy Radiance":
                 target.takeDamage(equipment.damage / 4, user, game, False)
                 user.hp += 0.05
@@ -418,14 +418,14 @@ class Trait():
 
             # Asmodeus
             case "Summon Lesser":
-                for x in range(user.x - 1, user.x + 2):
-                    for y in range(user.y - 1, user.y + 2):
+                for x in (user.x - 2, user.x, user.x + 2):
+                    for y in (user.y - 2, user.y, user.y + 2):
                         if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
                             for object in game.allObjects:
                                 if x == object.x and y == object.y:
                                     break
                             else:
-                                if x != game.player.x and y != game.player.y:
+                                if not (x == game.player.x and y == game.player.y):
                                     game.spawn("Lesser Devil", 25, x, y)
             case "Summon Greater":
                 for x, y in ((user.x - 1, user.y), (user.x + 1, user.y)):

@@ -130,7 +130,7 @@ acs = {
     "Block" : Action("Block", "Block", "Self"),
     "Parry" : Action("Parry", "Parry", "Self", maxCharges=3, recharge="Encounter", freeAction=True),
     "Repel" : Action("Repel", "Repel 1", "Centered", maxCharges=1, rechargePercent=0.5, width=5, freeAction=True),
-    "Arcane Shield" : Action("Arcane Shield", "Invuln", "Self", maxCharges=2, recharge="Encounter", rechargePercent=0.5),
+    "Arcane Shield" : Action("Arcane Shield", "Invuln", "Self", maxCharges=2, recharge="Encounter", freeAction=True),
         # T3 Items
     "Fortify" : Action("Fortify", "Fortify", "Self"),
     "Palace Toggle" : Action("Palace Toggle", "Palace Toggle", "Self", maxCharges=1, rechargePercent=0.25),
@@ -147,8 +147,8 @@ enemAcs = {
     # Asmodeus
     "Strike" : Action("Strike", "Damage Repel 1", aiPrio=4),
     "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
-    "Summon Lesser" : Action("Summon Lesser", "Summon Lesser", aiPrio=2, maxCharges=1, rechargePercent=0.25),
-    "Summon Greater" : Action("Summon Greater", "Summon Greater", aiPrio=3, maxCharges=1, rechargePercent=0.2)
+    "Summon Lesser" : Action("Summon Lesser Devils", "Summon Lesser", aiPrio=2, maxCharges=1, rechargePercent=0.25, range=100, freeAction=True),
+    "Summon Greater" : Action("Summon Greater Devils", "Summon Greater", aiPrio=3, maxCharges=1, rechargePercent=0.2, range=100, freeAction=True)
 }
 
 # Traits
