@@ -108,12 +108,15 @@ class Game():
             case "movement":
                 while True:
                     entry = input("\nEnter four characters to use as movement\nThey are respectively: up, left, down, right\nThese characters cannot be numbers, spaces, or commas\nEnter cancel to cancel\n\n")
+                    if len(entry) != 4:
+                        continue
+                    elif entry.lower() == "cancel":
+                        break
+                    
                     re.sub("[\d ,]", "", entry)
 
                     if len(entry) == 4:
                         settings.moveControls = [entry[0], entry[1], entry[2], entry[3]]
-                        break
-                    elif entry.lower() == "cancel":
                         break
 
                     print("That is not a valid set of characters")
