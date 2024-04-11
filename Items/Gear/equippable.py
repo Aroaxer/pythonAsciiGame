@@ -8,6 +8,7 @@ class Equippable(Item):
     canUpgrade = False
     extraActions = 0
     extraSpeed = 0
+    extraHp = 0
 
     damage = 0
     defense = 0
@@ -19,9 +20,10 @@ class Equippable(Item):
 
     upgradedForm = None
 
-    def __init__(self, name, damage = 0, defense = 0, newTraits = [], specialTags = {}, upgr = None, actionBoost = 0, speedBoost = 0) -> None:
+    def __init__(self, name, damage = 0, defense = 0, newTraits = [], specialTags = {}, upgr = None, actionBoost = 0, speedBoost = 0, hpBoost = 0) -> None:
         self.extraActions = actionBoost
         self.extraSpeed = speedBoost
+        self.extraHp = hpBoost
         self.traits = [copy.deepcopy(trait) for trait in newTraits]
         for trait in self.traits:
             trait.tiedEquipment = self

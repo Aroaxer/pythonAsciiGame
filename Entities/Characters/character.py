@@ -7,7 +7,18 @@ import utils
 
 class Character(Object):
     hp = 0
-    maxHp = 0
+    mhp = 0
+    def getMaxHp(self):
+        total = self.mhp
+
+        for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
+            try: total += slot.extraHp
+            except AttributeError: pass
+
+        return total
+    def setMaxHp(self, hp):
+        self.mhp = hp
+    maxHp = property(fget=getMaxHp, fset=setMaxHp)
 
     name = ""
     spd = 0

@@ -176,8 +176,8 @@ tier3Offs = {
     "Oceanic Coating" : Equip("Oceanic Coating", 10, 0, [traits["Coating"], traits["Knockback"], traits["Knockback"]]),
 
     # Defensive
-    "Fiery Shield" : Equip("Fiery Shield", 5, 50, [acs["Fortify"], traits["Spikes"]]),
-    "Palace Shield" : Equip("Palace Shield", 0, 75, [acs["Fortify"], acs["Repel"], acs["Palace Toggle"], traits["Chain Reduction"]], specialTags={"Palace" : False})
+    "Fiery Shield" : Equip("Fiery Shield", 5, 50, [acs["Fortify"], traits["Spikes"]], hpBoost=3),
+    "Palace Shield" : Equip("Palace Shield", 0, 75, [acs["Fortify"], acs["Repel"], acs["Palace Toggle"], traits["Chain Reduction"]], specialTags={"Palace" : False}, hpBoost=5)
 }
 tier2Offs = {
     # Offensive
@@ -187,8 +187,8 @@ tier2Offs = {
     "Forceful Coating" : Equip("Forceful Coating", 5, 0, [traits["Coating"], traits["Knockback"]], upgr=tier3Offs["Oceanic Coating"]),
 
     # Defensive
-    "Crystal Shield" : Equip("Crystal Shield", 2, 30, [acs["Block"], traits["Spikes"]]),
-    "Castle Shield" : Equip("Castle Shield", 0, 50, [acs["Block"], acs["Repel"]], upgr=tier3Offs["Palace Shield"])
+    "Crystal Shield" : Equip("Crystal Shield", 2, 30, [acs["Block"], traits["Spikes"]], hpBoost=1),
+    "Castle Shield" : Equip("Castle Shield", 0, 50, [acs["Block"], acs["Repel"]], upgr=tier3Offs["Palace Shield"], hpBoost=3)
 }
 offs = {
     # Offensive
@@ -199,13 +199,13 @@ offs = {
 
     # Defensive
     "Kite Shield" : Equip("Kite Shield", 0, 20, [acs["Block"]], speedBoost=1, upgr=tier2Offs["Crystal Shield"]),
-    "Tower Shield" : Equip("Tower Shield", 0, 30, [acs["Block"]], upgr=tier2Offs["Castle Shield"])
+    "Tower Shield" : Equip("Tower Shield", 0, 30, [acs["Block"]], upgr=tier2Offs["Castle Shield"], hpBoost=1)
 }
 
 # Armor
 tier3Armors = {
     # Defensive
-    "Stormwrath Mail" : Equip("Stormwrath Mail", 10, 40, [traits["Spikes"], traits["Repel"], acs["Charge"]]),
+    "Stormwrath Mail" : Equip("Stormwrath Mail", 10, 40, [traits["Spikes"], traits["Repel"], acs["Charge"]], hpBoost=5),
 
     # Utility
     "Aetherial Robes" : Equip("Aetherial Robes", 0, 20, [acs["Hasten"], traits["Momentum"]], speedBoost=3, actionBoost=2),
@@ -213,9 +213,9 @@ tier3Armors = {
 }
 tier2Armors = {
     # Defensive
-    "Battlerager Mail" : Equip("Battlerager Mail", 5, 25, [traits["Spikes"], acs["Charge"]], upgr=tier3Armors["Stormwrath Mail"]),
-    "Druidic Plate" : Equip("Druidic Plate", 0, 40, [traits["Regenerate"], acs["Block"]]),
-    "Titanic Plate" : Equip("Titanic Plate", 0, 60, [traits["Chain Reduction"]], speedBoost=-1),
+    "Battlerager Mail" : Equip("Battlerager Mail", 5, 25, [traits["Spikes"], acs["Charge"]], upgr=tier3Armors["Stormwrath Mail"], hpBoost=3),
+    "Druidic Plate" : Equip("Druidic Plate", 0, 40, [traits["Regenerate"], acs["Block"]], hpBoost=5),
+    "Titanic Plate" : Equip("Titanic Plate", 0, 60, [traits["Chain Reduction"]], speedBoost=-1, hpBoost=3),
 
     # Utility
     "Leathers of the Wind" : Equip("Leathers of the Wind", 0, 10, [acs["Hasten"]], speedBoost=2, actionBoost=2, upgr=tier3Armors["Aetherial Robes"]),
@@ -223,8 +223,8 @@ tier2Armors = {
 }
 armors = {
     # Defensive
-    "Spiked Mail" : Equip("Spiked Mail", 2, 15, [traits["Spikes"]], upgr=tier2Armors["Battlerager Mail"]),
-    "Overgrown Plate" : Equip("Overgrown Plate", 0, 25, [traits["Regenerate"]], upgr=tier2Armors["Druidic Plate"]),
+    "Spiked Mail" : Equip("Spiked Mail", 2, 15, [traits["Spikes"]], upgr=tier2Armors["Battlerager Mail"], hpBoost=1),
+    "Overgrown Plate" : Equip("Overgrown Plate", 0, 25, [traits["Regenerate"]], upgr=tier2Armors["Druidic Plate"], hpBoost=3),
     "Heavy Plate" : Equip("Heavy Plate", 0, 40, [traits["Chain Reduction"]], speedBoost=-1, upgr=tier2Armors["Titanic Plate"]),
 
     # Utility
@@ -242,25 +242,25 @@ enemArmrs = {
 # Accesories
 tier3Accs = {
     # Defensive
-    "Fortress Necklace" : Equip("Fortress Necklace", 0, 50, [acs["Walking Fortress"], traits["Chain Reduction"]]),
-    "Radiant Crown" : Equip("Radiant Crown", 8, 30, [traits["Holy Radiance"]], speedBoost=1),
+    "Fortress Necklace" : Equip("Fortress Necklace", 0, 50, [acs["Walking Fortress"], traits["Chain Reduction"]], hpBoost=3),
+    "Radiant Crown" : Equip("Radiant Crown", 8, 30, [traits["Holy Radiance"]], speedBoost=1, hpBoost=5),
 
     # Utility
-    "Aerial Gauntlets" : Equip("Aerial Gauntlets", 0, 10, [acs["Shove"], acs["Teleport"], traits["Repel"], traits["Repel"]], speedBoost=3, actionBoost=1)
+    "Aerial Gauntlets" : Equip("Aerial Gauntlets", 0, 10, [acs["Shove"], acs["Teleport"], traits["Repel"], traits["Repel"]], speedBoost=3, actionBoost=1, hpBoost=3)
 }
 tier2Accs = {
     # Defensive
-    "Barrier Necklace" : Equip("Barrier Necklace", 0, 30, [acs["Arcane Shield"], traits["Chain Reduction"]], upgr=tier3Accs["Fortress Necklace"]),
-    "Holy Circlet" : Equip("Holy Circlet", 0, 20, [traits["Regenerate"]], upgr=tier3Accs["Radiant Crown"]),
+    "Barrier Necklace" : Equip("Barrier Necklace", 0, 30, [acs["Arcane Shield"], traits["Chain Reduction"]], upgr=tier3Accs["Fortress Necklace"], hpBoost=1),
+    "Holy Circlet" : Equip("Holy Circlet", 0, 20, [traits["Regenerate"]], upgr=tier3Accs["Radiant Crown"], hpBoost=3),
 
     # Utility
     "Lightspeed Amulet" : Equip("Lightspeed Amulet", 0, 0, [acs["Hasten"]], speedBoost=2, actionBoost=1),
-    "Repelling Gloves" : Equip("Repelling Gloves", 0, 5, [acs["Shove"], traits["Repel"]], speedBoost=2)
+    "Repelling Gloves" : Equip("Repelling Gloves", 0, 5, [acs["Shove"], traits["Repel"]], speedBoost=2, hpBoost=1)
 }
 accs = {
     # Defensive
     "Brooch of Shielding" : Equip("Brooch of Shielding", 0, 15, [acs["Arcane Shield"]], upgr=tier2Accs["Barrier Necklace"]),
-    "Healing Wreath" : Equip("Healing Wreath", 0, 10, [traits["Regenerate"]], upgr=tier2Accs["Holy Circlet"]),
+    "Healing Wreath" : Equip("Healing Wreath", 0, 10, [traits["Regenerate"]], upgr=tier2Accs["Holy Circlet"], hpBoost=1),
 
     # Utility
     "Hastening Amulet" : Equip("Hastening Amulet", 0, 0, actionBoost=1, upgr=tier2Accs["Lightspeed Amulet"]),
@@ -271,47 +271,47 @@ accs = {
 # Tier 4 weapons require an extra tier 3 item
 tier4Weps = {
     # Physical Melee
-    "Excalibur" : Equip("Excalibur", 25, 30, [acs["Holy Blade"], acs["Divine Slash"], acs["Radiant Pulse"], acs["Divine Intervention"], traits["Holy Radiance"], traits["Excalibur"]], speedBoost=1),
-    "Mjolnir" : Equip("Mjolnir", 40, 40, [acs["Storm Swing"], acs["Lightning Slam"], acs["Shockwave"], acs["Superstorm"], traits["Repel"], traits["Mjolnir"]]),
-    "Aetheryte" : Equip("Aetheryte", 40, 30, [acs["Aetherial Lance"], acs["Cloud Whirl"], acs["Spatial Thrust"], acs["Sky Call"], acs["Void Phase"]], actionBoost=1),
-    "Dawnbreaker" : Equip("Dawnbreaker", 36, 60, [acs["Dawn Strike"], acs["Radiant Rush"], acs["High Noon"], acs["Twilight"], traits["Holy Radiance"], traits["Chain Reduction"]]),
+    "Excalibur" : Equip("Excalibur", 25, 30, [acs["Holy Blade"], acs["Divine Slash"], acs["Radiant Pulse"], acs["Divine Intervention"], traits["Holy Radiance"], traits["Excalibur"]], speedBoost=1, hpBoost=5),
+    "Mjolnir" : Equip("Mjolnir", 40, 40, [acs["Storm Swing"], acs["Lightning Slam"], acs["Shockwave"], acs["Superstorm"], traits["Repel"], traits["Mjolnir"]], hpBoost=7),
+    "Aetheryte" : Equip("Aetheryte", 40, 30, [acs["Aetherial Lance"], acs["Cloud Whirl"], acs["Spatial Thrust"], acs["Sky Call"], acs["Void Phase"]], actionBoost=1, hpBoost=5),
+    "Dawnbreaker" : Equip("Dawnbreaker", 36, 60, [acs["Dawn Strike"], acs["Radiant Rush"], acs["High Noon"], acs["Twilight"], traits["Holy Radiance"], traits["Chain Reduction"]], hpBoost=10),
 
     # Physical Ranged
-    "Tsunami" :  Equip("Tsunami", 32, 10, [acs["Tidesplinter"], acs["Tidal Wave"], acs["Whirlpool"], acs["Surf"]], speedBoost=1),
-    "Skypiercer" : Equip("Skypiercer", 32, 10, [acs["Cloudburst"], acs["Starspear"], acs["Accumulate"], acs["Skyfall"]]),
-    "Surpremacy" : Equip("Surpremacy", 30, 40, [acs["Power"], acs["Command"], acs["Destroy"], acs["Embodiment"], traits["Embodiment"]], speedBoost=2),
+    "Tsunami" :  Equip("Tsunami", 32, 10, [acs["Tidesplinter"], acs["Tidal Wave"], acs["Whirlpool"], acs["Surf"]], speedBoost=1, hpBoost=3),
+    "Skypiercer" : Equip("Skypiercer", 32, 10, [acs["Cloudburst"], acs["Starspear"], acs["Accumulate"], acs["Skyfall"]], hpBoost=3),
+    "Surpremacy" : Equip("Surpremacy", 30, 40, [acs["Power"], acs["Command"], acs["Destroy"], acs["Embodiment"], traits["Embodiment"]], speedBoost=2, hpBoost=5),
 
     # Magical Ranged
-    "Infernum" : Equip("Infernum", 32, 0, [acs["Hellfire"], acs["Call Flames"], acs["Flamewave"], acs["Inferno"]], actionBoost=1),
-    "Arcanaloth" : Equip("Arcanaloth", 32, 0, [acs["Life Drain"], acs["Conjured Blade"], acs["Conjured Spear"], acs["Obliterate"]])
+    "Infernum" : Equip("Infernum", 32, 0, [acs["Hellfire"], acs["Call Flames"], acs["Flamewave"], acs["Inferno"]], actionBoost=1, hpBoost=3),
+    "Arcanaloth" : Equip("Arcanaloth", 32, 0, [acs["Life Drain"], acs["Conjured Blade"], acs["Conjured Spear"], acs["Obliterate"]], hpBoost=3)
 }
 tier3Weps = {
     # Physical Melee
-    "Vorpal Sword" : Equip("Vorpal Sword", 20, 10, [acs["Decapitate"], acs["Bloodwave"], acs["Bloodwhirl"]], speedBoost=1, upgr=(tier4Weps["Excalibur"], tier3Accs["Radiant Crown"])),
-    "Gaian Maul" : Equip("Gaian Maul", 20, 20, [acs["Stone Swing"], acs["Terran Crush"], acs["Earthwake"]], upgr=(tier4Weps["Mjolnir"], tier3Armors["Stormwrath Mail"])),
-    "Dragonlance" : Equip("Dragonlance", 20, 10, [acs["Dragon's Arm"], acs["Dragon's Tail"], acs["Dragon's Breath"], acs["Dragon's Wings"]], actionBoost=1, upgr=(tier4Weps["Aetheryte"], tier3Armors["Aetherial Robes"])),
-    "Regal Flail" : Equip("Regal Flail", 18, 40, [acs["Royal Strike"], acs["Total Authority"], acs["Kingkiller"]], upgr=(tier4Weps["Dawnbreaker"], tier3Offs["Palace Shield"])),
+    "Vorpal Sword" : Equip("Vorpal Sword", 20, 10, [acs["Decapitate"], acs["Bloodwave"], acs["Bloodwhirl"]], speedBoost=1, upgr=(tier4Weps["Excalibur"], tier3Accs["Radiant Crown"]), hpBoost=3),
+    "Gaian Maul" : Equip("Gaian Maul", 20, 20, [acs["Stone Swing"], acs["Terran Crush"], acs["Earthwake"]], upgr=(tier4Weps["Mjolnir"], tier3Armors["Stormwrath Mail"]), hpBoost=5),
+    "Dragonlance" : Equip("Dragonlance", 20, 10, [acs["Dragon's Arm"], acs["Dragon's Tail"], acs["Dragon's Breath"], acs["Dragon's Wings"]], actionBoost=1, upgr=(tier4Weps["Aetheryte"], tier3Armors["Aetherial Robes"]), hpBoost=3),
+    "Regal Flail" : Equip("Regal Flail", 18, 40, [acs["Royal Strike"], acs["Total Authority"], acs["Kingkiller"]], upgr=(tier4Weps["Dawnbreaker"], tier3Offs["Palace Shield"]), hpBoost=7),
 
     # Physical Ranged
-    "Trinity Bow" : Equip("Trinity Bow", 16, 0, [acs["Flame Arrows"], acs["Frost Arrow"], acs["Shock Arrow"]], upgr=(tier4Weps["Tsunami"], tier3Offs["Oceanic Coating"])),
-    "Crystal Arbalest" : Equip("Crystal Arbalest", 16, 0, [acs["Shard Blast"], acs["Shardlance"], acs["Condense"], acs["Crystal Rain"]], upgr=(tier4Weps["Skypiercer"], tier3Accs["Aerial Gauntlets"])),
-    "Thunderbolt" : Equip("Thunderbolt", 15, 25, [acs["Thunderstrike"], acs["Shockwave"], acs["Living Deity"], traits["Charge Deity"]], speedBoost=1, upgr=(tier4Weps["Surpremacy"], tier3Accs["Fortress Necklace"])),
+    "Trinity Bow" : Equip("Trinity Bow", 16, 0, [acs["Flame Arrows"], acs["Frost Arrow"], acs["Shock Arrow"]], upgr=(tier4Weps["Tsunami"], tier3Offs["Oceanic Coating"]), hpBoost=1),
+    "Crystal Arbalest" : Equip("Crystal Arbalest", 16, 0, [acs["Shard Blast"], acs["Shardlance"], acs["Condense"], acs["Crystal Rain"]], upgr=(tier4Weps["Skypiercer"], tier3Accs["Aerial Gauntlets"]), hpBoost=1),
+    "Thunderbolt" : Equip("Thunderbolt", 15, 25, [acs["Thunderstrike"], acs["Shockwave"], acs["Living Deity"], traits["Charge Deity"]], speedBoost=1, upgr=(tier4Weps["Surpremacy"], tier3Accs["Fortress Necklace"]), hpBoost=3),
 
     # Magical Ranged
-    "Volcanic Staff" : Equip("Volcanic Staff", 16, 0, [acs["Flamestone"], acs["Meteor"], acs["Firestorm"], acs["Eruption"]], upgr=(tier4Weps["Infernum"], tier3Offs["Fiery Shield"])),
-    "Lich's Cane" : Equip("Lich's Cane", 16, 0, [acs["Draining Rays"], acs["Arcane Lance"], acs["Power Word Kill"]], upgr=(tier4Weps["Arcanaloth"], tier3Armors["Enchanter's Robes"]))
+    "Volcanic Staff" : Equip("Volcanic Staff", 16, 0, [acs["Flamestone"], acs["Meteor"], acs["Firestorm"], acs["Eruption"]], upgr=(tier4Weps["Infernum"], tier3Offs["Fiery Shield"]), hpBoost=1),
+    "Lich's Cane" : Equip("Lich's Cane", 16, 0, [acs["Draining Rays"], acs["Arcane Lance"], acs["Power Word Kill"]], upgr=(tier4Weps["Arcanaloth"], tier3Armors["Enchanter's Robes"]), hpBoost=1)
 }
 tier2Weps = {
     # Physical Melee
-    "Wind Blade" : Equip("Wind Blade", 10, 10, [acs["Basic Attack"], acs["Slash"], acs["Whirl"]], upgr=tier3Weps["Vorpal Sword"]),
-    "Flamehammer" : Equip("Flamehammer", 10, 10, [acs["Basic Attack"], acs["Slam"], acs["Fireball"]], upgr=tier3Weps["Gaian Maul"]),
-    "Runed Halberd" : Equip("Runed Halberd", 10, 10, [acs["Basic Attack"], acs["Impale"], acs["Slash"], acs["Firebolt"]], upgr=tier3Weps["Dragonlance"]),
-    "Defender Flail" : Equip("Defender Flail", 9, 30, [acs["Basic Attack"], acs["Charge"], acs["Parry"]], upgr=tier3Weps["Regal Flail"]),
+    "Wind Blade" : Equip("Wind Blade", 10, 10, [acs["Basic Attack"], acs["Slash"], acs["Whirl"]], upgr=tier3Weps["Vorpal Sword"], hpBoost=1),
+    "Flamehammer" : Equip("Flamehammer", 10, 10, [acs["Basic Attack"], acs["Slam"], acs["Fireball"]], upgr=tier3Weps["Gaian Maul"], hpBoost=3),
+    "Runed Halberd" : Equip("Runed Halberd", 10, 10, [acs["Basic Attack"], acs["Impale"], acs["Slash"], acs["Firebolt"]], upgr=tier3Weps["Dragonlance"], hpBoost=1),
+    "Defender Flail" : Equip("Defender Flail", 9, 30, [acs["Basic Attack"], acs["Charge"], acs["Parry"]], upgr=tier3Weps["Regal Flail"], hpBoost=5),
 
     # Physical Ranged
     "Twinshot Bow" : Equip("Twinshot Bow", 8, 0, [acs["Twin Shot"], acs["Pierce"], acs["Shove"]], upgr=tier3Weps["Trinity Bow"]),
     "Handheld Ballista" : Equip("Handheld Ballista", 8, 0, [acs["Basic Shot"], acs["Shatterwave"]], upgr=tier3Weps["Crystal Arbalest"]),
-    "Storm Spear" : Equip("Storm Spear", 7, 15, [acs["Throw"], acs["Impale"], acs["Call Lightning"]], upgr=tier3Weps["Thunderbolt"]),
+    "Storm Spear" : Equip("Storm Spear", 7, 15, [acs["Throw"], acs["Impale"], acs["Call Lightning"]], upgr=tier3Weps["Thunderbolt"], hpBoost=1),
 
     # Magical Ranged
     "Inferno Cane" : Equip("Inferno Cane", 8, 0, [acs["Enhanced Firebolt"], acs["Fireball"], acs["Flamethrower"]], upgr=tier3Weps["Volcanic Staff"]),
@@ -320,9 +320,9 @@ tier2Weps = {
 weps = {
     # Physical Melee
     "Sword" : Equip("Sword", 5, 10, [acs["Basic Attack"], acs["Slash"]], upgr=tier2Weps["Wind Blade"]),
-    "Hammer" : Equip("Hammer", 5, 10, [acs["Basic Attack"], acs["Slam"]], upgr=tier2Weps["Flamehammer"]),
+    "Hammer" : Equip("Hammer", 5, 10, [acs["Basic Attack"], acs["Slam"]], upgr=tier2Weps["Flamehammer"], hpBoost=1),
     "Spear" : Equip("Spear", 5, 10, [acs["Basic Attack"], acs["Impale"]], upgr=tier2Weps["Runed Halberd"]),
-    "Mace" : Equip("Mace", 4, 20, [acs["Basic Attack"], acs["Charge"]], upgr=tier2Weps["Defender Flail"]),
+    "Mace" : Equip("Mace", 4, 20, [acs["Basic Attack"], acs["Charge"]], upgr=tier2Weps["Defender Flail"], hpBoost=3),
 
     # Physical Ranged
     "Bow" : Equip("Bow", 4, 0, [acs["Basic Shot"], acs["Pierce"]], upgr=tier2Weps["Twinshot Bow"]),
