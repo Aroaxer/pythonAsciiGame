@@ -289,7 +289,7 @@ class Trait():
                 if target.hp <= 0:
                     user.hp += 0.1
             case "Power Word Kill":
-                if target.hp <= target.maxHp / 2:
+                if target.hp <= target.maxHp / (2 if target.mapIcon not in {"#", "Ω"} else 5):
                     target.hp = 0
 
             # Passive Damage
@@ -437,11 +437,87 @@ class Trait():
                             if x != game.player.x and y != game.player.y:
                                 game.spawn("Greater Devil", 70, x, y)
 
-
-
-
             case _:
                 pass
+
+    def getDesc(self):
+        match self.name:
+            # Any traits with unusual details not to do with their effect key
+            case _:
+                # Most traits
+                match self.effectKey:
+                    case "1x Damage":
+                        return "Deals the equipment's damage"
+                    case "0.5x Damage":
+                        return "Deals 1/2 the equipment's damage"
+                    case "1.5x Damage":
+                        return "Deals 1.5x the equipment's damage"
+                    case "Ritual Attack":
+                        return "Deals the equipment's damage\nIf this kills the enemy, you heal 0.2 hp and recover the action\nRegains charges on encounter or kill with this action"
+                    case "Decapitate":
+                        return "Charges the weapon's other skills on kill"
+                    case "Royal Strike":
+                        return "Deals the equipment's damage and you take 4/5 damage for a turn"
+                    case "Kingkiller":
+                        return "Charge to an enemy and deal 2x the equipment's damage\nIf this kills them, you are invincible for a turn"
+                    case "Twilight":
+                        return "Charge to an enemy and deal 3x the equipment's damage\nIf this kills them, you are invincible for a turn"
+                    case "Crystal Rain":
+                        return "Deals the equipment's damage and resets the area"
+                    case "Draining Rays":
+                        return "Deals 1/2 the equipment's damage\nIf this kills them, restore 0.1 hp"
+                    case "Power Word Kill":
+                        return "If the enemy is below half health (1/5 for bosses), kill them instantly"
+                    case "Spikes":
+                        return "Deals the equipment's damage, doesn't trigger traits"
+                    case "Block":
+                        return "You take 1/2 damage for a turn, stacking multiplicatively"
+                    case "Fortify":
+                        return "You take 1/4 damage for a turn, stacking multiplicatively"
+                    case "Parry":
+                        return "You take 3/4 damage for a turn, stacking multiplicatively"
+                    case "Invuln":
+                        return "You are invincible for a turn"
+                    case "Regenerate":
+                        return "Recover 0.2 health"
+                    case "Minor Block":
+                        return "You take 4/5 damage for a turn"
+                    case "Holy Radiance":
+                        return "Deals 1/4 the equipment's damage\nRestores 0.05 hp per target hit"
+                    case "Hasten":
+                        return "Gain one action"
+                    case "Pull":
+                        return "Pulls the enemy, does no damage"
+                    case "Damage Pull":
+                        return "Pulls the enemy, does the equipment's damage"
+                    case "Teleport":
+                        return "Moves you to the target"
+                    case "Charge":
+                        return "Moves you to the target and damages nearby enemies for the equipment's damage"
+                    case "Condense":
+                        return "Increases the area of this weapon's fourth action"
+                    case "Momentum":
+                        return "If the target is dead, regain 0.25 actions"
+                    case "Repel":
+                        return f"Knockbacks the enemy by {self.multi} tiles"
+                    case "Damage Repel":
+                        return f"Knockbacks the enemy by {self.multi} tiles, deals the equipment's damage"
+                    case "Charge Deity":
+                        return "If the target is dead, charge this weapon's third action"
+                    case "Living Deity":
+                        return "Restore 1 hp and gain 4 actions"
+                    case "Embodiment":
+                        return "If the target is dead, charge this weapon's fourth action"
+                    case "Palace Toggle":
+                        return "Toggles the Palace effect as follows:\nThis item's defense becomes 90\nDeal 1.25x damage with your weapon\nLose 2 speed\nGain 1 action\nDisable this effect before switching weapons, or it will reduce your damage"
+                    case "Mjolnir":
+                        return "Charges this item's fourth action"
+                    case "Excalibur":
+                        return "Deals this weapon's damage in an area around the target"
+                    case "Divine Intervention":
+                        return "Restores 1/4 of your max health\nGain 2 actions\nBecome invincible for a turn"
+                    case _:
+                        return "This trait doesn't have a description yet! Please tell me next time you see me!"
 
 
     
