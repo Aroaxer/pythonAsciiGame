@@ -43,11 +43,11 @@ acs = {
     "Sky Call" : Action("Sky Call", "Damage Pull", "Centered", maxCharges=2, width=7),
     "Void Phase" : Action("Void Phase", "Charge", "Point No Enemy", maxCharges=4, range=9, width=5),
         # Regal Flail
-    "Royal Strike" : Action("Royal Strike", "Royal Strike"),
+    "Royal Strike" : Action("Royal Strike", "Royal Strike", "Directional", width=3),
     "Total Authority" : Action("Total Authority", "Repel 50", "Centered", maxCharges=2, recharge="Encounter", width=75),
     "Kingkiller" : Action("Kingkiller", "Kingkiller", maxCharges=1, recharge="Never", range=75, freeAction=True),
         # Dawnbreaker
-    "Dawn Strike" : Action("Dawn Strike", "Damage Repel 1", "Directional", width=3),
+    "Dawn Strike" : Action("Dawn Strike", "Royal Strike", "Directional", width=3, length=2),
     "Radiant Rush" : Action("Radiant Rush", "Charge", "Point No Enemy", range=3, width=3),
     "High Noon" : Action("High Noon", "Repel 75", "Centered", maxCharges=2, recharge="Encounter", width=125),
     "Twilight" : Action("Twilight", "Twilight", maxCharges=1, recharge="Never", range=125, freeAction=True),
