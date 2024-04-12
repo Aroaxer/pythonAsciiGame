@@ -84,7 +84,8 @@ class Game():
 
             option = input(f"Enter 'Start' to start the game\nEnter 'Quit' to stop the game\nEnter 'Settings' to open the settings menu\n\nCurrent movement: up='{settings.moveControls[0]}', left='{settings.moveControls[1]}', down='{settings.moveControls[2]}', right='{settings.moveControls[3]}'\n" +
                            f"Enter the movement direction followed by a number to move up to your speed such as: '{settings.moveControls[0]}2' moves up 2\nSeparate multiple movements in one action (totaling at most your speed) with commas such as: '{settings.moveControls[2]}1, {settings.moveControls[1]}1' moves down 1 then left 1\n\n" + 
-                           f"You have two actions per turn by default\nUse actions by entering their assigned index\nWhen targeting an AOE action, area is formatted as width by height when targeting vertically\nCharges are restored through various means, usually at the end of your turn\n\n")
+                           f"You have two actions per turn by default\nUse actions by entering their assigned index\nWhen targeting an AOE action, area is formatted as width by height when targeting vertically\nCharges are restored through various means, usually at the end of your turn\n\n" +
+                           f"Enter 'Info [id]' to see info about an action, substituting [id] for the action's assigned id\n\n")
 
             match option.lower():
                 case "start":

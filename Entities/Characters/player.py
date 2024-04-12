@@ -28,16 +28,25 @@ class Player(Character):
 
         action = input()
 
-        try:
-            self.readAsMove(action, game)
-        except Exception:
+        if action[:4].lower() == "info":
             try:
-                    trait = self.getFullActionList()[int(action) - 1]
-                    if not trait.activate(game, "Active", trait.tiedEquipment, user = self):
+                action = int(action[4:])
+                trait = self.getFullActionList()[action - 1]
+                input(f"\n{trait.name}\n Targeting:\n  {trait.getTargetDesc()}\n Effect:\n  {trait.getEffectDesc()}\n\nPress enter to continue")
+            except (ValueError, IndexError): pass
+            self.actionsLeft += 1
+        else:
+
+            try:
+                self.readAsMove(action, game)
+            except Exception:
+                try:
+                        trait = self.getFullActionList()[int(action) - 1]
+                        if not trait.activate(game, "Active", trait.tiedEquipment, user = self):
+                            self.actionsLeft += 1
+                except (ValueError, IndexError):
+                    if not action.lower() == "pass":
                         self.actionsLeft += 1
-            except (ValueError, IndexError):
-                if not action == "pass":
-                    self.actionsLeft += 1
 
         if len(game.enemies) == 0:
             self.actionsLeft = 0
