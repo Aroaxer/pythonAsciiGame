@@ -530,7 +530,7 @@ class Trait():
                     case "Embodiment":
                         return "If the target is dead, charge this weapon's fourth action"
                     case "Palace Toggle":
-                        return "Toggles the Palace effect as follows:\nThis item's defense becomes 90\nDeal 1.25x damage with your weapon\nLose 2 speed\nGain 1 action\nDisable this effect before switching weapons, or it will reduce your damage"
+                        return "Toggles the Palace effect as follows:\nThis item's defense becomes 90\nDeal 1.25x damage with your weapon\nLose 2 speed\nGain 1 action"
                     case "Mjolnir":
                         return "Charges this item's fourth action"
                     case "Excalibur":

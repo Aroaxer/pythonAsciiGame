@@ -183,6 +183,11 @@ class Character(Object):
                     except AttributeError: pass
                     self.mainhand = item
                     item.user = self
+
+                    try:
+                        if self.offhand.specialTags["Palace"]:
+                            item.damage *= 1.25
+                    except (AttributeError, KeyError): pass
                 case "Offhand":
                     try:
                         del self.offhand
