@@ -550,11 +550,19 @@ class Enemy(Character):
             return ("Wait",)
 
         if currentBestAction == "Move":
-            move = aStar.getRoute((self.x, self.y), (game.player.x, game.player.y), self, game)
+            distToPlr = max(abs(self.x - game.player.x), abs(self.y - game.player.y))
+            if distToPlr > self.preferredDist:
+                move = aStar.getRoute((self.x, self.y), (game.player.x, game.player.y), self, game)
+            elif distToPlr < self.preferredDist:
+                targX = 1 if self.x < game.player.x else (game.player.x if self.x == game.player.x else game.encounter.width)
+                targY = 1 if self.y < game.player.y else (game.player.y if self.y == game.player.y else game.encounter.height)
+                move = aStar.getRoute((self.x, self.y), (targX, targY), self, game, True)
+            else:
+                return ("Wait",)
 
             if move == "No Path":
                 return ("Wait",)
-
+            
             return ("Move", move)
         else:
             return ("Active", currentBestAction)

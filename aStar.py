@@ -38,7 +38,7 @@ def isSpotOccupied(game, x, y):
 # The main algorithm
 # 'entity' is the one using the route, for stopping when in range
 # 'grid' is for not pathing off the grid, (width, height) tuple
-def getRoute(start, goal, entity, game):
+def getRoute(start, goal, entity, game, ignoresPrefDist = False):
     openSet = [start]
     route = {}
     gScore = {start : 0}
@@ -53,7 +53,7 @@ def getRoute(start, goal, entity, game):
                     current = node
             except Exception:
                 pass
-        if max(abs(current[0] - goal[0]), abs(current[1] - goal[1])) <= entity.preferredDist:
+        if max(abs(current[0] - goal[0]), abs(current[1] - goal[1])) <= (entity.preferredDist if not ignoresPrefDist else 0):
             return reconstPath(route, current)
         
         
