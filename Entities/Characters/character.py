@@ -1,9 +1,9 @@
-import math
 import copy
 
 from Entities.object import Object
 
 import utils
+import premades as pre
 
 class Character(Object):
     hp = 0
@@ -57,6 +57,10 @@ class Character(Object):
     accessory = None
 
     tempDamageModifier = 1
+
+    # Statuses are basically traits
+    # Name : (Duration, Equipment)
+    statuses = {}
 
     def getDefense(self):
         total = 100
@@ -171,6 +175,11 @@ class Character(Object):
         
         if shouldTriggerTraits: self.activateAllTraits("After Damage", game, source)
 
+    def apply(self, debuffName, equipment, duration):
+        status = copy.deepcopy(pre.statuses[debuffName])
+        status.tiedEquipment = equipment
+        self.statuses[status] = duration
+
     def putOn(self, item):
         if type(item) == tuple:
             item = item[0]
@@ -262,6 +271,15 @@ class Character(Object):
                 for trait in slot.traits:
                     trait.activate(game, trigger, slot, self, target)
             except AttributeError: pass
+        
+        cleanedStatuses = {}
+        for status in self.statuses.keys():
+            status.activate(game, trigger, status.tiedEquipment, self, target)
+
+            self.statuses[status] -= 1
+            if self.statuses[status] > 0:
+                cleanedStatuses[status] = self.statuses[status]
+        self.statuses = cleanedStatuses
     
     def rechargeTraits(self, trigger):
         for trait in self.getAllTraits():

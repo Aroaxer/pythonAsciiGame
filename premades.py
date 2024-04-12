@@ -13,6 +13,7 @@ acs = {
     "Impale" : Action("Impale", "1x Damage", "Directional", maxCharges=1, length=3),
     "Ritual Stab" : Action("Ritual Stab", "Ritual Attack", maxCharges=2, recharge="Encounter"),
     "Whirl" : Action("Whirl", "1x Damage", "Centered", maxCharges=5, rechargePercent=0.2, width=3),
+    "Lacerate" : Action("Lacerate", "Lacerate", maxCharges=1, freeAction=True),
         # Vorpal Sword
     "Decapitate" : Action("Decapitate", "Decapitate"),
     "Bloodwave" : Action("Bloodwave", "1x Damage", "Directional", maxCharges=5, recharge="Never", width=3, length=5),
@@ -167,12 +168,18 @@ traits = {
     "Embodiment" : Trait("Embodiment", "Attack", "Embodiment")
 }
 
+# Statuses
+statuses = {
+    "Bleed" : Trait("Bleed", "Turn", "Bleed")
+}
+
 # Equips
 # This must be defined in this order
 
 # Other Helds
 tier3Offs = {
     # Offensive
+    "Cultist Sword" : Equip("Cultist Sword", 15, 10, [acs["Ritual Stab"], acs["Lacerate"], acs["Pull"]]),
     "Oceanic Coating" : Equip("Oceanic Coating", 10, 0, [traits["Coating"], traits["Knockback"], traits["Knockback"]]),
 
     # Defensive
@@ -377,8 +384,8 @@ lootPools = {
 # Name, Health
 preEnemies = {
     "Sunlit Field" : [("Wild Boar", 7), ("Spitting Cobra", 4), ("Forest Golem", 45)],
-    "Shaded Forest" : [("Goblin", 10), ("Hobgoblin", 12), ("Bugbear", 14), ("Hobgoblin Devastator", 100)],
-        "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Stone Giant", 120)],
+    "Shaded Forest" : [("Goblin", 10), ("Hobgoblin", 12), ("Bugbear", 14), ("Hobgoblin Devastator", 75)],
+        "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Stone Giant", 100)],
     "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 200)],
         "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 200)],
     "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 250)],

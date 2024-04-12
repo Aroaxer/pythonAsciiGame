@@ -225,7 +225,7 @@ class Game():
             self.getLoot(self.stage.lootAmount)
 
         self.player.rechargeTraits("Encounter")
-        self.player.hp += 1
+        self.player.hp += 0.5
 
         enc = self.stage.genEncounter(self.complEncsPerStage)
         self.encounter = enc[0]

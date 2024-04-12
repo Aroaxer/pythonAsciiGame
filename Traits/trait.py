@@ -256,6 +256,13 @@ class Trait():
                     user.actionsLeft += 1
                     user.hp += 0.2
                     self.charges += 1
+            case "Lacerate":
+                target.takeDamage(equipment.damage, user, game)
+                target.apply("Bleed", equipment, 2)
+            case "Bleed":
+                target.tempDamageModifier *= 1.2
+                target.takeDamage(equipment.damage / 4, None, game, False)
+                
             case "Decapitate":
                 # Should only be used by Vorpal Sword or Excalibur
                 target.takeDamage(equipment.damage * 1.25, user, game)
