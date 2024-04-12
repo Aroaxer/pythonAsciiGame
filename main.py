@@ -193,7 +193,7 @@ class Game():
         return map
     
     def displayInfo(self):
-        print(f"Stage: {self.stage.name}")
+        print(f"Stage: {self.stage.name} (Encounter {self.complEncsPerStage + 1}/{self.stage.length})")
 
         print(self.assembleMap("str"))
 
