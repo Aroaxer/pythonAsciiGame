@@ -317,10 +317,17 @@ class Trait():
             case "Regenerate":
                 target.hp += 0.2
             case "Minor Block":
-                target.tempDamageModifier *= 0.75
+                target.tempDamageModifier *= 0.8
+            case "Strong Chain Reduction":
+                target.tempDamageModifier *= 0.6
             case "Holy Radiance":
                 target.takeDamage(equipment.damage / 4, user, game, False)
                 user.hp += 0.05
+            case "Immune":
+                equipment.specialTags["Stored Damage Mod"] = target.tempDamageModifier
+                target.tempDamageModifier = 0
+            case "De-Immune":
+                target.tempDamageModifier = equipment.specialTags["Stored Damage Mod"]
             
             # Utility (Active)
             case "Hasten":
@@ -329,6 +336,10 @@ class Trait():
                 if self.effectKey == "Damage Pull":
                     target.takeDamage(equipment.damage, user, game)
                 target.move(game.encounter, game, target=(user.x, user.y), ignoreSpd = True)
+            case "Stun":
+                target.apply("Stun", equipment, 2)
+            case "StunEf":
+                target.actionsLeft -= 1
             case "Teleport" | "Charge":
                 user.x, user.y = target[0], target[1]
                 if self.effectKey == "Charge":

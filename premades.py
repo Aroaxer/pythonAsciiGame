@@ -59,6 +59,7 @@ acs = {
     "Shatter" : Action("Shatter", "1.5x Damage", maxCharges=1, range=3),
     "Shatterwave" : Action("Shatterwave", "1.5x Damage", "Directional", maxCharges=2, rechargePercent=0.5, width=1, length=5),
     "Throw" : Action("Throw", "1x Damage", range=2),
+    "Shiv" : Action("Shiv", "1x Damage", range=3, maxCharges=10, rechargePercent=0.2, freeAction=True),
     "Toss" : Action("Toss", "1x Damage", maxCharges=1, range=2, freeAction=True),
     "Twin Shot" : Action("Twin Shot", "0.5x Damage", "Multi 2", range=3),
         # Trinity Bow
@@ -123,6 +124,7 @@ acs = {
     "Shove" : Action("Shove", "Repel 3"),
     "Pull" : Action("Pull", "Pull", maxCharges=1, range=4, freeAction=True),
     "Damage Pull" : Action("Pull", "Damage Pull", maxCharges=1, range=4, freeAction=True),
+    "Entangle" : Action("Entangle", "Stun", maxCharges=2, range=3),
     "Double Hook" : Action("Double Hook", "Damage Pull", "Multi 2", maxCharges=1, range=5, freeAction=True),
     "Teleport" : Action("Teleport", "Teleport", "Point No Enemy", range=10),
     "Charge" : Action("Charge", "Charge", "Point No Enemy", maxCharges=1, range=5, width=3),
@@ -157,7 +159,7 @@ traits = {
     "Spikes" : Trait("Spikes", "After Damage", "Spikes"),
     "Repel" : Trait("Repel", "After Damage", "Repel 1"),
     "Regenerate" : Trait("Regenerate", "Turn", "Regenerate"),
-    "Chain Reduction" : Trait("Chain Reduction", "Before Damage", "Minor Block"),
+    "Chain Reduction" : Trait("Chain Reduction", "Before Damage", "Minor Block", "Self"),
     "Charge Deity" : Trait("Charge Deity", "Attack", "Charge Deity"),
     "Momentum" : Trait("Momentum", "Attack", "Momentum"),
     "Holy Radiance" : Trait("Holy Radiance", "Turn", "Holy Radiance", "Centered", width=7),
@@ -165,12 +167,16 @@ traits = {
     "Mjolnir" : Trait("Mjolnir", "After Damage", "Mjolnir", "Self"),
     "Coating" : Trait("Coating", "Attack", "Spikes"),
     "Knockback" : Trait("Knockback", "Attack", "Repel 1"),
-    "Embodiment" : Trait("Embodiment", "Attack", "Embodiment")
+    "Embodiment" : Trait("Embodiment", "Attack", "Embodiment"),
+    "Immune First 1" : Trait("Immune First", "Before Damage", "Immune", "Self", maxCharges=1),
+    "Immune First 2" : Trait("De-Immune First", "After Damage", "De-Immune", "Self", maxCharges=1),
+    "Strong Chain Reduction" : Trait("Strong Chain Reduction", "Before Damage", "Strong Chain Reduction", "Self")
 }
 
 # Statuses
 statuses = {
-    "Bleed" : Trait("Bleed", "Turn", "Bleed")
+    "Bleed" : Trait("Bleed", "Turn", "Bleed"),
+    "Stun" : Trait("Stun", "Turn", "StunEf")
 }
 
 # Equips
@@ -180,6 +186,8 @@ statuses = {
 tier3Offs = {
     # Offensive
     "Cultist Sword" : Equip("Cultist Sword", 15, 10, [acs["Ritual Stab"], acs["Lacerate"], acs["Pull"]]),
+    "Mythril Chains" : Equip("Mythril Hooks", 12, 10, [acs["Double Hook"], acs["Entangle"]]),
+    "Silent Shiv" : Equip("Silent Shiv", 10, 10, [acs["Shiv"], acs["Parry"]]),
     "Oceanic Coating" : Equip("Oceanic Coating", 10, 0, [traits["Coating"], traits["Knockback"], traits["Knockback"]]),
 
     # Defensive
@@ -188,13 +196,13 @@ tier3Offs = {
 }
 tier2Offs = {
     # Offensive
-    "Ritual Blade" : Equip("Ritual Blade", 8, 0, [acs["Ritual Stab"], acs["Pull"]]),
-    "Chain Hooks" : Equip("Chain Hooks", 3, 0, [acs["Double Hook"]]),
-    "Shrouded Dagger" : Equip("Shrouded Dagger", 5, 0, [acs["Toss"], acs["Parry"]]),
+    "Ritual Blade" : Equip("Ritual Blade", 8, 0, [acs["Ritual Stab"], acs["Pull"]], upgr=tier3Offs["Cultist Sword"]),
+    "Chain Hooks" : Equip("Chain Hooks", 3, 0, [acs["Double Hook"]], upgr=tier3Offs["Mythril Chains"]),
+    "Shrouded Dagger" : Equip("Shrouded Dagger", 5, 0, [acs["Toss"], acs["Parry"]], upgr=tier3Offs["Silent Shiv"]),
     "Forceful Coating" : Equip("Forceful Coating", 5, 0, [traits["Coating"], traits["Knockback"]], upgr=tier3Offs["Oceanic Coating"]),
 
     # Defensive
-    "Crystal Shield" : Equip("Crystal Shield", 2, 30, [acs["Block"], traits["Spikes"]], hpBoost=1),
+    "Crystal Shield" : Equip("Crystal Shield", 2, 30, [acs["Block"], traits["Spikes"]], hpBoost=1, upgr=tier3Offs["Fiery Shield"]),
     "Castle Shield" : Equip("Castle Shield", 0, 50, [acs["Block"], acs["Repel"]], upgr=tier3Offs["Palace Shield"], hpBoost=3)
 }
 offs = {
@@ -213,6 +221,9 @@ offs = {
 tier3Armors = {
     # Defensive
     "Stormwrath Mail" : Equip("Stormwrath Mail", 10, 40, [traits["Spikes"], traits["Repel"], acs["Charge"]], hpBoost=5),
+    "Forested Plate" : Equip("Forested Plate", 0, 60, [traits["Regenerate"], traits["Regenerate"], acs["Fortify"]], hpBoost=7),
+    "Shadesteel Plate" : Equip("Shadesteel Plate", 0, 80, [traits["Chain Reduction"]], hpBoost=5),
+    "Midnight Cloak" : Equip("Midnight Cloak", 0, 0, [traits["Strong Chain Reduction"], traits["Immune First 1"], traits["Immune First 2"]], actionBoost=1),
 
     # Utility
     "Aetherial Robes" : Equip("Aetherial Robes", 0, 20, [acs["Hasten"], traits["Momentum"]], speedBoost=3, actionBoost=2),
@@ -220,19 +231,21 @@ tier3Armors = {
 }
 tier2Armors = {
     # Defensive
-    "Battlerager Mail" : Equip("Battlerager Mail", 5, 25, [traits["Spikes"], acs["Charge"]], upgr=tier3Armors["Stormwrath Mail"], hpBoost=3),
-    "Druidic Plate" : Equip("Druidic Plate", 0, 40, [traits["Regenerate"], acs["Block"]], hpBoost=5),
-    "Titanic Plate" : Equip("Titanic Plate", 0, 60, [traits["Chain Reduction"]], speedBoost=-1, hpBoost=3),
+    "Battlerager Mail" : Equip("Battlerager Mail", 5, 25, [traits["Spikes"], acs["Charge"]], hpBoost=3, upgr=tier3Armors["Stormwrath Mail"]),
+    "Druidic Plate" : Equip("Druidic Plate", 0, 40, [traits["Regenerate"], acs["Block"]], hpBoost=5, upgr=tier3Armors["Forested Plate"]),
+    "Titanic Plate" : Equip("Titanic Plate", 0, 60, [traits["Chain Reduction"]], speedBoost=-1, hpBoost=3, upgr=tier3Armors["Shadesteel Plate"]),
+    "Shade Cloak" : Equip("Shade Cloak", 0, 0, [traits["Strong Chain Reduction"]], actionBoost=1, upgr=tier3Armors["Midnight Cloak"]),
 
     # Utility
     "Leathers of the Wind" : Equip("Leathers of the Wind", 0, 10, [acs["Hasten"]], speedBoost=2, actionBoost=2, upgr=tier3Armors["Aetherial Robes"]),
-    "Infusing Robes" : Equip("Infusing Robes", 5, 10, [traits["Coating"]], speedBoost=1)
+    "Infusing Robes" : Equip("Infusing Robes", 5, 10, [traits["Coating"]], speedBoost=1, upgr=tier3Armors["Enchanter's Robes"])
 }
 armors = {
     # Defensive
-    "Spiked Mail" : Equip("Spiked Mail", 2, 15, [traits["Spikes"]], upgr=tier2Armors["Battlerager Mail"], hpBoost=1),
-    "Overgrown Plate" : Equip("Overgrown Plate", 0, 25, [traits["Regenerate"]], upgr=tier2Armors["Druidic Plate"], hpBoost=3),
+    "Spiked Mail" : Equip("Spiked Mail", 2, 15, [traits["Spikes"]], hpBoost=1, upgr=tier2Armors["Battlerager Mail"]),
+    "Overgrown Plate" : Equip("Overgrown Plate", 0, 25, [traits["Regenerate"]], hpBoost=3, upgr=tier2Armors["Druidic Plate"]),
     "Heavy Plate" : Equip("Heavy Plate", 0, 40, [traits["Chain Reduction"]], speedBoost=-1, upgr=tier2Armors["Titanic Plate"]),
+    "Shadow Robe" : Equip("Shadow Robe", 0, 0, [traits["Strong Chain Reduction"]], upgr=tier2Armors["Shade Cloak"]),
 
     # Utility
     "Swift Leather" : Equip("Swift Leather", 0, 0, [], speedBoost=1, actionBoost=1, upgr=tier2Armors["Leathers of the Wind"]),
@@ -253,21 +266,22 @@ tier3Accs = {
     "Radiant Crown" : Equip("Radiant Crown", 8, 30, [traits["Holy Radiance"]], speedBoost=1, hpBoost=5),
 
     # Utility
+    "Timewarp Amulet" : Equip("Timewarp Amulet", 0, 0, [acs["Hasten"], traits["Momentum"]], speedBoost=3, actionBoost=2),
     "Aerial Gauntlets" : Equip("Aerial Gauntlets", 0, 10, [acs["Shove"], acs["Teleport"], traits["Repel"], traits["Repel"]], speedBoost=3, actionBoost=1, hpBoost=3)
 }
 tier2Accs = {
     # Defensive
-    "Barrier Necklace" : Equip("Barrier Necklace", 0, 30, [acs["Arcane Shield"], traits["Chain Reduction"]], upgr=tier3Accs["Fortress Necklace"], hpBoost=1),
-    "Holy Circlet" : Equip("Holy Circlet", 0, 20, [traits["Regenerate"]], upgr=tier3Accs["Radiant Crown"], hpBoost=3),
+    "Barrier Necklace" : Equip("Barrier Necklace", 0, 30, [acs["Arcane Shield"], traits["Chain Reduction"]], hpBoost=1, upgr=tier3Accs["Fortress Necklace"]),
+    "Holy Circlet" : Equip("Holy Circlet", 0, 20, [traits["Regenerate"]], hpBoost=3, upgr=tier3Accs["Radiant Crown"]),
 
     # Utility
-    "Lightspeed Amulet" : Equip("Lightspeed Amulet", 0, 0, [acs["Hasten"]], speedBoost=2, actionBoost=1),
-    "Repelling Gloves" : Equip("Repelling Gloves", 0, 5, [acs["Shove"], traits["Repel"]], speedBoost=2, hpBoost=1)
+    "Lightspeed Amulet" : Equip("Lightspeed Amulet", 0, 0, [acs["Hasten"]], speedBoost=2, actionBoost=1, upgr=tier3Accs["Timewarp Amulet"]),
+    "Repelling Gloves" : Equip("Repelling Gloves", 0, 5, [acs["Shove"], traits["Repel"]], speedBoost=2, hpBoost=1, upgr=tier3Accs["Aerial Gauntlets"])
 }
 accs = {
     # Defensive
     "Brooch of Shielding" : Equip("Brooch of Shielding", 0, 15, [acs["Arcane Shield"]], upgr=tier2Accs["Barrier Necklace"]),
-    "Healing Wreath" : Equip("Healing Wreath", 0, 10, [traits["Regenerate"]], upgr=tier2Accs["Holy Circlet"], hpBoost=1),
+    "Healing Wreath" : Equip("Healing Wreath", 0, 10, [traits["Regenerate"]], hpBoost=1, upgr=tier2Accs["Holy Circlet"]),
 
     # Utility
     "Hastening Amulet" : Equip("Hastening Amulet", 0, 0, actionBoost=1, upgr=tier2Accs["Lightspeed Amulet"]),

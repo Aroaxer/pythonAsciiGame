@@ -138,6 +138,9 @@ class Character(Object):
 
         self.activateAllTraits("Turn", game, None)
 
+        if self.actionsLeft <= 0:
+            return f"{self.name} was stunned"
+
         record = ""
         while self.actionsLeft >= 1:
             self.speedLeft = self.speed
@@ -178,7 +181,8 @@ class Character(Object):
     def apply(self, debuffName, equipment, duration):
         status = copy.deepcopy(pre.statuses[debuffName])
         status.tiedEquipment = equipment
-        self.statuses[status] = duration
+        # Don't know why the plus 1 is needed, but it seems to be
+        self.statuses[status] = duration + 1
 
     def putOn(self, item):
         if type(item) == tuple:
