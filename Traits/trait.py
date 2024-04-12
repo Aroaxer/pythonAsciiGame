@@ -440,7 +440,28 @@ class Trait():
             case _:
                 pass
 
-    def getDesc(self):
+    def getTargetDesc(self):
+        match self.targeting:
+            case "Standard":
+                return "Selects a single target within range"
+            case "Multi":
+                return f"Selects {self.multi} targets within range"
+            case "Directional":
+                return "Selects a direction"
+            case "Point":
+                return "Selects a point within range"
+            case "Point No Enemy":
+                return "Selects an unoccupied point within range"
+            case "Self":
+                return "Affects you"
+            case "Centered":
+                return "Triggers centered on you"
+            case "Copy Target":
+                return "Copies the target of the triggering attack"
+            case "Damage Source":
+                return "Targets the source of the triggering attack"
+
+    def getEffectDesc(self):
         match self.name:
             # Any traits with unusual details not to do with their effect key
             case _:
