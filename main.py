@@ -144,12 +144,12 @@ class Game():
         for enemy in self.enemies:
             actionRecord.append(enemy.takeTurn(self))
 
-        if actionRecord == []:
-            actionRecord = ["Encounter Complete!"]
+        if not self.enemies:
+            actionRecord.append("Encounter Complete!")
 
         self.printEndRound(actionRecord)
 
-        if len(self.enemies) == 0:
+        if not self.enemies:
             self.completedEncounters += 1
             self.complEncsPerStage += 1
             if self.stage.length <= self.complEncsPerStage:

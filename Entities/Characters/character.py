@@ -137,7 +137,10 @@ class Character(Object):
         record = ""
         while self.actionsLeft >= 1:
             self.speedLeft = self.speed
-            record = self.takeAction(game)
+            if not record:
+                record = self.takeAction(game)
+            else:
+                record += f", {self.takeAction(game)}"
             if self.hp > self.maxHp:
                 self.hp = self.maxHp
 
@@ -223,9 +226,9 @@ class Character(Object):
         try:
             plannedAction = self.determineBestAction(game)
             if plannedAction[0] not in {"Move", "Wait"}:
-                plannedAction = f"Use {plannedAction[1].name}"
+                plannedAction = f"Use {plannedAction[1].name}" + (f" (+{self.actions - 1} More)" if self.actions > 1 else "")
             else:
-                plannedAction = plannedAction[0]
+                plannedAction = plannedAction[0] + (f" (+{self.actions - 1} More)" if self.actions > 1 else "")
         except AttributeError: pass
 
         infoStr = f"{self.name}: {round(self.hp, 2)}/{self.maxHp} Health" + (f" (-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "")
