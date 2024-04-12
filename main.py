@@ -15,10 +15,10 @@ class Game():
     player = None
     allObjects = []
     encounter = None
-    stage = preS.stages[6][1]
+    stage = preS.stages[0][0]
 
-    completedEncounters = 11
-    complEncsPerStage = 11
+    completedEncounters = 0
+    complEncsPerStage = 0
 
     oldEnemInfo = {}
 
@@ -144,12 +144,12 @@ class Game():
         for enemy in self.enemies:
             actionRecord.append(enemy.takeTurn(self))
 
-        if actionRecord == []:
-            actionRecord = ["Encounter Complete!"]
+        if not self.enemies:
+            actionRecord.append("Encounter Complete!")
 
         self.printEndRound(actionRecord)
 
-        if len(self.enemies) == 0:
+        if not self.enemies:
             self.completedEncounters += 1
             self.complEncsPerStage += 1
             if self.stage.length <= self.complEncsPerStage:
@@ -224,6 +224,7 @@ class Game():
             self.getLoot(self.stage.lootAmount)
 
         self.player.rechargeTraits("Encounter")
+        self.player.hp += 1
 
         enc = self.stage.genEncounter(self.complEncsPerStage)
         self.encounter = enc[0]

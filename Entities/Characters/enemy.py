@@ -497,12 +497,15 @@ class Enemy(Character):
             case "Lesser Devil":
                 self.mapIcon = "L"
 
+                speed = 2
+
                 self.putOn(pre.enemWeps["Weak Melee"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
             case "Greater Devil":
                 self.mapIcon = "G"
 
                 speed = 2
+                actions = 2
 
                 self.putOn(pre.enemWeps["Medium Melee"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
@@ -524,7 +527,7 @@ class Enemy(Character):
             case "Active":
                 oldPlHp = game.player.hp
                 action[1].activate(game, "Active", action[1].tiedEquipment, self)
-                return f"used {action[1].name}" + (f" and did {oldPlHp - game.player.hp} damage" if oldPlHp != game.player.hp else " and did no damage")
+                return f"used {action[1].name}" + (f" for {round(oldPlHp - game.player.hp, 2)} damage" if oldPlHp != game.player.hp else (" for no damage" if game.player.tempDamageModifier == 0 else ""))
             case "Move":
                 while self.speedLeft > 0 and len(action[1]) > 1:
                     del action[1][-1]
@@ -544,13 +547,13 @@ class Enemy(Character):
                 currentBestAction = action
 
         if self.speed <= 0 and currentBestAction == "Move":
-            return("Wait")
+            return ("Wait",)
 
         if currentBestAction == "Move":
             move = aStar.getRoute((self.x, self.y), (game.player.x, game.player.y), self, game)
 
             if move == "No Path":
-                return ("Wait")
+                return ("Wait",)
 
             return ("Move", move)
         else:
@@ -561,7 +564,7 @@ class Enemy(Character):
         plr = game.player
         dist = max(abs(plr.x - self.x), abs(plr.y - self.y))
 
-        return action.range >= dist and action.charges != 0
+        return action.range >= dist and (action.charges >= 1 or action.charges < 0)
     
     def isWithinDistance(self, distance, point):
         return max(abs(self.x - point[0]), abs(self.y - point[1])) <= distance

@@ -15,9 +15,9 @@ stages = [
         Stage("Icy Tundra", 4, pre.preEnemies["Icy Tundra"], pre.lootPools["Tier 1"], 5, 5, 9, 9, length=8, enemCount=(5,7))],
     [Stage("Royal Palace", 5, pre.preEnemies["Royal Palace"], pre.lootPools["Tier 2"], 5, 7, 7, 9, length=10, enemCount=(6,8)),
         Stage("The Antitower [Hard]", 5, pre.preEnemies["The Antitower"], pre.lootPools["Tier 1"], 3, 7, 5, 9, length=8, enemCount=(5, 7), lootAmount=5)],
-    [Stage("Astral Plane [Hard]", 6, pre.preEnemies["Astral Plane"], pre.lootPools["Tier 1"], 7, 7, 11, 11, length=10, prevStages=["The Antitower"], enemCount=(7, 9), lootAmount=5),
-        Stage("The Abyss [Very Hard]", 6, pre.preEnemies["The Abyss"], pre.lootPools["Tier 1"], 9, 9, 13, 13, length=12, prevStages=["The Antitower"], enemCount=(8, 10), lootAmount=7)],
-    [Stage("Mount Celestia [Hard]", 7, pre.preEnemies["Mount Celestia"], pre.lootPools["Tier 2"], 7, 7, 11, 11, length=10, prevStages=["Astral Plane"], enemCount=(7, 9), lootAmount=5),
-        Stage("The Nine Hells [Very Hard]", 7, pre.preEnemies["The Nine Hells"], pre.lootPools["Tier 2"], 11, 11, 15, 15, length=12, prevStages=["The Abyss"], enemCount=(9, 12), lootAmount=7)]
+    [Stage("Astral Plane [Hard]", 6, pre.preEnemies["Astral Plane"], pre.lootPools["Tier 1"], 7, 7, 11, 11, length=10, prevStages=["The Antitower [Hard]"], enemCount=(7, 9), lootAmount=5),
+        Stage("The Abyss [Very Hard]", 6, pre.preEnemies["The Abyss"], pre.lootPools["Tier 1"], 9, 9, 13, 13, length=12, prevStages=["The Antitower [Hard]"], enemCount=(8, 10), lootAmount=7)],
+    [Stage("Mount Celestia [Hard]", 7, pre.preEnemies["Mount Celestia"], pre.lootPools["Tier 2"], 7, 7, 11, 11, length=10, prevStages=["Astral Plane [Hard]"], enemCount=(7, 9), lootAmount=5),
+        Stage("The Nine Hells [Very Hard]", 7, pre.preEnemies["The Nine Hells"], pre.lootPools["Tier 2"], 11, 11, 15, 15, length=12, prevStages=["The Abyss [Very Hard]"], enemCount=(9, 12), lootAmount=7)]
 ]
 
