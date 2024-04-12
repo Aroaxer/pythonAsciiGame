@@ -236,15 +236,22 @@ class Game():
     def advanceStage(self):
         self.player.hp = self.player.maxHp
         self.complEncsPerStage = 0
-        nextStages = [(stage, stage.name) for stage in preS.stages[self.stage.stageOrder] if self.stage.name in stage.prevStages or not len(stage.prevStages)]
+        if self.stage.stageOrder != 7:
+            nextStages = [(stage, stage.name) for stage in preS.stages[self.stage.stageOrder] if self.stage.name in stage.prevStages or not len(stage.prevStages)]
 
-        if len(nextStages) > 1:    
-            self.stage = nextStages[utils.promptChoice("Which stage would you like to go to next?", [stage[1] for stage in nextStages])][0]
-        elif nextStages:
-            self.stage = nextStages[0][0]
+            if len(nextStages) > 1:    
+                self.stage = nextStages[utils.promptChoice("Which stage would you like to go to next?", [stage[1] for stage in nextStages])][0]
+            elif nextStages:
+                self.stage = nextStages[0][0]
+            else:
+                self.endType = "Normal Ending Victory!"
+                self.ended = True
         else:
-            self.endType = "You Won!"
-            self.ended = True 
+            match self.stage.name:
+                case "Mount Celestia [Hard]":
+                    self.endType = "Hard Ending Victory!"
+                case "The Nine Hells [Very Hard]":
+                    self.endType = "True Ending Victory!\nCongratulations!"
 
     def getLoot(self, amount, category = None, allowUpgrade = True, customMsg = None, separators = {}):
         if category:
