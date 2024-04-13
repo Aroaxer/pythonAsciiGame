@@ -47,6 +47,8 @@ class Player(Character):
                 except (ValueError, IndexError):
                     if not action.lower() == "pass":
                         self.actionsLeft += 1
+                    else:
+                        self.actionsLeft = 0
 
         if len(game.enemies) == 0:
             self.actionsLeft = 0
@@ -55,16 +57,23 @@ class Player(Character):
 
     def readAsMove(self, entered, game):
         enArr = entered.replace(" ", "").split(",")
+        didMove = False
         for entry in enArr:
             change = int(entry[1:])
             if entry[0] == settings.moveControls[0]:
                 self.move(game.encounter, game, cy = -change)
+                didMove = True
             elif entry[0] == settings.moveControls[1]:
                 self.move(game.encounter, game, cx = -change)
+                didMove = True
             elif entry[0] == settings.moveControls[2]:
                 self.move(game.encounter, game, cy = change)
+                didMove = True
             elif entry[0] == settings.moveControls[3]:
                 self.move(game.encounter, game, cx = change)
+                didMove = True
+        if not didMove:
+            self.actionsLeft += 1
 
 
     def collect(self, item):
