@@ -66,7 +66,7 @@ class Game():
         self.getLoot(0, pre.weps, customMsg="What weapon would you like to start with?", separators={1:" Melee", 5:"\n Ranged", 8:"\n Magic"})
         self.emptyTerminal()
         self.getLoot(0, utils.merge(pre.offs.values(), pre.armors.values(), pre.accs.values()), allowUpgrade=False, 
-                     customMsg="What extra item would you like to start with?", separators={1:" Offhand", 7:"\n Armor", 12:"\n Accesory"})
+                     customMsg="What extra item would you like to start with?", separators={1:" Offhand", (len(pre.offs.values()) + 1):"\n Armor", (len(pre.offs.values()) + len(pre.armors.values()) + 1):"\n Accesory"})
 
     def beginLoop(self):
         self.startNewEncounter()

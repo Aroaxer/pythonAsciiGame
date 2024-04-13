@@ -56,13 +56,12 @@ class Enemy(Character):
                 self.putOn(pre.enemArmrs["Weak No Special"])
                 
                 # Boss
-            case "Hobgoblin Devastator":
+            case "Hobgoblin Lord":
                 self.mapIcon = "#"
-                self.preferredDist = 3
 
                 actions = 2
 
-                self.putOn(pre.enemWeps["Weak Magic"])
+                self.putOn(pre.enemWeps["Hobgob Lord"])
 
 
                 # Dark Cave

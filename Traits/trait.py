@@ -1,5 +1,6 @@
 import utils
 import math
+import random
 
 class Trait():
     name = ""
@@ -434,7 +435,7 @@ class Trait():
                 user.actionsLeft += 3
                 user.tempDamageModifier = 0
 
-            # Treant
+            # Bosses
             case "Conjure":
                 for x, y in ((user.x - 1, user.y), (user.x + 1, user.y)):
                     if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
@@ -443,7 +444,25 @@ class Trait():
                                 break
                         else:
                             if x != game.player.x and y != game.player.y:
-                                game.spawn("Boar", 4, x, y)
+                                game.spawn("Wild Boar", 4, x, y)
+            case "Reinforcements":
+                for _ in range(10):
+                    x, y = random.randint(1, game.encounter.width), random.randint(1, game.encounter.height)
+                    if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                        for object in game.allObjects:
+                            if x == object.x and y == object.y:
+                                break
+                        else:
+                            if x != game.player.x and y != game.player.y:
+                                match random.randint(1,3):
+                                    case 1:
+                                        game.spawn("Goblin", 4, x, y)
+                                    case 2:
+                                        game.spawn("Bugbear", 6, x, y)
+                                    case 3:
+                                        game.spawn("Hobgoblin", 5, x, y)
+                                break
+
 
             # Asmodeus
             case "Summon Lesser":
