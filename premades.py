@@ -145,6 +145,12 @@ enemAcs = {
     "Ranged" : Action("Ranged", "1x Damage", aiPrio=1, range = 2),
     "Magic" : Action("Magic", "1x Damage", aiPrio=1, range = 3, maxCharges=1),
     "Fireball" : Action("Fireball", "1.5x Damage", aiPrio=2, range = 3, maxCharges=1, rechargePercent=0.5),
+    # Grand Treant
+    "Thorny Vines" : Action("Thorny Vines", "1x Damage", aiPrio=3, range=2),
+    "Tangling Vines" : Action("Tangling Vines", "Stun", aiPrio=2, maxCharges=1, rechargePercent=0.5, range=10),
+    "Pulling Vines" : Action("Pulling Vines", "Pull", aiPrio=1, range=10),
+    "Conjure" : Action("Conjure", "Conjure", aiPrio=4, maxCharges=1, rechargePercent=0.2, range=100, freeAction=True),
+    # Crystal Heart
     "Call" : Action("Call", "Pull", range=10, maxCharges=1, rechargePercent=0.5, aiPrio=1),
     "Beam" : Action("Beam", "1x Damage", range=3, aiPrio=2),
     # Asmodeus
@@ -152,6 +158,21 @@ enemAcs = {
     "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
     "Summon Lesser" : Action("Summon Lesser Devils", "Summon Lesser", aiPrio=2, maxCharges=1, rechargePercent=0.25, range=100, freeAction=True),
     "Summon Greater" : Action("Summon Greater Devils", "Summon Greater", aiPrio=3, maxCharges=1, rechargePercent=0.2, range=100, freeAction=True)
+}
+
+enemWeps = {
+    "Weak Melee" : Equip("Weak Melee", 2, 0, [enemAcs["Melee"]]),
+    "Weak Ranged" : Equip("Weak Ranged", 1, 0, [enemAcs["Ranged"]]),
+    "Weak Magic" : Equip("Weak Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
+
+    "Medium Melee" : Equip("Medium Melee", 3, 0, [enemAcs["Melee"]]),
+    "Medium Ranged" : Equip("Medium Ranged", 2, 0, [enemAcs["Ranged"]]),
+    "Medium Magic" : Equip("Medium Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
+
+    # Special
+    "Treant" : Equip("Treant", 2, 0, [enemAcs["Thorny Vines"], enemAcs["Tangling Vines"], enemAcs["Pulling Vines"], enemAcs["Conjure"]]),
+    "Crystal Heart" : Equip("Crystal Heart", 2, 20, [enemAcs["Call"], enemAcs["Beam"]]),
+    "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]])
 }
 
 # Traits
@@ -267,7 +288,7 @@ tier3Accs = {
 
     # Utility
     "Timewarp Amulet" : Equip("Timewarp Amulet", 0, 0, [acs["Hasten"], traits["Momentum"]], speedBoost=3, actionBoost=2),
-    "Aerial Gauntlets" : Equip("Aerial Gauntlets", 0, 10, [acs["Shove"], acs["Teleport"], traits["Repel"], traits["Repel"]], speedBoost=3, actionBoost=1, hpBoost=3)
+    "Aerial Gauntlets" : Equip("Aerial Gauntlets", 0, 20, [acs["Shove"], acs["Teleport"], traits["Repel"], traits["Repel"]], speedBoost=3, actionBoost=1, hpBoost=3)
 }
 tier2Accs = {
     # Defensive
@@ -276,7 +297,7 @@ tier2Accs = {
 
     # Utility
     "Lightspeed Amulet" : Equip("Lightspeed Amulet", 0, 0, [acs["Hasten"]], speedBoost=2, actionBoost=1, upgr=tier3Accs["Timewarp Amulet"]),
-    "Repelling Gloves" : Equip("Repelling Gloves", 0, 5, [acs["Shove"], traits["Repel"]], speedBoost=2, hpBoost=1, upgr=tier3Accs["Aerial Gauntlets"])
+    "Repelling Gloves" : Equip("Repelling Gloves", 0, 10, [acs["Shove"], traits["Repel"]], speedBoost=2, hpBoost=1, upgr=tier3Accs["Aerial Gauntlets"])
 }
 accs = {
     # Defensive
@@ -355,19 +376,7 @@ weps = {
     "Arcane Staff" : Equip("Arcane Staff", 4, 0, [acs["Arcane Rays"], acs["Magic Missiles"]], upgr=tier2Weps["Archmage Rod"])
 }
 
-enemWeps = {
-    "Weak Melee" : Equip("Weak Melee", 2, 0, [enemAcs["Melee"]]),
-    "Weak Ranged" : Equip("Weak Ranged", 1, 0, [enemAcs["Ranged"]]),
-    "Weak Magic" : Equip("Weak Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
 
-    "Medium Melee" : Equip("Medium Melee", 3, 0, [enemAcs["Melee"]]),
-    "Medium Ranged" : Equip("Medium Ranged", 2, 0, [enemAcs["Ranged"]]),
-    "Medium Magic" : Equip("Medium Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
-
-    # Special
-    "Crystal Heart" : Equip("Crystal Heart", 2, 20, [enemAcs["Call"], enemAcs["Beam"]]),
-    "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]])
-}
 
 allItems = (
     utils.merge(weps.values(), armors.values(), offs.values(), accs.values()),
@@ -397,7 +406,7 @@ lootPools = {
 # Enemies
 # Name, Health
 preEnemies = {
-    "Sunlit Field" : [("Wild Boar", 7), ("Spitting Cobra", 4), ("Forest Golem", 45)],
+    "Sunlit Field" : [("Wild Boar", 7), ("Spitting Cobra", 4), ("Treant", 45, (7,7), (4,1))],
     "Shaded Forest" : [("Goblin", 10), ("Hobgoblin", 12), ("Bugbear", 14), ("Hobgoblin Devastator", 75)],
         "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Stone Giant", 100)],
     "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 200)],

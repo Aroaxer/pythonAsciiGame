@@ -181,8 +181,7 @@ class Character(Object):
     def apply(self, debuffName, equipment, duration):
         status = copy.deepcopy(pre.statuses[debuffName])
         status.tiedEquipment = equipment
-        # Don't know why the plus 1 is needed, but it seems to be
-        self.statuses[status] = duration + 1
+        self.statuses[status] = duration
 
     def putOn(self, item):
         if type(item) == tuple:
@@ -280,8 +279,11 @@ class Character(Object):
         for status in self.statuses.keys():
             status.activate(game, trigger, status.tiedEquipment, self, target)
 
-            self.statuses[status] -= 1
-            if self.statuses[status] > 0:
+            if trigger == status.trigger:
+                self.statuses[status] -= 1
+                if self.statuses[status] > 0:
+                    cleanedStatuses[status] = self.statuses[status]
+            else:
                 cleanedStatuses[status] = self.statuses[status]
         self.statuses = cleanedStatuses
     

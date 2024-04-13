@@ -434,6 +434,17 @@ class Trait():
                 user.actionsLeft += 3
                 user.tempDamageModifier = 0
 
+            # Treant
+            case "Conjure":
+                for x, y in ((user.x - 1, user.y), (user.x + 1, user.y)):
+                    if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                        for object in game.allObjects:
+                            if x == object.x and y == object.y:
+                                break
+                        else:
+                            if x != game.player.x and y != game.player.y:
+                                game.spawn("Boar", 4, x, y)
+
             # Asmodeus
             case "Summon Lesser":
                 for x in (user.x - 2, user.x, user.x + 2):

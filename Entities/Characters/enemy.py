@@ -28,11 +28,11 @@ class Enemy(Character):
                 self.putOn(pre.enemWeps["Weak Ranged"])
 
                 # Boss
-            case "Forest Golem":
+            case "Treant":
                 self.mapIcon = "#"
                 
-                self.putOn(pre.enemWeps["Weak Melee"])
-                self.putOn(pre.enemArmrs["Weak Reflect"])
+                self.putOn(pre.enemWeps["Treant"])
+                self.putOn(pre.enemArmrs["Weak No Special"])
 
 
             # Stage 2

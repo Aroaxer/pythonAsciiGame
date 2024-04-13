@@ -76,6 +76,16 @@ class Stage():
             return [enc, enems]
         else:
             # Get boss encounter
-            enc = Encounter(self.maxWidth, self.maxHeight)
-            enems = [Enemy(self.enemies[-1][0], self.enemies[-1][1], math.ceil(self.maxWidth / 2), math.ceil(self.maxHeight / 2))]
+            width, height = self.maxWidth, self.maxHeight
+            try:
+                width, height = self.enemies[-1][2]
+            except KeyError: pass
+
+            tX, tY = math.ceil(self.maxWidth / 2), math.ceil(self.maxHeight / 2)
+            try:
+                tX, tY = self.enemies[-1][3]
+            except KeyError: pass
+
+            enc = Encounter(width, height)
+            enems = [Enemy(self.enemies[-1][0], self.enemies[-1][1], tX, tY)]
             return [enc, enems]
