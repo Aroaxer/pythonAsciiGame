@@ -153,6 +153,11 @@ enemAcs = {
     # Hobgoblin Lord
     "Hobgob Strike" : Action("Strike", "1x Damage", aiPrio=2, maxCharges=1),
     "Reinforcements" : Action("Reinforcements", "Reinforcements", aiPrio=1, range=100),
+    # Spider Queen
+    "Bite" : Action("Bite", "1x Damage", aiPrio=2),
+    "Spit" : Action("Spit", "0.5x Damage", aiPrio=1, range=2),
+    "Eggs" : Action("Eggs", "Eggs", aiPrio=3, maxCharges=1, rechargePercent=0.5, range=100, freeAction=True),
+    "Hatch" : Action("Hatch", "Hatch", aiPrio=1, maxCharges=1, rechargePercent=0.5, range=100),
     # Crystal Heart
     "Call" : Action("Call", "Pull", range=10, maxCharges=1, rechargePercent=0.5, aiPrio=1),
     "Beam" : Action("Beam", "1x Damage", range=3, aiPrio=2),
@@ -175,6 +180,8 @@ enemWeps = {
     # Special
     "Treant" : Equip("Treant", 2, 0, [enemAcs["Thorny Vines"], enemAcs["Tangling Vines"], enemAcs["Pulling Vines"], enemAcs["Conjure"]]),
     "Hobgob Lord" : Equip("Hobgoblin Lord", 2, 20, [enemAcs["Hobgob Strike"], enemAcs["Reinforcements"]]),
+    "Spider Queen" : Equip("Spider Queen", 1, 20, [enemAcs["Bite"], enemAcs["Spit"], enemAcs["Eggs"]]),
+    "Egg" : Equip("Egg", 0, 0, [enemAcs["Hatch"]]),
     "Crystal Heart" : Equip("Crystal Heart", 2, 20, [enemAcs["Call"], enemAcs["Beam"]]),
     "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]])
 }
@@ -412,7 +419,7 @@ lootPools = {
 preEnemies = {
     "Sunlit Field" : [("Wild Boar", 7), ("Spitting Cobra", 4), ("Treant", 45, (7,7), (4,1))],
     "Shaded Forest" : [("Goblin", 10), ("Hobgoblin", 12), ("Bugbear", 14), ("Hobgoblin Lord", 80, (7,7))],
-        "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Stone Giant", 100)],
+        "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Spider Queen", 100, (7,7))],
     "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 200)],
         "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 200)],
     "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 250)],

@@ -75,17 +75,21 @@ class Enemy(Character):
             case "Giant Spider":
                 self.mapIcon = "S"
 
-                actions = 3
+                actions = 2
 
                 self.putOn(pre.enemWeps["Weak Melee"])
 
                 # Boss
-            case "Stone Giant":
+            case "Spider Queen":
                 self.mapIcon = "#"
 
-                actions = 4
+                actions = 3
 
-                self.putOn(pre.enemWeps["Weak Melee"])
+                self.putOn(pre.enemWeps["Spider Queen"])
+            case "Egg":
+                self.mapIcon = "E"
+                speed = 0
+                self.putOn(pre.enemWeps["Egg"])
             
 
             # Stage 3
