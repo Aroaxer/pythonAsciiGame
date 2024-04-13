@@ -425,7 +425,7 @@ lootPools = {
 # Enemies
 # Name, Health
 preEnemies = {
-    "Sunlit Field" : [("Wild Boar", 7), ("Spitting Cobra", 4), ("Treant", 45, (7,7), (4,1))],
+    "Sunlit Field" : [("Wild Boar", 7), ("Spitting Cobra", 4), ("Grand Treant", 45, (7,7), (4,1))],
     "Shaded Forest" : [("Goblin", 10), ("Hobgoblin", 12), ("Bugbear", 14), ("Hobgoblin Lord", 80, (7,7))],
         "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Spider Queen", 100, (7,7))],
     "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 200, (9,9))],

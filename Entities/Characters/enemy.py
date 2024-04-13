@@ -28,7 +28,7 @@ class Enemy(Character):
                 self.putOn(pre.enemWeps["Weak Ranged"])
 
                 # Boss
-            case "Treant":
+            case "Grand Treant":
                 self.mapIcon = "#"
                 
                 self.putOn(pre.enemWeps["Treant"])
