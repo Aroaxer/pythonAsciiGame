@@ -147,6 +147,7 @@ class Enemy(Character):
                 self.mapIcon = "S"
 
                 speed = 0
+                self.preferredDist = 2
                 
                 self.putOn(pre.enemWeps["Weak Ranged"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
@@ -171,6 +172,7 @@ class Enemy(Character):
                 self.mapIcon = "S"
 
                 actions = 2
+                self.preferredDist = 2
 
                 self.putOn(pre.enemWeps["Medium Ranged"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
@@ -184,6 +186,8 @@ class Enemy(Character):
             case "Dryad":
                 self.mapIcon = "D"
 
+                self.preferredDist = 3
+
                 self.putOn(pre.enemWeps["Medium Magic"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
             case "Treant":
@@ -196,7 +200,10 @@ class Enemy(Character):
             case "Archfey":
                 self.mapIcon = "#"
 
-                self.putOn(pre.enemWeps["Medium Magic"])
+                self.preferredDist = 3
+                actions = 3
+
+                self.putOn(pre.enemWeps["Archfey"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
 
 
@@ -212,6 +219,7 @@ class Enemy(Character):
                 self.mapIcon = "E"
 
                 speed = 2
+                self.preferredDist = 2
 
                 self.putOn(pre.enemWeps["Medium Ranged"])
             case "Giant Snake":
@@ -246,6 +254,7 @@ class Enemy(Character):
                 self.mapIcon = "E"
 
                 speed = 2
+                self.preferredDist = 3
 
                 self.putOn(pre.enemWeps["Medium Magic"])
             case "Yeti":
@@ -257,6 +266,8 @@ class Enemy(Character):
                 self.putOn(pre.enemArmrs["Medium No Special"])
             case "Snow Golem":
                 self.mapIcon = "S"
+
+                self.preferredDist = 2
 
                 self.putOn(pre.enemWeps["Medium Ranged"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
@@ -282,7 +293,7 @@ class Enemy(Character):
             case "Archer":
                 self.mapIcon = "A"
 
-                preferredDist = 2
+                self.preferredDist = 2
                 actions = 2
 
                 self.putOn(pre.enemWeps["Medium Ranged"])
@@ -298,7 +309,7 @@ class Enemy(Character):
             case "Warlock":
                 self.mapIcon = "W"
 
-                preferredDist = 3
+                self.preferredDist = 3
                 speed = 2
 
                 self.putOn(pre.enemWeps["Medium Magic"])
@@ -318,7 +329,7 @@ class Enemy(Character):
             case "Tome Spirit":
                 self.mapIcon = "S"
 
-                preferredDist = 3
+                self.preferredDist = 3
                 speed = 2
                 
                 self.putOn(pre.enemWeps["Medium Magic"])
@@ -333,7 +344,7 @@ class Enemy(Character):
             case "Magician":
                 self.mapIcon = "M"
 
-                preferredDist = 3
+                self.preferredDist = 3
                 speed = 3
 
                 self.putOn(pre.enemWeps["Medium Magic"])
@@ -370,7 +381,7 @@ class Enemy(Character):
                 self.mapIcon = "W"
 
                 actions = 3
-                preferredDist = 2
+                self.preferredDist = 2
                 
                 self.putOn(pre.enemWeps["Medium Ranged"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
@@ -388,7 +399,7 @@ class Enemy(Character):
             case "Winged Demon":
                 self.mapIcon = "W"
 
-                preferredDist = 2
+                self.preferredDist = 2
                 actions = 2
                 speed = 2
 
@@ -433,7 +444,7 @@ class Enemy(Character):
                 self.mapIcon = "S"
 
                 actions = 3
-                preferredDist = 2
+                self.preferredDist = 2
 
                 self.putOn(pre.enemWeps["Medium Ranged"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
@@ -462,7 +473,7 @@ class Enemy(Character):
 
                 actions = 2
                 speed = 2
-                preferredDist = 2
+                self.preferredDist = 2
 
                 self.putOn(pre.enemWeps["Medium Ranged"])
                 self.putOn(pre.enemArmrs["Medium No Special"])

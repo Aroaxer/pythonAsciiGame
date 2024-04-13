@@ -167,6 +167,11 @@ enemAcs = {
     "Shockwave" : Action("Shockwave", "Repel 2", aiPrio=2, range=5, maxCharges=1, rechargePercent=0.5),
     "Crystal Growth" : Action("Crystal Growth", "Crystal Growth", aiPrio=3, range=100, maxCharges=1, freeAction=True),
     "CG Laser" : Action("Laser", "Crosswave", aiPrio=1, range=100),
+    # Archfey
+    "Flare" : Action("Flare", "1x Damage", aiPrio=3, range=3, maxCharges=1),
+    "Frost" : Action("Frost", "Damage Repel 1", aiPrio=4, range=2, maxCharges=1),
+    "Hex" : Action("Hex", "Stun", aiPrio=2, range=10, maxCharges=1, rechargePercent=0.25),
+    "Recover" : Action("Recover", "Recover", aiPrio=1, range=100, maxCharges=1, rechargePercent=0.5),
     # Asmodeus
     "Strike" : Action("Strike", "Damage Repel 1", aiPrio=4),
     "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
@@ -187,10 +192,11 @@ enemWeps = {
     "Treant" : Equip("Treant", 2, 0, [enemAcs["Thorny Vines"], enemAcs["Tangling Vines"], enemAcs["Pulling Vines"], enemAcs["Conjure"]]),
     "Hobgob Lord" : Equip("Hobgoblin Lord", 2, 20, [enemAcs["Hobgob Strike"], enemAcs["Reinforcements"]]),
     "Spider Queen" : Equip("Spider Queen", 1, 20, [enemAcs["Bite"], enemAcs["Spit"], enemAcs["Eggs"]]),
-    "Egg" : Equip("Egg", 0, 0, [enemAcs["Hatch"]]),
+        "Egg" : Equip("Egg", 0, 0, [enemAcs["Hatch"]]),
     "Iron Golem" : Equip("Iron Golem", 2, 20, [enemAcs["Iron Swing"], enemAcs["Iron Fist"], enemAcs["Recover"]]),
     "Crystal Heart" : Equip("Crystal Heart", 0.5, 20, [enemAcs["Beam"], enemAcs["Shockwave"], enemAcs["Crystal Growth"]]),
-    "Crystal Growth" : Equip("Crystal Growth", 3, 100, [enemAcs["CG Laser"]]),
+        "Crystal Growth" : Equip("Crystal Growth", 3, 100, [enemAcs["CG Laser"]]),
+    "Archfey" : Equip("Archfey", 1, 0, [enemAcs["Frost"], enemAcs["Flare"], enemAcs["Hex"], enemAcs["Recover"]]),
     "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]])
 }
 
@@ -430,7 +436,7 @@ preEnemies = {
         "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Spider Queen", 100, (7,7))],
     "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 200, (9,9))],
         "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 200, (3,11), (2,1))],
-    "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 250)],
+    "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 200)],
         "Scorched Desert" : [("Giant Scorpion", 30), ("Sand Elemental", 20), ("Giant Snake", 40), ("Vulture", 25), ("Sandworm", 300)],
         "Icy Tundra" : [("Ice Elemental", 20), ("Yeti", 40), ("Snow Golem", 20), ("Frost Giant", 300)],
     "Royal Palace" : [("Guard", 40), ("Archer", 25), ("Dark Knight", 50), ("Warlock", 30), ("Royal Champion", 400)],

@@ -498,6 +498,8 @@ class Trait():
                     target.takeDamage(equipment.damage, user, game)
                 user.hp = 0
                 user.takeDamage(0, user, game)
+            case "Recover":
+                user.hp += 20
 
 
 
