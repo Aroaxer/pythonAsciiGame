@@ -560,6 +560,8 @@ class Trait():
                         return "Deals 1.5x the equipment's damage"
                     case "Ritual Attack":
                         return "Deals the equipment's damage\nIf this kills the enemy, you heal 0.2 hp and recover the action\nRegains charges on encounter or kill with this action"
+                    case "Lacerate":
+                        return "Deals the equipment's damage\nCauses the enemy to bleed for 2 turns, taking damage over time and recieving increased damage from all sources"
                     case "Decapitate":
                         return "Charges the weapon's other skills on kill"
                     case "Royal Strike":
@@ -596,6 +598,8 @@ class Trait():
                         return "Pulls the enemy, does no damage"
                     case "Damage Pull":
                         return "Pulls the enemy, does the equipment's damage"
+                    case "Stun":
+                        return "Reduces the enemy's actions per turn by 1 for 2 turns"
                     case "Teleport":
                         return "Moves you to the target"
                     case "Charge":
