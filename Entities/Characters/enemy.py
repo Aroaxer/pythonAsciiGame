@@ -121,10 +121,10 @@ class Enemy(Character):
             case "Iron Golem":
                 self.mapIcon = "#"
 
-                speed = 3
-                actions = 2
+                speed = 2
+                actions = 3
 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Iron Golem"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
 
 

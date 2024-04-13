@@ -69,7 +69,7 @@ class Trait():
         self.rechargePercent = rechargePercent
         
         # Things that should start with zero charges
-        if self.name in {"Bloodwave", "Bloodwhirl", "Divine Slash", "Radiant Pulse", "Divine Intervention", "Superstorm", "Living Deity", "Kingkiller", "Crystal Rain", "Hatch"}:
+        if self.name in {"Bloodwave", "Bloodwhirl", "Divine Slash", "Radiant Pulse", "Divine Intervention", "Superstorm", "Living Deity", "Kingkiller", "Crystal Rain", "Hatch", "Fortify"}:
             self.charges = 0
 
         self.aiPrio = aiPrio
@@ -477,6 +477,9 @@ class Trait():
             case "Hatch":
                 user.hp = 0
                 game.spawn("Giant Spider", 5, user.x, user.y)
+            case "Recover":
+                user.tempDamageModifier = 0
+                user.actionsLeft = 0
 
 
 
