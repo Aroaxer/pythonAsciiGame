@@ -443,7 +443,7 @@ class Trait():
                             if x == object.x and y == object.y:
                                 break
                         else:
-                            if x != game.player.x and y != game.player.y:
+                            if not (x == game.player.x and y == game.player.y):
                                 game.spawn("Wild Boar", 4, x, y)
             case "Reinforcements":
                 for _ in range(10):
@@ -453,7 +453,7 @@ class Trait():
                             if x == object.x and y == object.y:
                                 break
                         else:
-                            if x != game.player.x and y != game.player.y:
+                            if not (x == game.player.x and y == game.player.y):
                                 match random.randint(1,3):
                                     case 1:
                                         game.spawn("Goblin", 4, x, y)
@@ -470,16 +470,34 @@ class Trait():
                             if x == object.x and y == object.y:
                                 break
                         else:
-                            if x != game.player.x and y != game.player.y:
+                            if not (x == game.player.x and y == game.player.y):
                                 game.spawn("Egg", 1, x, y)
 
                                 break
             case "Hatch":
                 user.hp = 0
+                user.takeDamage(0, user, game)
                 game.spawn("Giant Spider", 5, user.x, user.y)
             case "Recover":
                 user.tempDamageModifier = 0
                 user.actionsLeft = 0
+            case "Crystal Growth":
+                for offset in (0, 1, -1, 2, -2):
+                    x, y = target.x + offset, user.y + 2
+                    if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                        for object in game.allObjects:
+                            if x == object.x and y == object.y:
+                                break
+                        else:
+                            if not (x == game.player.x and y == game.player.y):
+                                game.spawn("Crystal Growth", 1, x, y)
+
+                                break
+            case "Crosswave":
+                if target.x == user.x or target.y == user.y:
+                    target.takeDamage(equipment.damage, user, game)
+                user.hp = 0
+                user.takeDamage(0, user, game)
 
 
 
@@ -501,7 +519,7 @@ class Trait():
                             if x == object.x and y == object.y:
                                 break
                         else:
-                            if x != game.player.x and y != game.player.y:
+                            if not (x == game.player.x and y == game.player.y):
                                 game.spawn("Greater Devil", 70, x, y)
 
             case _:

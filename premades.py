@@ -163,8 +163,10 @@ enemAcs = {
     "Iron Fist" : Action("Iron Fist", "Damage Repel 2", aiPrio=2, maxCharges=1),
     "Recover" : Action("Fortify", "Recover", aiPrio=4, maxCharges=1, rechargePercent=0.5, range=100),
     # Crystal Heart
-    "Call" : Action("Call", "Pull", range=10, maxCharges=1, rechargePercent=0.5, aiPrio=1),
-    "Beam" : Action("Beam", "1x Damage", range=3, aiPrio=2),
+    "Beam" : Action("Beam", "1x Damage", aiPrio=1, range=7),
+    "Shockwave" : Action("Shockwave", "Repel 2", aiPrio=2, range=5, maxCharges=1, rechargePercent=0.5),
+    "Crystal Growth" : Action("Crystal Growth", "Crystal Growth", aiPrio=3, range=100, maxCharges=1, freeAction=True),
+    "CG Laser" : Action("Laser", "Crosswave", aiPrio=1, range=100),
     # Asmodeus
     "Strike" : Action("Strike", "Damage Repel 1", aiPrio=4),
     "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
@@ -187,7 +189,8 @@ enemWeps = {
     "Spider Queen" : Equip("Spider Queen", 1, 20, [enemAcs["Bite"], enemAcs["Spit"], enemAcs["Eggs"]]),
     "Egg" : Equip("Egg", 0, 0, [enemAcs["Hatch"]]),
     "Iron Golem" : Equip("Iron Golem", 2, 20, [enemAcs["Iron Swing"], enemAcs["Iron Fist"], enemAcs["Recover"]]),
-    "Crystal Heart" : Equip("Crystal Heart", 2, 20, [enemAcs["Call"], enemAcs["Beam"]]),
+    "Crystal Heart" : Equip("Crystal Heart", 0.5, 20, [enemAcs["Beam"], enemAcs["Shockwave"], enemAcs["Crystal Growth"]]),
+    "Crystal Growth" : Equip("Crystal Growth", 3, 100, [enemAcs["CG Laser"]]),
     "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]])
 }
 
@@ -426,7 +429,7 @@ preEnemies = {
     "Shaded Forest" : [("Goblin", 10), ("Hobgoblin", 12), ("Bugbear", 14), ("Hobgoblin Lord", 80, (7,7))],
         "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Spider Queen", 100, (7,7))],
     "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 200, (9,9))],
-        "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 200)],
+        "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 200, (3,11), (2,1))],
     "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 250)],
         "Scorched Desert" : [("Giant Scorpion", 30), ("Sand Elemental", 20), ("Giant Snake", 40), ("Vulture", 25), ("Sandworm", 300)],
         "Icy Tundra" : [("Ice Elemental", 20), ("Yeti", 40), ("Snow Golem", 20), ("Frost Giant", 300)],

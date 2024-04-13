@@ -159,6 +159,10 @@ class Enemy(Character):
                 actions = 2
 
                 self.putOn(pre.enemWeps["Crystal Heart"])
+            case "Crystal Growth":
+                self.mapIcon = "G"
+                speed = 0
+                self.putOn(pre.enemWeps["Crystal Growth"])
 
 
             # Stage 4
