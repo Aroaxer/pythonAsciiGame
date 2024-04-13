@@ -499,7 +499,19 @@ class Trait():
                 user.hp = 0
                 user.takeDamage(0, user, game)
             case "Recover":
-                user.hp += 20
+                user.hp += 10
+            case "Burrow":
+                for _ in range(10):
+                    x, y = random.randint(int(target.x - 3), int(target.x + 3)), random.randint(int(target.y - 3), int(target.y + 3))
+                    if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                        for object in game.allObjects:
+                            if x == object.x and y == object.y:
+                                break
+                        else:
+                            if not (x == game.player.x and y == game.player.y):
+                                user.x, user.y = x, y
+                                user.actionsLeft = 0
+                                break
 
 
 

@@ -56,7 +56,7 @@ class Enemy(Character):
                 self.putOn(pre.enemArmrs["Weak No Special"])
                 
                 # Boss
-            case "Hobgoblin Lord":
+            case "Hobgoblin Warlord":
                 self.mapIcon = "#"
 
                 actions = 2
@@ -245,7 +245,7 @@ class Enemy(Character):
                 actions = 2
                 speed = 3
 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Sandworm"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
 
 
@@ -539,7 +539,7 @@ class Enemy(Character):
         self.speedLeft = self.speed
         self.actionsLeft -= 1
 
-        action = self.determineBestAction(game)
+        action = self.determineBestAction(game, True)
 
         match action[0]:
             case "Active":
@@ -555,13 +555,13 @@ class Enemy(Character):
                 return "waited"
 
     # Returns: ("Active", Action) / ("Move", route) / ("Wait")
-    def determineBestAction(self, game):
+    def determineBestAction(self, game, isTurn = False):
         actions = self.getFullActionList()
 
         currentBestAction = "Move"
 
         for action in actions:
-            if self.checkCanUse(action, game) and (currentBestAction == "Move" or action.aiPrio > currentBestAction.aiPrio):
+            if self.checkCanUse(action, game, isTurn) and (currentBestAction == "Move" or action.aiPrio > currentBestAction.aiPrio):
                 currentBestAction = action
 
         if self.speed <= 0 and currentBestAction == "Move":
@@ -586,11 +586,11 @@ class Enemy(Character):
             return ("Active", currentBestAction)
 
     # Check if an action can be used against the player
-    def checkCanUse(self, action, game):
+    def checkCanUse(self, action, game, isTurn = False):
         plr = game.player
         dist = max(abs(plr.x - self.x), abs(plr.y - self.y))
 
-        return action.range >= dist and (action.charges >= 1 or action.charges < 0)
+        return action.range >= dist and ((action.charges + ((action.maxCharges / action.rechargePercent) if not isTurn else 0)) >= 1 or action.charges < 0)
     
     def isWithinDistance(self, distance, point):
         return max(abs(self.x - point[0]), abs(self.y - point[1])) <= distance

@@ -172,6 +172,9 @@ enemAcs = {
     "Frost" : Action("Frost", "Damage Repel 1", aiPrio=4, range=2, maxCharges=1),
     "Hex" : Action("Hex", "Stun", aiPrio=2, range=10, maxCharges=1, rechargePercent=0.25),
     "Recover" : Action("Recover", "Recover", aiPrio=1, range=100, maxCharges=1, rechargePercent=0.5),
+    # Sandworm
+    "Bite" : Action("Bite", "1x Damage", aiPrio=2),
+    "Burrow" : Action("Burrow", "Burrow", aiPrio=1, maxCharges=1, rechargePercent=0.5, range=100),
     # Asmodeus
     "Strike" : Action("Strike", "Damage Repel 1", aiPrio=4),
     "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
@@ -197,6 +200,7 @@ enemWeps = {
     "Crystal Heart" : Equip("Crystal Heart", 0.5, 20, [enemAcs["Beam"], enemAcs["Shockwave"], enemAcs["Crystal Growth"]]),
         "Crystal Growth" : Equip("Crystal Growth", 3, 100, [enemAcs["CG Laser"]]),
     "Archfey" : Equip("Archfey", 1, 0, [enemAcs["Frost"], enemAcs["Flare"], enemAcs["Hex"], enemAcs["Recover"]]),
+    "Sandworm" : Equip("Sandworm", 3, 0, [enemAcs["Bite"], enemAcs["Burrow"]]),
     "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]])
 }
 
@@ -432,12 +436,12 @@ lootPools = {
 # Name, Health
 preEnemies = {
     "Sunlit Field" : [("Wild Boar", 7), ("Spitting Cobra", 4), ("Grand Treant", 45, (7,7), (4,1))],
-    "Shaded Forest" : [("Goblin", 10), ("Hobgoblin", 12), ("Bugbear", 14), ("Hobgoblin Lord", 80, (7,7))],
+    "Shaded Forest" : [("Goblin", 10), ("Hobgoblin", 12), ("Bugbear", 14), ("Hobgoblin Warlord", 80, (7,7))],
         "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Spider Queen", 100, (7,7))],
     "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 200, (9,9))],
         "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 200, (3,11), (2,1))],
-    "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 200)],
-        "Scorched Desert" : [("Giant Scorpion", 30), ("Sand Elemental", 20), ("Giant Snake", 40), ("Vulture", 25), ("Sandworm", 300)],
+    "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 200, (9,9))],
+        "Scorched Desert" : [("Giant Scorpion", 30), ("Sand Elemental", 20), ("Giant Snake", 40), ("Vulture", 25), ("Sandworm", 300, (13,13))],
         "Icy Tundra" : [("Ice Elemental", 20), ("Yeti", 40), ("Snow Golem", 20), ("Frost Giant", 300)],
     "Royal Palace" : [("Guard", 40), ("Archer", 25), ("Dark Knight", 50), ("Warlock", 30), ("Royal Champion", 400)],
         "The Antitower" : [("Tome Spirit", 40), ("Rune Golem", 60), ("Magician", 40), ("Enchanted Golem", 500)],
