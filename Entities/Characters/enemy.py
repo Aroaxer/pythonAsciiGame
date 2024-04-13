@@ -164,6 +164,7 @@ class Enemy(Character):
                 self.mapIcon = "G"
                 speed = 0
                 self.putOn(pre.enemWeps["Crystal Growth"])
+                self.putOn(pre.enemArmrs["Invincible"])
 
 
             # Stage 4
@@ -276,10 +277,13 @@ class Enemy(Character):
             case "Frost Giant":
                 self.mapIcon = "#"
 
-                actions = 3
-
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Frost Giant"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Ice":
+                self.mapIcon = " "
+                speed = 0
+                self.putOn(pre.enemWeps["Ice"])
+                self.putOn(pre.enemArmrs["Invincible"])
 
             # Stage 5
                 # Royal Palace

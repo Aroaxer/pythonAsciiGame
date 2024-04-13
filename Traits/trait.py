@@ -69,7 +69,7 @@ class Trait():
         self.rechargePercent = rechargePercent
         
         # Things that should start with zero charges
-        if self.name in {"Bloodwave", "Bloodwhirl", "Divine Slash", "Radiant Pulse", "Divine Intervention", "Superstorm", "Living Deity", "Kingkiller", "Crystal Rain", "Hatch", "Fortify"}:
+        if self.name in {"Bloodwave", "Bloodwhirl", "Divine Slash", "Radiant Pulse", "Divine Intervention", "Superstorm", "Living Deity", "Kingkiller", "Crystal Rain", "Hatch", "Fortify", "Melt"}:
             self.charges = 0
 
         self.aiPrio = aiPrio
@@ -500,7 +500,7 @@ class Trait():
                 user.takeDamage(0, user, game)
             case "Recover":
                 user.hp += 10
-            case "Burrow":
+            case "Burrow" | "Leap":
                 for _ in range(10):
                     x, y = random.randint(int(target.x - 3), int(target.x + 3)), random.randint(int(target.y - 3), int(target.y + 3))
                     if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
@@ -510,9 +510,27 @@ class Trait():
                         else:
                             if not (x == game.player.x and y == game.player.y):
                                 user.x, user.y = x, y
-                                user.actionsLeft = 0
+                                if self.effectKey == "Burrow":
+                                    user.actionsLeft = 0
                                 break
+            case "Snap Freeze":
+                # Number of ices
+                for _ in range(10):
+                    # Number of tries
+                    for _ in range(30):
+                        x, y = random.randint(1, game.encounter.width), random.randint(1, game.encounter.height)
+                        if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                            for object in game.allObjects:
+                                if x == object.x and y == object.y:
+                                    break
+                            else:
+                                if not (x == game.player.x and y == game.player.y):
+                                    game.spawn("Ice", 1, x, y)
 
+                                    break
+            case "Melt":
+                user.hp = 0
+                user.takeDamage(0, user, game)
 
 
             # Asmodeus

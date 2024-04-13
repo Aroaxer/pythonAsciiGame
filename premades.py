@@ -175,6 +175,12 @@ enemAcs = {
     # Sandworm
     "Bite" : Action("Bite", "1x Damage", aiPrio=2),
     "Burrow" : Action("Burrow", "Burrow", aiPrio=1, maxCharges=1, rechargePercent=0.5, range=100),
+    # Frost Giant
+    "Frost Slash" : Action("Frost Slash", "Damage Repel 2", aiPrio=2, maxCharges=1, rechargePercent=0.5),
+    "Boulder" : Action("Boulder", "0.5x Damage", aiPrio=1, range=5),
+    "Snap Freeze" : Action("Snap Freeze", "Snap Freeze", aiPrio=4, maxCharges=1, range=100, freeAction=True),
+    "Leap" : Action("Leap", "Leap", aiPrio=3, maxCharges=1, rechargePercent=0.25, range=100),
+    "Melt" : Action("Melt", "Melt", aiPrio=1, range=100, maxCharges=1, rechargePercent=0.5),
     # Asmodeus
     "Strike" : Action("Strike", "Damage Repel 1", aiPrio=4),
     "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
@@ -198,9 +204,11 @@ enemWeps = {
         "Egg" : Equip("Egg", 0, 0, [enemAcs["Hatch"]]),
     "Iron Golem" : Equip("Iron Golem", 2, 20, [enemAcs["Iron Swing"], enemAcs["Iron Fist"], enemAcs["Recover"]]),
     "Crystal Heart" : Equip("Crystal Heart", 0.5, 20, [enemAcs["Beam"], enemAcs["Shockwave"], enemAcs["Crystal Growth"]]),
-        "Crystal Growth" : Equip("Crystal Growth", 3, 100, [enemAcs["CG Laser"]]),
+        "Crystal Growth" : Equip("Crystal Growth", 3, 0, [enemAcs["CG Laser"]]),
     "Archfey" : Equip("Archfey", 1, 0, [enemAcs["Frost"], enemAcs["Flare"], enemAcs["Hex"], enemAcs["Recover"]]),
     "Sandworm" : Equip("Sandworm", 3, 0, [enemAcs["Bite"], enemAcs["Burrow"]]),
+    "Frost Giant" : Equip("Frost Giant", 2, 10, [enemAcs["Frost Slash"], enemAcs["Boulder"], enemAcs["Snap Freeze"], enemAcs["Leap"]]),
+        "Ice" : Equip("Ice", 0, 0, [enemAcs["Melt"]]),
     "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]])
 }
 
@@ -306,7 +314,9 @@ enemArmrs = {
     "Weak No Special" : Equip("Weak No Special", 0, 10),
     "Weak Reflect" : Equip("Weak Reflect", 0.2, 10, [traits["Spikes"]]),
 
-    "Medium No Special" : Equip("Medium No Special", 0, 20)
+    "Medium No Special" : Equip("Medium No Special", 0, 20),
+
+    "Invincible" : Equip("Invincible", 0, 100)
 }
 
 # Accesories

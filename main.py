@@ -97,6 +97,18 @@ class Game():
                 case "settings":
                     self.settingsMenu()
 
+                case "devstart":
+                    stage = input("Stage ID\n")
+                    specific = input("Specific stage ID\n")
+                    boss = input("Boss? t/f\n")
+
+                    self.stage = preS.stages[int(stage) - 1][int(specific) - 1]
+                    if boss in {"t", "true"}:
+                        self.complEncsPerStage = self.stage.length - 1
+                    
+                    self.beginGame()
+                    break
+
     def settingsMenu(self):
         self.emptyTerminal()
 
@@ -160,8 +172,17 @@ class Game():
     def printEndRound(self, actionRecord):
         self.emptyTerminal()
         print(self.assembleMap())
+
+        prevItems = {}
         for item in actionRecord:
-            print(item)
+            if item not in prevItems.keys():
+                prevItems[item] = 1
+            else:
+                prevItems[item] += 1
+        
+        for entry in prevItems.keys():
+            print(entry + (f" (x{prevItems[entry]})" if prevItems[entry] > 1 else ""))
+            
         input("Press enter to continue\n")
 
     def kill(self, entity):
