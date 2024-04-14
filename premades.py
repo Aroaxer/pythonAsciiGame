@@ -226,7 +226,7 @@ enemWeps = {
 
     # Trial
     "Conqueror" : Equip("Conqueror", 4, 0, [enemAcs["CQ Crush"], enemAcs["CQ Phase"], enemAcs["CQ Barriers"], enemAcs["CQ Timeblasts"]]),
-    "Timeblast" : Equip("Timeblast", 1000000, 0, [enemAcs["CQ Timebeam"]]),
+    "Timeblast" : Equip("Timeblast", 1000000000, 0, [enemAcs["CQ Timebeam"]]),
     "Barrier" : Equip("Barrier", 0, 0, [enemAcs["CQ Decay"]])
 }
 
