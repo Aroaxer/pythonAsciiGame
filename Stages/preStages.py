@@ -18,6 +18,9 @@ stages = [
     [Stage("Astral Plane [Hard]", 6, pre.preEnemies["Astral Plane"], pre.lootPools["Tier 1"], 7, 7, 11, 11, length=10, prevStages=["The Antitower [Hard]"], enemCount=(7, 9), lootAmount=5),
         Stage("The Abyss [Very Hard]", 6, pre.preEnemies["The Abyss"], pre.lootPools["Tier 1"], 9, 9, 13, 13, length=12, prevStages=["The Antitower [Hard]"], enemCount=(8, 10), lootAmount=7)],
     [Stage("Mount Celestia [Hard]", 7, pre.preEnemies["Mount Celestia"], pre.lootPools["Tier 2"], 7, 7, 11, 11, length=10, prevStages=["Astral Plane [Hard]"], enemCount=(7, 9), lootAmount=5),
-        Stage("The Nine Hells [Very Hard]", 7, pre.preEnemies["The Nine Hells"], pre.lootPools["Tier 2"], 11, 11, 15, 15, length=12, prevStages=["The Abyss [Very Hard]"], enemCount=(9, 12), lootAmount=7)]
+        Stage("The Nine Hells [Very Hard]", 7, pre.preEnemies["The Nine Hells"], pre.lootPools["Tier 2"], 11, 11, 15, 15, length=12, prevStages=["The Abyss [Very Hard]"], enemCount=(9, 12), lootAmount=7)],
+
+    # Trial
+    [Stage("Timephase Realm", 8, [("Conqueror", 3000, (15, 15))], pre.lootPools["Tier 1"], 0, 0, length=1, prevStages=["None"])]
 ]
 

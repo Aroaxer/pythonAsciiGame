@@ -189,7 +189,15 @@ enemAcs = {
     "Strike" : Action("Strike", "Damage Repel 1", aiPrio=4),
     "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
     "Summon Lesser" : Action("Summon Lesser Devils", "Summon Lesser", aiPrio=2, maxCharges=1, rechargePercent=0.25, range=100, freeAction=True),
-    "Summon Greater" : Action("Summon Greater Devils", "Summon Greater", aiPrio=3, maxCharges=1, rechargePercent=0.2, range=100, freeAction=True)
+    "Summon Greater" : Action("Summon Greater Devils", "Summon Greater", aiPrio=3, maxCharges=1, rechargePercent=0.2, range=100, freeAction=True),
+
+    # Conqueror
+    "CQ Crush" : Action("Crush", "Damage Repel 2", aiPrio=5),
+    "CQ Phase" : Action("Phase", "Phase", aiPrio=3, maxCharges=1, rechargePercent=0.4, range=100),
+    "CQ Barriers" : Action("Barriers", "Barriers", aiPrio=4, maxCharges=1, range=100),
+    "CQ Timeblasts" : Action("Timeblasts", "Timeblasts", aiPrio=2, maxCharges=1, range=100),
+    "CQ Timebeam" : Action("Timebeam", "Crosswave", aiPrio=1, range=100),
+    "CQ Decay" : Action("Decay", "Melt", aiPrio=1, range=100, maxCharges=1, rechargePercent=0.4),
 }
 
 enemWeps = {
@@ -214,7 +222,12 @@ enemWeps = {
     "Frost Giant" : Equip("Frost Giant", 2, 10, [enemAcs["Frost Slash"], enemAcs["Boulder"], enemAcs["Snap Freeze"], enemAcs["Leap"]]),
         "Ice" : Equip("Ice", 0, 0, [enemAcs["Melt"]]),
     "King" : Equip("King", 2, 0, [enemAcs["King Sword"], enemAcs["King Reinforcements"], enemAcs["Command"]]),
-    "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]])
+    "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]]),
+
+    # Trial
+    "Conqueror" : Equip("Conqueror", 4, 0, [enemAcs["CQ Crush"], enemAcs["CQ Phase"], enemAcs["CQ Barriers"], enemAcs["CQ Timeblasts"]]),
+    "Timeblast" : Equip("Timeblast", 1000000, 0, [enemAcs["CQ Timebeam"]]),
+    "Barrier" : Equip("Barrier", 0, 0, [enemAcs["CQ Decay"]])
 }
 
 # Traits

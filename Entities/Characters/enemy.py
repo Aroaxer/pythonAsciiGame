@@ -531,7 +531,26 @@ class Enemy(Character):
 
                 self.putOn(pre.enemWeps["Medium Melee"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
-                
+
+            
+            # Trial
+            case "Conqueror":
+                self.mapIcon = "Ω"
+
+                actions = 3
+                speed = 2
+
+                self.putOn(pre.enemWeps["Conqueror"])
+            case "Timeblast":
+                self.mapIcon = "!"
+                speed = 0
+                self.putOn(pre.enemWeps["Timeblast"])
+                self.putOn(pre.enemArmrs["Invincible"])
+            case "Barrier":
+                self.mapIcon = " "
+                speed = 0
+                self.putOn(pre.enemWeps["Barrier"])
+                self.putOn(pre.enemArmrs["Invincible"])
 
             case _:
                 pass

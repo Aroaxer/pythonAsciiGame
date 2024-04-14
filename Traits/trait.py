@@ -69,7 +69,7 @@ class Trait():
         self.rechargePercent = rechargePercent
         
         # Things that should start with zero charges
-        if self.name in {"Bloodwave", "Bloodwhirl", "Divine Slash", "Radiant Pulse", "Divine Intervention", "Superstorm", "Living Deity", "Kingkiller", "Crystal Rain", "Hatch", "Fortify", "Melt"}:
+        if self.name in {"Bloodwave", "Bloodwhirl", "Divine Slash", "Radiant Pulse", "Divine Intervention", "Superstorm", "Living Deity", "Kingkiller", "Crystal Rain", "Hatch", "Fortify", "Melt", "Decay"}:
             self.charges = 0
 
         self.aiPrio = aiPrio
@@ -575,6 +575,61 @@ class Trait():
                         else:
                             if not (x == game.player.x and y == game.player.y):
                                 game.spawn("Greater Devil", 70, x, y)
+
+
+            # Conqueror
+            case "Phase":
+                for _ in range(10):
+                    x, y = random.randint(1, game.encounter.width), random.randint(1, game.encounter.height)
+                    if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                        for object in game.allObjects:
+                            if x == object.x and y == object.y:
+                                break
+                        else:
+                            if not (x == game.player.x and y == game.player.y):
+                                user.x, user.y = x, y
+                                user.tempDamageModifier = 0
+                                break
+            case "Barriers":
+                for x in range(2, game.encounter.width):
+                    y = target.y
+
+                    for object in game.allObjects:
+                        if x == object.x and y == object.y:
+                            break
+                    else:
+                        if max(abs(game.player.x - x), abs(game.player.y - y)) > 1:
+                            game.spawn("Barrier", 1, x, y)
+                
+                for y in range(2, game.encounter.height):
+                    x = target.x
+
+                    for object in game.allObjects:
+                        if x == object.x and y == object.y:
+                            break
+                    else:
+                        if max(abs(game.player.x - x), abs(game.player.y - y)) > 1:
+                            game.spawn("Barrier", 1, x, y)
+
+                for x, y in (target.x, 1), (target.x, game.encounter.height), (1, target.y), (game.encounter.width, target.y):
+                    game.spawn("Timeblast", 1, x, y)
+            case "Timeblasts":
+                # Amount per side
+                for _ in range(2):
+                    for side in range(4):
+                        # Tries to spawn
+                        for _ in range(10):
+                            x = random.randint((1 if side != 2 else game.encounter.width), (game.encounter.width if side != 0 else 1))
+                            y = random.randint((1 if side != 3 else game.encounter.height), (game.encounter.height if side != 1 else 1))
+
+                            for object in game.allObjects:
+                                if x == object.x and y == object.y:
+                                    break
+                            else:
+                                if not (x == game.player.x and y == game.player.y):
+                                    game.spawn("Timeblast", 1, x, y)
+                                    break
+
 
             case _:
                 pass

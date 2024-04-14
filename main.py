@@ -55,8 +55,13 @@ class Game():
         self.allObjects.extend(objs)
     objects = property(fget = getObjects, fset = setObjects)
 
-    def beginGame(self):
+    def beginGame(self, devStartGear = (False, False)):
         self.resetGame()
+
+        if devStartGear[0]:
+            for _ in range((2 * self.stage.stageOrder) - (1 if devStartGear[1] else 2)):
+                self.getLoot(5)
+
         self.beginLoop()
 
     def resetGame(self):
@@ -101,12 +106,13 @@ class Game():
                     stage = input("Stage ID\n")
                     specific = input("Specific stage ID\n")
                     boss = input("Boss? t/f\n")
+                    gear = input("Get gear? t/f\n")
 
                     self.stage = preS.stages[int(stage) - 1][int(specific) - 1]
                     if boss in {"t", "true"}:
                         self.complEncsPerStage = self.stage.length - 1
                     
-                    self.beginGame()
+                    self.beginGame((gear in {"t", "true"}, boss in {"t", "true"}))
                     break
 
     def settingsMenu(self):
@@ -182,7 +188,7 @@ class Game():
         
         for entry in prevItems.keys():
             print(entry + (f" (x{prevItems[entry]})" if prevItems[entry] > 1 else ""))
-            
+
         input("Press enter to continue\n")
 
     def kill(self, entity):
@@ -275,6 +281,8 @@ class Game():
                     self.endType = "True Ending Victory!\nCongratulations!"
 
     def getLoot(self, amount, category = None, allowUpgrade = True, customMsg = None, separators = {}):
+        self.emptyTerminal()
+
         if category:
             try:
                 loot = list(category.values())

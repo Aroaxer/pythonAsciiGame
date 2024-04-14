@@ -27,7 +27,7 @@ class Stage():
     stageOrder = 0
     valUpgrades = ()
 
-    def __init__(self, name, stageOrder, enemies, lootPool, minWidth, minHeight, maxWidth = -1, maxHeight = -1, length = 10, prevStages = [], enemCount = 0, lootAmount = 3) -> None:
+    def __init__(self, name, stageOrder, enemies, lootPool, minWidth, minHeight, maxWidth = -1, maxHeight = -1, length = 10, prevStages = [], enemCount = (0,0), lootAmount = 3) -> None:
         self.name = name
         self.length = length
         self.enemCount = enemCount
