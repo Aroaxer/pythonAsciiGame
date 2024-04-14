@@ -445,7 +445,7 @@ class Trait():
                         else:
                             if not (x == game.player.x and y == game.player.y):
                                 game.spawn("Wild Boar", 4, x, y)
-            case "Reinforcements":
+            case "Hobgob Reinforcements":
                 for _ in range(10):
                     x, y = random.randint(1, game.encounter.width), random.randint(1, game.encounter.height)
                     if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
@@ -517,7 +517,7 @@ class Trait():
                 # Number of ices
                 for _ in range(10):
                     # Number of tries
-                    for _ in range(30):
+                    for _ in range(50):
                         x, y = random.randint(1, game.encounter.width), random.randint(1, game.encounter.height)
                         if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
                             for object in game.allObjects:
@@ -531,7 +531,29 @@ class Trait():
             case "Melt":
                 user.hp = 0
                 user.takeDamage(0, user, game)
-
+            case "King Reinforcements":
+                for _ in range(10):
+                    x, y = random.randint(1, game.encounter.width), random.randint(1, game.encounter.height)
+                    if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                        for object in game.allObjects:
+                            if x == object.x and y == object.y:
+                                break
+                        else:
+                            if not (x == game.player.x and y == game.player.y):
+                                match random.randint(1,2):
+                                    case 1:
+                                        game.spawn("Guard", 30, x, y)
+                                    case 2:
+                                        game.spawn("Archer", 20, x, y)
+                                break
+            case "Command":
+                if len(game.enemies) > 1:
+                    enem = user
+                    while enem == user:
+                        enem = random.choice(game.enemies)
+                    enem.takeTurn(game)
+                else:
+                    user.actionsLeft += 1
 
             # Asmodeus
             case "Summon Lesser":

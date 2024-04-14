@@ -320,13 +320,13 @@ class Enemy(Character):
                 self.putOn(pre.enemArmrs["Weak No Special"])
 
                 # Boss
-            case "Royal Champion":
+            case "King":
                 self.mapIcon = "#"
 
-                speed = 3
-                actions = 3
+                speed = 2
+                actions = 2
 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["King"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
 
                 # The Antitower

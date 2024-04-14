@@ -152,7 +152,7 @@ enemAcs = {
     "Conjure" : Action("Conjure", "Conjure", aiPrio=4, maxCharges=1, rechargePercent=0.2, range=100, freeAction=True),
     # Hobgoblin Lord
     "Hobgob Strike" : Action("Strike", "1x Damage", aiPrio=2, maxCharges=1),
-    "Reinforcements" : Action("Reinforcements", "Reinforcements", aiPrio=1, range=100),
+    "Hobgob Reinforcements" : Action("Reinforcements", "Hobgob Reinforcements", aiPrio=1, range=100),
     # Spider Queen
     "Bite" : Action("Bite", "1x Damage", aiPrio=2),
     "Spit" : Action("Spit", "0.5x Damage", aiPrio=1, range=2),
@@ -181,6 +181,10 @@ enemAcs = {
     "Snap Freeze" : Action("Snap Freeze", "Snap Freeze", aiPrio=4, maxCharges=1, range=100, freeAction=True),
     "Leap" : Action("Leap", "Leap", aiPrio=3, maxCharges=1, rechargePercent=0.25, range=100),
     "Melt" : Action("Melt", "Melt", aiPrio=1, range=100, maxCharges=1, rechargePercent=0.5),
+    # King
+    "King Sword" : Action("Sword", "Damage Repel 1", aiPrio=3),
+    "King Reinforcements" : Action("Reinforcements", "King Reinforcements", aiPrio=1, range=100),
+    "Command" : Action("Command", "Command", aiPrio=2, maxCharges=1, range=100),
     # Asmodeus
     "Strike" : Action("Strike", "Damage Repel 1", aiPrio=4),
     "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
@@ -199,7 +203,7 @@ enemWeps = {
 
     # Special
     "Treant" : Equip("Treant", 2, 0, [enemAcs["Thorny Vines"], enemAcs["Tangling Vines"], enemAcs["Pulling Vines"], enemAcs["Conjure"]]),
-    "Hobgob Lord" : Equip("Hobgoblin Lord", 2, 20, [enemAcs["Hobgob Strike"], enemAcs["Reinforcements"]]),
+    "Hobgob Lord" : Equip("Hobgoblin Lord", 2, 20, [enemAcs["Hobgob Strike"], enemAcs["Hobgob Reinforcements"]]),
     "Spider Queen" : Equip("Spider Queen", 1, 20, [enemAcs["Bite"], enemAcs["Spit"], enemAcs["Eggs"]]),
         "Egg" : Equip("Egg", 0, 0, [enemAcs["Hatch"]]),
     "Iron Golem" : Equip("Iron Golem", 2, 20, [enemAcs["Iron Swing"], enemAcs["Iron Fist"], enemAcs["Recover"]]),
@@ -209,6 +213,7 @@ enemWeps = {
     "Sandworm" : Equip("Sandworm", 3, 0, [enemAcs["Bite"], enemAcs["Burrow"]]),
     "Frost Giant" : Equip("Frost Giant", 2, 10, [enemAcs["Frost Slash"], enemAcs["Boulder"], enemAcs["Snap Freeze"], enemAcs["Leap"]]),
         "Ice" : Equip("Ice", 0, 0, [enemAcs["Melt"]]),
+    "King" : Equip("King", 2, 0, [enemAcs["King Sword"], enemAcs["King Reinforcements"], enemAcs["Command"]]),
     "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]])
 }
 
@@ -452,8 +457,8 @@ preEnemies = {
         "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 200, (3,11), (2,1))],
     "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 200, (9,9))],
         "Scorched Desert" : [("Giant Scorpion", 30), ("Sand Elemental", 20), ("Giant Snake", 40), ("Vulture", 25), ("Sandworm", 300, (13,13))],
-        "Icy Tundra" : [("Ice Elemental", 20), ("Yeti", 40), ("Snow Golem", 20), ("Frost Giant", 300)],
-    "Royal Palace" : [("Guard", 40), ("Archer", 25), ("Dark Knight", 50), ("Warlock", 30), ("Royal Champion", 400)],
+        "Icy Tundra" : [("Ice Elemental", 20), ("Yeti", 40), ("Snow Golem", 20), ("Frost Giant", 300, (9,9))],
+    "Royal Palace" : [("Guard", 40), ("Archer", 25), ("Dark Knight", 50), ("Warlock", 30), ("King", 400, (9, 11), (5,5))],
         "The Antitower" : [("Tome Spirit", 40), ("Rune Golem", 60), ("Magician", 40), ("Enchanted Golem", 500)],
     "Astral Plane" : [("Astral Spirit", 40), ("Githyanki", 60), ("Wanderer", 50), ("Vlaakith", 500)],
         "The Abyss" : [("Winged Demon", 40), ("Hulking Demon", 70), ("Nimble Demon", 50), ("Yeenoghu", 600)],
