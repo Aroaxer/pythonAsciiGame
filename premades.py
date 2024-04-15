@@ -239,7 +239,7 @@ enemWeps = {
     "Death Knight" : Equip("Death Knight", 2, 0, [enemAcs["DK Swing"], enemAcs["DK Nightmares"], enemAcs["DK Ride"], enemAcs["DK Flames"]]),
         "Nightmare" : Equip("Nightmare", 3, 0, [enemAcs["Nightmare"]]),
         "Flame" : Equip("Flame", 0, 0, [enemAcs["CQ Decay"]]),
-    "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]]),
+    "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["DK Nightmares"], enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"], enemAcs["DK Flames"]]),
 
     # Trial
     "Conqueror" : Equip("Conqueror", 4, 0, [enemAcs["CQ Crush"], enemAcs["CQ Phase"], enemAcs["CQ Barriers"], enemAcs["CQ Timeblasts"]]),
@@ -491,5 +491,5 @@ preEnemies = {
     "Royal Palace" : [("Guard", 40), ("Archer", 25), ("Dark Knight", 50), ("Warlock", 30), ("King", 400, (9,11), (5,5))],
         "The Antitower" : [("Tome Spirit", 40), ("Rune Golem", 60), ("Magician", 40), ("Enchanted Guardian", 500, (11,11))],
         "The Abyss" : [("Winged Demon", 40), ("Hulking Demon", 70), ("Nimble Demon", 50), ("Death Knight", 600, (13,13), (7,4))],
-        "The Nine Hells" : [("Bone Devil", 50), ("Ice Devil", 60), ("Chain Devil", 60), ("Pit Fiend", 80), ("Asmodeus", 1000)]
+        "The Nine Hells" : [("Bone Devil", 50), ("Ice Devil", 60), ("Chain Devil", 60), ("Pit Fiend", 80), ("Asmodeus", 1000, (15,15))]
 }
