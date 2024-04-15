@@ -355,14 +355,24 @@ class Enemy(Character):
                 self.putOn(pre.enemArmrs["Medium No Special"])
 
                 # Boss
-            case "Enchanted Golem":
+            case "Enchanted Guardian":
                 self.mapIcon = "#"
 
-                speed = 5
+                speed = 0
                 actions = 2
 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Enchanted Guardian"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Beam Tome":
+                self.mapIcon = "T"
+                speed = 0
+                self.putOn(pre.enemWeps["Beam Tome"])
+                self.putOn(pre.enemArmrs["Invincible"])
+            case "Blast Pillar":
+                self.mapIcon = "P"
+                speed = 0
+                self.putOn(pre.enemWeps["Blast Pillar"])
+                self.putOn(pre.enemArmrs["Invincible"])
 
             # Stage 6
                 # Astral Plane

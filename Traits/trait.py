@@ -498,6 +498,11 @@ class Trait():
                     target.takeDamage(equipment.damage, user, game)
                 user.hp = 0
                 user.takeDamage(0, user, game)
+            case "Pulse":
+                if max(abs(target.x - user.x), abs(target.y - user.y)) <= 2:
+                    target.takeDamage(equipment.damage, user, game)
+                user.hp = 0
+                user.takeDamage(0, user, game)
             case "Recover":
                 user.hp += 10
             case "Burrow" | "Leap":
@@ -554,6 +559,32 @@ class Trait():
                     enem.takeTurn(game)
                 else:
                     user.actionsLeft += 1
+            case "Shuffle":
+                for entity in (user, target):
+                    for _ in range(10):
+                        x, y = random.randint(1, game.encounter.width), random.randint(1, game.encounter.height)
+                        if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                            for object in game.allObjects:
+                                if x == object.x and y == object.y:
+                                    break
+                            else:
+                                if not (x == game.player.x and y == game.player.y):
+                                    entity.x, entity.y = x, y
+                                    break
+            case "Animate":
+                for name in ("Beam Tome", "Beam Tome", "Blast Pillar"):
+                    for _ in range(10):
+                        x, y = random.randint(1, game.encounter.width), random.randint(1, game.encounter.height)
+                        if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                            for object in game.allObjects:
+                                if x == object.x and y == object.y:
+                                    break
+                            else:
+                                if not (x == game.player.x and y == game.player.y):
+                                    game.spawn(name, 1, x, y)
+                                    break
+                
+
 
             # Asmodeus
             case "Summon Lesser":
