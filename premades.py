@@ -239,7 +239,7 @@ enemWeps = {
     "Death Knight" : Equip("Death Knight", 2, 0, [enemAcs["DK Swing"], enemAcs["DK Nightmares"], enemAcs["DK Ride"], enemAcs["DK Flames"]]),
         "Nightmare" : Equip("Nightmare", 3, 0, [enemAcs["Nightmare"]]),
         "Flame" : Equip("Flame", 0, 0, [enemAcs["CQ Decay"]]),
-    "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["DK Nightmares"], enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"], enemAcs["DK Flames"]]),
+    "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["DK Nightmares"], enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]]),
 
     # Trial
     "Conqueror" : Equip("Conqueror", 4, 0, [enemAcs["CQ Crush"], enemAcs["CQ Phase"], enemAcs["CQ Barriers"], enemAcs["CQ Timeblasts"]]),
