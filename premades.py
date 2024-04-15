@@ -290,29 +290,29 @@ tier3Offs = {
     # Offensive
     "Cultist Sword" : Equip("Cultist Sword", 15, 10, [acs["Ritual Stab"], acs["Lacerate"], acs["Pull"]]),
     "Mythril Chains" : Equip("Mythril Hooks", 12, 10, [acs["Double Hook"], acs["Entangle"]]),
-    "Silent Shiv" : Equip("Silent Shiv", 10, 10, [acs["Shiv"], acs["Parry"]]),
+    "Silent Shiv" : Equip("Silent Shiv", 10, 10, [acs["Shiv"], acs["Parry"]], speedBoost=1),
     "Oceanic Coating" : Equip("Oceanic Coating", 10, 0, [traits["Coating"], traits["Knockback"], traits["Knockback"]]),
 
     # Defensive
-    "Fiery Shield" : Equip("Fiery Shield", 5, 50, [acs["Fortify"], traits["Spikes"]], hpBoost=3),
+    "Fiery Shield" : Equip("Fiery Shield", 5, 50, [acs["Fortify"], traits["Spikes"]], speedBoost=2, hpBoost=3),
     "Palace Shield" : Equip("Palace Shield", 0, 75, [acs["Fortify"], acs["Repel"], acs["Palace Toggle"], traits["Chain Reduction"]], specialTags={"Palace" : False}, hpBoost=5)
 }
 tier2Offs = {
     # Offensive
     "Ritual Blade" : Equip("Ritual Blade", 8, 0, [acs["Ritual Stab"], acs["Pull"]], upgr=tier3Offs["Cultist Sword"]),
     "Chain Hooks" : Equip("Chain Hooks", 3, 0, [acs["Double Hook"]], upgr=tier3Offs["Mythril Chains"]),
-    "Shrouded Dagger" : Equip("Shrouded Dagger", 5, 0, [acs["Toss"], acs["Parry"]], upgr=tier3Offs["Silent Shiv"]),
+    "Shrouded Dagger" : Equip("Shrouded Dagger", 5, 0, [acs["Toss"], acs["Parry"]], speedBoost=1, upgr=tier3Offs["Silent Shiv"]),
     "Forceful Coating" : Equip("Forceful Coating", 5, 0, [traits["Coating"], traits["Knockback"]], upgr=tier3Offs["Oceanic Coating"]),
 
     # Defensive
-    "Crystal Shield" : Equip("Crystal Shield", 2, 30, [acs["Block"], traits["Spikes"]], hpBoost=1, upgr=tier3Offs["Fiery Shield"]),
+    "Crystal Shield" : Equip("Crystal Shield", 2, 30, [acs["Block"], traits["Spikes"]], speedBoost=1, hpBoost=1, upgr=tier3Offs["Fiery Shield"]),
     "Castle Shield" : Equip("Castle Shield", 0, 50, [acs["Block"], acs["Repel"]], upgr=tier3Offs["Palace Shield"], hpBoost=3)
 }
 offs = {
     # Offensive
     "Ritual Dagger" : Equip("Ritual Dagger", 4, 0, [acs["Ritual Stab"]], upgr=tier2Offs["Ritual Blade"]),
     "Rope Hook" : Equip("Rope Hook", 1, 0, [acs["Damage Pull"]], upgr=tier2Offs["Chain Hooks"]),
-    "Kunai" : Equip("Kunai", 2, 0, [acs["Toss"]], upgr=tier2Offs["Shrouded Dagger"]),
+    "Kunai" : Equip("Kunai", 2, 0, [acs["Toss"]], speedBoost=1, upgr=tier2Offs["Shrouded Dagger"]),
     "Weapon Coating" : Equip("Weapon Coating", 2, 0, [traits["Coating"]], upgr=tier2Offs["Forceful Coating"]),
 
     # Defensive
