@@ -137,9 +137,12 @@ class Character(Object):
         self.actionBonus = 0
 
         self.activateAllTraits("Turn", game, None)
-
+        
         if self.actionsLeft <= 0:
             return f"{self.name} was stunned"
+        
+        if self.hp <= 0:
+            return f"{self.name} died"
 
         record = ""
         while self.actionsLeft >= 1:
@@ -172,7 +175,7 @@ class Character(Object):
         if shouldTriggerTraits: source.activateAllTraits("Attack", game, self)
         
         if shouldTriggerTraits: self.activateAllTraits("After Damage", game, source)
-        
+
         if self.hp <= 0:
             if not self == game.player:
                 game.kill(self)
