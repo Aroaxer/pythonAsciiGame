@@ -175,6 +175,7 @@ class Trait():
                             validEnems.append(f"{enem.name}: {math.ceil(enem.hp)}/{enem.maxHp} ({enem.x}, {enem.y})")
                             validsReturn.append(enem)
                     if len(validEnems) == 0:
+                        input("There are no targets in range\n")
                         return "Cancelled"
                     target = utils.promptChoice("Which enemy would you like to target?", validEnems)
                     if target == "Cancelled":
@@ -201,6 +202,7 @@ class Trait():
                             validEnems.append(f"{enem.name}: {math.ceil(enem.hp)}/{enem.maxHp} ({enem.x}, {enem.y})")
                             validsReturn.append(enem)
                     if len(validEnems) == 0:
+                        input("There are no targets in range\n")
                         return "Cancelled"
                     
                     targets = utils.promptMultipleIds("Which enemies would you like to target?", validEnems, self.multi)
@@ -775,6 +777,12 @@ class Trait():
                         return "Deals the equipment's damage\nCauses the enemy to bleed for 2 turns, taking damage over time and recieving increased damage from all sources"
                     case "Bleed Out":
                         return "Deals the equipment's damage\nCauses the enemy to bleed for 5 turns, taking damage over time and recieving increased damage from all sources"
+                    case "Essence Tear":
+                        return "Deals the equipment's damage\nCauses the enemy to disintegrate for 5 turns, taking heavy damage over time and recieving greatly increased damage from all sources"
+                    case "Fireblood":
+                        return "Deals damage proportional to the duration of bleed on the enemy, then removes all bleed from them"
+                    case "Demolish":
+                        return "Deals damage proportional to the duration of disintegration on the enemy, then removes all disintegration from them"
                     case "Decapitate":
                         return "Charges the weapon's other skills on kill"
                     case "Royal Strike":
