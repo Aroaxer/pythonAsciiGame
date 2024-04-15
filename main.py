@@ -276,7 +276,7 @@ class Game():
         else:
             match self.stage.name:
                 case "The Nine Hells [Hard]":
-                    self.endType = "True Ending Victory!\nCongratulations!"
+                    self.endType = "True Ending Victory!\nCongratulations!\nYou can enter 'devstart' on the startup menu to skip to any stage\nMaybe try devstarting to stage 8?"
                     self.ended = True
                 case "Timephase Realm":
                     self.endType = "Congratulations on beating the Trial!"
