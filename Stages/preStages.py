@@ -19,6 +19,6 @@ stages = [
     [Stage("The Nine Hells [Hard]", 7, pre.preEnemies["The Nine Hells"], pre.lootPools["Tier 2"], 11, 11, 15, 15, length=12, prevStages=["The Abyss [Hard]"], enemCount=(9, 12), lootAmount=7)],
 
     # Trial
-    [Stage("Timephase Realm", 8, [("Conqueror", 3000, (15, 15))], pre.lootPools["Tier 1"], 0, 0, length=1, prevStages=["None"])]
+    [Stage("Timephase Realm", 8, [("Conqueror", 5000, (15, 15))], pre.lootPools["Tier 1"], 0, 0, length=1, prevStages=["None"])]
 ]
 
