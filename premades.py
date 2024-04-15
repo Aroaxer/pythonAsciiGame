@@ -190,6 +190,12 @@ enemAcs = {
     "EG Animate" : Action("Animate", "Animate", aiPrio=3, range=100),
     "EG Laser" : Action("Lasers", "Crosswave", aiPrio=1, range=100),
     "EG Pulse" : Action("Pulse", "Pulse", aiPrio=1, range=100),
+    # Death Knight
+    "DK Swing" : Action("Swing", "1x Damage", aiPrio=3),
+    "DK Nightmares" : Action("Nightmares", "Nightmares", aiPrio=4, maxCharges=1, freeAction=True, range=100),
+    "DK Ride" : Action("Ride", "Ride", aiPrio=2, maxCharges=1, rechargePercent=0.4, range=100),
+    "DK Flames" : Action("Flames", "Flames", aiPrio=1, maxCharges=1, rechargePercent=0.5, range=100),
+    "Nightmare" : Action("Charge", "Crosswave", aiPrio=1, range=100),
     # Asmodeus
     "Strike" : Action("Strike", "Damage Repel 1", aiPrio=4),
     "Blast" : Action("Blast", "1x Damage", aiPrio=1, range=3),
@@ -230,6 +236,9 @@ enemWeps = {
     "Enchanted Guardian" : Equip("Enchanted Guardian", 3, 0, [enemAcs["EG Animate"], enemAcs["EG Shuffle"]]),
         "Beam Tome" : Equip("Beam Tome", 2, 0, [enemAcs["EG Laser"]]),
         "Blast Pillar" : Equip("Blast Pillar", 1, 0, [enemAcs["EG Pulse"]]),
+    "Death Knight" : Equip("Death Knight", 2, 0, [enemAcs["DK Swing"], enemAcs["DK Nightmares"], enemAcs["DK Ride"], enemAcs["DK Flames"]]),
+        "Nightmare" : Equip("Nightmare", 3, 0, [enemAcs["Nightmare"]]),
+        "Flame" : Equip("Flame", 0, 0, [enemAcs["CQ Decay"]]),
     "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]]),
 
     # Trial
@@ -482,7 +491,7 @@ preEnemies = {
     "Royal Palace" : [("Guard", 40), ("Archer", 25), ("Dark Knight", 50), ("Warlock", 30), ("King", 400, (9, 11), (5,5))],
         "The Antitower" : [("Tome Spirit", 40), ("Rune Golem", 60), ("Magician", 40), ("Enchanted Guardian", 500, (11, 11))],
     "Astral Plane" : [("Astral Spirit", 40), ("Githyanki", 60), ("Wanderer", 50), ("Vlaakith", 500)],
-        "The Abyss" : [("Winged Demon", 40), ("Hulking Demon", 70), ("Nimble Demon", 50), ("Yeenoghu", 600)],
+        "The Abyss" : [("Winged Demon", 40), ("Hulking Demon", 70), ("Nimble Demon", 50), ("Death Knight", 600)],
     "Mount Celestia" : [("Angel", 50), ("Seraph", 40), ("Archangel", 70), ("Deity", 600)],
         "The Nine Hells" : [("Bone Devil", 50), ("Ice Devil", 60), ("Chain Devil", 60), ("Pit Fiend", 80), ("Asmodeus", 1000)]
 }

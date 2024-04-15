@@ -171,7 +171,7 @@ class Trait():
                     validEnems = []
                     validsReturn = []
                     for enem in game.enemies:
-                        if enem.isWithinDistance(self.range, (plr.x, plr.y)):
+                        if enem.isWithinDistance(self.range, (plr.x, plr.y)) and enem.defense < 100:
                             validEnems.append(f"{enem.name}: {math.ceil(enem.hp)}/{enem.maxHp} ({enem.x}, {enem.y})")
                             validsReturn.append(enem)
                     if len(validEnems) == 0:
@@ -583,7 +583,61 @@ class Trait():
                                 if not (x == game.player.x and y == game.player.y):
                                     game.spawn(name, 1, x, y)
                                     break
-                
+            case "Nightmares":
+                # Amount per side
+                for _ in range(2):
+                    for side in range(4):
+                        # Tries to spawn
+                        for _ in range(10):
+                            x = random.randint((1 if side != 2 else game.encounter.width), (game.encounter.width if side != 0 else 1))
+                            y = random.randint((1 if side != 3 else game.encounter.height), (game.encounter.height if side != 1 else 1))
+
+                            for object in game.allObjects:
+                                if x == object.x and y == object.y:
+                                    break
+                            else:
+                                if not (x == game.player.x and y == game.player.y):
+                                    game.spawn("Nightmare", 1, x, y)
+                                    break
+            case "Ride":
+                stX, stY = int(user.x), int(user.y)
+
+                for _ in range(10):
+                    x, y = random.randint(int(target.x - 3), int(target.x + 3)), random.randint(int(target.y - 3), int(target.y + 3))
+                    if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                        for object in game.allObjects:
+                            if x == object.x and y == object.y:
+                                break
+                        else:
+                            if not (x == game.player.x and y <= game.player.y) and x != stX:
+                                user.x, user.y = x, y
+                                break
+                                
+                for y in range(stY, game.encounter.height + 1):
+                    game.spawn("Flame", 1, stX, y)
+                for y in range(1, user.y):
+                    game.spawn("Flame", 1, user.x, y)
+            case "Flames":
+                # Number of flames
+                for _ in range(2):
+                    # Number of tries
+                    for _ in range(50):
+                        x, y = random.randint(1, game.encounter.width), random.randint(1, game.encounter.height)
+                        if 0 < x < game.encounter.width + 1 and 0 < y < game.encounter.height + 1:
+                            for object in game.allObjects:
+                                if x == object.x and y == object.y:
+                                    break
+                            else:
+                                for x2 in range(x-2, x+3):
+                                    for y2 in range(y-2, y+3):
+                                        if 0 < x2 < game.encounter.width + 1 and 0 < y2 < game.encounter.height + 1:
+                                            for object in game.allObjects:
+                                                if x2 == object.x and y2 == object.y:
+                                                    break
+                                            else:
+                                                if not (x2 == game.player.x and y2 == game.player.y):
+                                                    game.spawn("Flame", 1, x2, y2)
+                                break
 
 
             # Asmodeus

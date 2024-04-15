@@ -436,13 +436,23 @@ class Enemy(Character):
                 self.putOn(pre.enemArmrs["Weak No Special"])
 
                 # Boss
-            case "Yeenoghu":
+            case "Death Knight":
                 self.mapIcon = "#"
 
-                actions = 6
+                actions = 3
 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Death Knight"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
+            case "Nightmare":
+                self.mapIcon = "!"
+                speed = 0
+                self.putOn(pre.enemWeps["Nightmare"])
+                self.putOn(pre.enemArmrs["Invincible"])
+            case "Flame":
+                self.mapIcon = " "
+                speed = 0
+                self.putOn(pre.enemWeps["Flame"])
+                self.putOn(pre.enemArmrs["Invincible"])
             
             # Stage 7
                 # Mount Celestia
