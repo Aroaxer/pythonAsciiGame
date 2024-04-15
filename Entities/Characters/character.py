@@ -167,16 +167,17 @@ class Character(Object):
         damage *= self.tempDamageModifier
 
         self.hp -= damage
-        if self.hp <= 0:
-            if not self == game.player:
-                game.kill(self)
-            else:
-                game.ended = True
 
         # Trigger on-attack traits
         if shouldTriggerTraits: source.activateAllTraits("Attack", game, self)
         
         if shouldTriggerTraits: self.activateAllTraits("After Damage", game, source)
+        
+        if self.hp <= 0:
+            if not self == game.player:
+                game.kill(self)
+            else:
+                game.ended = True
 
     def apply(self, debuffName, equipment, duration):
         status = copy.deepcopy(pre.statuses[debuffName])
