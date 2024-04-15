@@ -260,9 +260,26 @@ class Trait():
             case "Lacerate":
                 target.takeDamage(equipment.damage, user, game)
                 target.apply("Bleed", equipment, 2)
+            case "Bleed Out":
+                target.takeDamage(equipment.damage, user, game)
+                target.apply("Bleed", equipment, 5)
             case "Bleed":
                 target.tempDamageModifier *= 1.2
                 target.takeDamage(equipment.damage / 4, None, game, False)
+            case "Disintegrate":
+                target.tempDamageModifier *= 1.4
+                target.takeDamage(equipment.damage / 2, None, game, False)
+            case "Essence Tear":
+                target.takeDamage(equipment.damage, user, game)
+                target.apply("Disintegrate", equipment, 5)
+            case "Demolish":
+                if "Disintegrate" in target.statuses.keys():
+                    target.takeDamage(equipment.damage * (target.statuses["Disintegrate"]))
+                    del target.statuses["Disintegrate"]
+            case "Fireblood":
+                if "Bleed" in target.statuses.keys():
+                    target.takeDamage(equipment.damage * (target.statuses["Bleed"] / 2))
+                    del target.statuses["Bleed"]
                 
             case "Decapitate":
                 # Should only be used by Vorpal Sword or Excalibur
@@ -756,6 +773,8 @@ class Trait():
                         return "Deals the equipment's damage\nIf this kills the enemy, you heal 0.2 hp and recover the action\nRegains charges on encounter or kill with this action"
                     case "Lacerate":
                         return "Deals the equipment's damage\nCauses the enemy to bleed for 2 turns, taking damage over time and recieving increased damage from all sources"
+                    case "Bleed Out":
+                        return "Deals the equipment's damage\nCauses the enemy to bleed for 5 turns, taking damage over time and recieving increased damage from all sources"
                     case "Decapitate":
                         return "Charges the weapon's other skills on kill"
                     case "Royal Strike":

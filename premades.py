@@ -14,6 +14,7 @@ acs = {
     "Ritual Stab" : Action("Ritual Stab", "Ritual Attack", maxCharges=2, recharge="Encounter"),
     "Whirl" : Action("Whirl", "1x Damage", "Centered", maxCharges=5, rechargePercent=0.2, width=3),
     "Lacerate" : Action("Lacerate", "Lacerate", maxCharges=1, freeAction=True),
+    "Bleed Out" : Action("Bleed Out", "Bleed Out", maxCharges=1),
         # Vorpal Sword
     "Decapitate" : Action("Decapitate", "Decapitate"),
     "Bloodwave" : Action("Bloodwave", "1x Damage", "Directional", maxCharges=5, recharge="Never", width=3, length=5),
@@ -52,6 +53,14 @@ acs = {
     "Radiant Rush" : Action("Radiant Rush", "Charge", "Point No Enemy", range=3, width=3),
     "High Noon" : Action("High Noon", "Repel 75", "Centered", maxCharges=2, recharge="Encounter", width=125),
     "Twilight" : Action("Twilight", "Twilight", maxCharges=1, recharge="Never", range=125, freeAction=True),
+        # Night's Edge
+    "Night Slash" : Action("Night Slash", "Bleed Out"),
+    "Bloodlet" : Action("Bloodlet", "Bleed Out", "Centered", maxCharges=1, width=3),
+    "Fireblood" : Action("Fireblood", "Fireblood", maxCharges=1, rechargePercent=0.5, freeAction=True),
+        # Zenith
+    "Essence Tear" : Action("Essence Tear", "Essence Tear"),
+    "Shred" : Action("Shred", "Essence Tear", "Centered", maxCharges=2, width=5),
+    "Demolish" : Action("Demolish", "Demolish", maxCharges=1, freeAction=True),
     
     # Physical Ranged
     "Basic Shot" : Action("Basic Shot", "1x Damage", range=3),
@@ -269,7 +278,8 @@ traits = {
 # Statuses
 statuses = {
     "Bleed" : Trait("Bleed", "Turn", "Bleed"),
-    "Stun" : Trait("Stun", "Turn", "StunEf")
+    "Stun" : Trait("Stun", "Turn", "StunEf"),
+    "Disintegrate" : Trait("Disintegrate", "Turn", "Disintegrate")
 }
 
 # Equips
@@ -391,6 +401,7 @@ tier4Weps = {
     "Mjolnir" : Equip("Mjolnir", 40, 40, [acs["Storm Swing"], acs["Lightning Slam"], acs["Shockwave"], acs["Superstorm"], traits["Repel"], traits["Mjolnir"]], hpBoost=7),
     "Aetheryte" : Equip("Aetheryte", 40, 30, [acs["Aetherial Lance"], acs["Cloud Whirl"], acs["Spatial Thrust"], acs["Sky Call"], acs["Void Phase"]], actionBoost=1, hpBoost=5),
     "Dawnbreaker" : Equip("Dawnbreaker", 36, 60, [acs["Dawn Strike"], acs["Radiant Rush"], acs["High Noon"], acs["Twilight"], traits["Holy Radiance"], traits["Chain Reduction"]], hpBoost=10),
+    "Zenith" : Equip("Zenith", 30, 20, [acs["Essence Tear"], acs["Shred"], acs["Demolish"]], speedBoost=2, hpBoost=15),
 
     # Physical Ranged
     "Tsunami" :  Equip("Tsunami", 32, 10, [acs["Tidesplinter"], acs["Tidal Wave"], acs["Whirlpool"], acs["Surf"]], speedBoost=1, hpBoost=3),
@@ -407,6 +418,7 @@ tier3Weps = {
     "Gaian Maul" : Equip("Gaian Maul", 20, 20, [acs["Stone Swing"], acs["Terran Crush"], acs["Earthwake"]], upgr=(tier4Weps["Mjolnir"], tier3Armors["Stormwrath Mail"]), hpBoost=5),
     "Dragonlance" : Equip("Dragonlance", 20, 10, [acs["Dragon's Arm"], acs["Dragon's Tail"], acs["Dragon's Breath"], acs["Dragon's Wings"]], actionBoost=1, upgr=(tier4Weps["Aetheryte"], tier3Armors["Aetherial Robes"]), hpBoost=3),
     "Regal Flail" : Equip("Regal Flail", 18, 40, [acs["Royal Strike"], acs["Total Authority"], acs["Kingkiller"]], upgr=(tier4Weps["Dawnbreaker"], tier3Offs["Palace Shield"]), hpBoost=7),
+    "Night's Edge" : Equip("Night's Edge", 15, 15, [acs["Night Slash"], acs["Bloodlet"], acs["Fireblood"]], speedBoost=1, upgr=(tier4Weps["Zenith"], tier3Armors["Shadesteel Plate"]), hpBoost=10),
 
     # Physical Ranged
     "Trinity Bow" : Equip("Trinity Bow", 16, 0, [acs["Flame Arrows"], acs["Frost Arrow"], acs["Shock Arrow"]], upgr=(tier4Weps["Tsunami"], tier3Offs["Oceanic Coating"]), hpBoost=1),
@@ -423,6 +435,7 @@ tier2Weps = {
     "Flamehammer" : Equip("Flamehammer", 10, 10, [acs["Basic Attack"], acs["Slam"], acs["Fireball"]], upgr=tier3Weps["Gaian Maul"], hpBoost=3),
     "Runed Halberd" : Equip("Runed Halberd", 10, 10, [acs["Basic Attack"], acs["Impale"], acs["Slash"], acs["Firebolt"]], upgr=tier3Weps["Dragonlance"], hpBoost=1),
     "Defender Flail" : Equip("Defender Flail", 9, 30, [acs["Basic Attack"], acs["Charge"], acs["Parry"]], upgr=tier3Weps["Regal Flail"], hpBoost=5),
+    "Blood Cleaver" : Equip("Blood Cleaver", 8, 10, [acs["Basic Attack"], acs["Bleed Out"], acs["Slash"]], upgr=tier3Weps["Night's Edge"], hpBoost=7),
 
     # Physical Ranged
     "Twinshot Bow" : Equip("Twinshot Bow", 8, 0, [acs["Twin Shot"], acs["Pierce"], acs["Shove"]], upgr=tier3Weps["Trinity Bow"]),
@@ -439,6 +452,7 @@ weps = {
     "Hammer" : Equip("Hammer", 5, 10, [acs["Basic Attack"], acs["Slam"]], upgr=tier2Weps["Flamehammer"], hpBoost=1),
     "Spear" : Equip("Spear", 5, 10, [acs["Basic Attack"], acs["Impale"]], upgr=tier2Weps["Runed Halberd"]),
     "Mace" : Equip("Mace", 4, 20, [acs["Basic Attack"], acs["Charge"]], upgr=tier2Weps["Defender Flail"], hpBoost=3),
+    "Greatsword" : Equip("Greatsword", 4, 0, [acs["Basic Attack"], acs["Bleed Out"]], upgr=tier2Weps["Blood Cleaver"], hpBoost=5),
 
     # Physical Ranged
     "Bow" : Equip("Bow", 4, 0, [acs["Basic Shot"], acs["Pierce"]], upgr=tier2Weps["Twinshot Bow"]),
@@ -502,7 +516,7 @@ preEnemies = {
 
     # Stage 6
     "The Abyss" : [("Winged Demon", 40), ("Hulking Demon", 70), ("Nimble Demon", 50), ("Death Knight", 600, (13,13), (7,4))],
-    
+
     # Stage 7
     "The Nine Hells" : [("Bone Devil", 50), ("Ice Devil", 60), ("Chain Devil", 60), ("Pit Fiend", 80), ("Asmodeus", 1000, (15,15))]
 }
