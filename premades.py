@@ -50,7 +50,7 @@ acs = {
     "Kingkiller" : Action("Kingkiller", "Kingkiller", maxCharges=1, recharge="Never", range=75, freeAction=True),
         # Dawnbreaker
     "Dawn Strike" : Action("Dawn Strike", "Royal Strike", "Directional", width=3, length=2),
-    "Radiant Rush" : Action("Radiant Rush", "Charge", "Point No Enemy", range=3, width=3),
+    "Radiant Rush" : Action("Radiant Rush", "Charge", "Point No Enemy", range=2, width=3),
     "High Noon" : Action("High Noon", "Repel 75", "Centered", maxCharges=2, recharge="Encounter", width=125),
     "Twilight" : Action("Twilight", "Twilight", maxCharges=1, recharge="Never", range=125, freeAction=True),
         # Night's Edge

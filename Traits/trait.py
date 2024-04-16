@@ -274,14 +274,17 @@ class Trait():
                 target.takeDamage(equipment.damage, user, game)
                 target.apply("Disintegrate", equipment, 5)
             case "Demolish":
-                if "Disintegrate" in list(effect.name for effect in target.statuses.keys()):
-                    target.takeDamage(equipment.damage * (target.statuses["Disintegrate"]))
-                    del target.statuses["Disintegrate"]
+                for ef in target.statuses.keys():
+                    if ef.name == "Disintegrate":
+                        target.takeDamage(equipment.damage * (target.statuses[ef]), user, game)
+                        del target.statuses[ef]
+
             case "Fireblood":
-                if "Bleed" in list(effect.name for effect in target.statuses.keys()):
-                    target.takeDamage(equipment.damage * (target.statuses["Bleed"] / 2))
-                    del target.statuses["Bleed"]
-                
+                for ef in target.statuses.keys():
+                    if ef.name == "Bleed":
+                        target.takeDamage(equipment.damage * (target.statuses[ef] / 2), user, game)
+                        del target.statuses[ef]
+
             case "Decapitate":
                 # Should only be used by Vorpal Sword or Excalibur
                 target.takeDamage(equipment.damage * 1.25, user, game)
