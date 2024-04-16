@@ -266,20 +266,19 @@ class Trait():
                 target.takeDamage(equipment.damage, user, game)
                 target.apply("Bleed", equipment, 5)
             case "Bleed":
-                target.tempDamageModifier *= 1.2
                 target.takeDamage(equipment.damage / 4, None, game, False)
             case "Disintegrate":
-                target.tempDamageModifier *= 1.4
+                target.tempDamageModifier *= 1.2
                 target.takeDamage(equipment.damage / 2, None, game, False)
             case "Essence Tear":
                 target.takeDamage(equipment.damage, user, game)
                 target.apply("Disintegrate", equipment, 5)
             case "Demolish":
-                if "Disintegrate" in target.statuses.keys():
+                if "Disintegrate" in list(effect.name for effect in target.statuses.keys()):
                     target.takeDamage(equipment.damage * (target.statuses["Disintegrate"]))
                     del target.statuses["Disintegrate"]
             case "Fireblood":
-                if "Bleed" in target.statuses.keys():
+                if "Bleed" in list(effect.name for effect in target.statuses.keys()):
                     target.takeDamage(equipment.damage * (target.statuses["Bleed"] / 2))
                     del target.statuses["Bleed"]
                 
@@ -774,11 +773,11 @@ class Trait():
                     case "Ritual Attack":
                         return "Deals the equipment's damage\nIf this kills the enemy, you heal 0.2 hp and recover the action\nRegains charges on encounter or kill with this action"
                     case "Lacerate":
-                        return "Deals the equipment's damage\nCauses the enemy to bleed for 2 turns, taking damage over time and recieving increased damage from all sources"
+                        return "Deals the equipment's damage\nCauses the enemy to bleed for 2 turns, taking damage over time"
                     case "Bleed Out":
-                        return "Deals the equipment's damage\nCauses the enemy to bleed for 5 turns, taking damage over time and recieving increased damage from all sources"
+                        return "Deals the equipment's damage\nCauses the enemy to bleed for 5 turns, taking damage over time"
                     case "Essence Tear":
-                        return "Deals the equipment's damage\nCauses the enemy to disintegrate for 5 turns, taking heavy damage over time and recieving greatly increased damage from all sources"
+                        return "Deals the equipment's damage\nCauses the enemy to disintegrate for 5 turns, taking heavy damage over time and recieving increased damage from all sources"
                     case "Fireblood":
                         return "Deals damage proportional to the duration of bleed on the enemy, then removes all bleed from them"
                     case "Demolish":
