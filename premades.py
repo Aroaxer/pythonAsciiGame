@@ -37,13 +37,13 @@ acs = {
     "Dragon's Arm" : Action("Dragon's Arm", "1x Damage", range=2),
     "Dragon's Tail" : Action("Dragon's Tail", "Damage Repel 1", "Centered", width=3),
     "Dragon's Breath" : Action("Dragon's Breath", "Damage Repel 1", "Directional", maxCharges=1, width=3, length=5),
-    "Dragon's Wings" : Action("Dragon's Wings", "Charge", "Point No Enemy", maxCharges=3, range=7, width=3),
+    "Dragon's Wings" : Action("Dragon's Wings", "Charge", "Point No Enemy", maxCharges=3, range=3, width=3),
         # Aetheryte
     "Aetherial Lance" : Action("Aetherial Lance", "1.5x Damage", range=3),
     "Cloud Whirl" : Action("Cloud Whirl", "Damage Repel 2", "Centered", width=5),
     "Spatial Thrust" : Action("Spatial Thrust", "Damage Repel 1", "Directional", maxCharges=2, width=3, length=7),
     "Sky Call" : Action("Sky Call", "Damage Pull", "Centered", maxCharges=2, width=7),
-    "Void Phase" : Action("Void Phase", "Charge", "Point No Enemy", maxCharges=4, range=9, width=5),
+    "Void Phase" : Action("Void Phase", "Charge", "Point No Enemy", maxCharges=4, range=3, width=5),
         # Regal Flail
     "Royal Strike" : Action("Royal Strike", "Royal Strike", "Directional", width=3),
     "Total Authority" : Action("Total Authority", "Repel 50", "Centered", maxCharges=2, recharge="Encounter", width=75),
@@ -135,8 +135,8 @@ acs = {
     "Damage Pull" : Action("Pull", "Damage Pull", maxCharges=1, range=4, freeAction=True),
     "Entangle" : Action("Entangle", "Stun", maxCharges=2, range=3),
     "Double Hook" : Action("Double Hook", "Damage Pull", "Multi 2", maxCharges=1, range=5, freeAction=True),
-    "Teleport" : Action("Teleport", "Teleport", "Point No Enemy", range=10),
-    "Charge" : Action("Charge", "Charge", "Point No Enemy", maxCharges=1, range=5, width=3),
+    "Teleport" : Action("Teleport", "Teleport", "Point No Enemy", range=6),
+    "Charge" : Action("Charge", "Charge", "Point No Enemy", maxCharges=1, range=1, width=3),
 
     # Defensive
     "Block" : Action("Block", "Block", "Self"),
