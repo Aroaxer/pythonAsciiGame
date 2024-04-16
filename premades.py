@@ -242,13 +242,13 @@ enemWeps = {
     "Frost Giant" : Equip("Frost Giant", 2, 10, [enemAcs["Frost Slash"], enemAcs["Boulder"], enemAcs["Snap Freeze"], enemAcs["Leap"]]),
         "Ice" : Equip("Ice", 0, 0, [enemAcs["Melt"]]),
     "King" : Equip("King", 2, 0, [enemAcs["King Sword"], enemAcs["King Reinforcements"], enemAcs["Command"]]),
-    "Enchanted Guardian" : Equip("Enchanted Guardian", 3, 0, [enemAcs["EG Animate"], enemAcs["EG Shuffle"]]),
-        "Beam Tome" : Equip("Beam Tome", 2, 0, [enemAcs["EG Laser"]]),
-        "Blast Pillar" : Equip("Blast Pillar", 1, 0, [enemAcs["EG Pulse"]]),
-    "Death Knight" : Equip("Death Knight", 2, 0, [enemAcs["DK Swing"], enemAcs["DK Nightmares"], enemAcs["DK Ride"], enemAcs["DK Flames"]]),
-        "Nightmare" : Equip("Nightmare", 3, 0, [enemAcs["Nightmare"]]),
+    "Enchanted Guardian" : Equip("Enchanted Guardian", 0, 0, [enemAcs["EG Animate"], enemAcs["EG Shuffle"]]),
+        "Beam Tome" : Equip("Beam Tome", 40, 0, [enemAcs["EG Laser"]]),
+        "Blast Pillar" : Equip("Blast Pillar", 30, 0, [enemAcs["EG Pulse"]]),
+    "Death Knight" : Equip("Death Knight", 15, 0, [enemAcs["DK Swing"], enemAcs["DK Nightmares"], enemAcs["DK Ride"], enemAcs["DK Flames"]]),
+        "Nightmare" : Equip("Nightmare", 100, 0, [enemAcs["Nightmare"]]),
         "Flame" : Equip("Flame", 0, 0, [enemAcs["CQ Decay"]]),
-    "Asmodeus" : Equip("Asmodeus", 3, 20, [enemAcs["DK Nightmares"], enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]]),
+    "Asmodeus" : Equip("Asmodeus", 15, 20, [enemAcs["DK Nightmares"], enemAcs["Strike"], enemAcs["Blast"], enemAcs["Summon Lesser"], enemAcs["Summon Greater"]]),
 
     # Trial
     "Conqueror" : Equip("Conqueror", 4, 0, [enemAcs["CQ Crush"], enemAcs["CQ Phase"], enemAcs["CQ Barriers"], enemAcs["CQ Timeblasts"]]),
@@ -502,21 +502,21 @@ preEnemies = {
         "Dark Cave" : [("Bat", 6), ("Goblin", 10), ("Giant Spider", 12), ("Spider Queen", 100, (7,7))],
 
     # Stage 3
-    "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 200, (9,9))],
-        "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 200, (3,11), (2,1))],
+    "Forest Tower" : [("Turret", 15), ("Stone Golem", 20), ("Golem Mage", 18), ("Iron Golem", 400, (9,9))],
+        "Crystal Cavern" : [("Gem Crawler", 18), ("Crystal Golem", 20), ("Jeweled Spire", 25), ("Crystal Heart", 300, (3,11), (2,1))],
 
     # Stage 4
-    "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 200, (9,9))],
-        "Scorched Desert" : [("Giant Scorpion", 30), ("Sand Elemental", 20), ("Giant Snake", 40), ("Vulture", 25), ("Sandworm", 300, (13,13))],
-        "Icy Tundra" : [("Ice Elemental", 20), ("Yeti", 40), ("Snow Golem", 20), ("Frost Giant", 300, (9,9))],
+    "Fey Grove" : [("Sprite", 20), ("Quickling", 20), ("Dryad", 30), ("Treant", 40), ("Archfey", 600, (9,9))],
+        "Scorched Desert" : [("Giant Scorpion", 30), ("Sand Elemental", 20), ("Giant Snake", 40), ("Vulture", 25), ("Sandworm", 700, (13,13))],
+        "Icy Tundra" : [("Ice Elemental", 20), ("Yeti", 40), ("Snow Golem", 20), ("Frost Giant", 800, (9,9))],
 
     # Stage 5 (End if Royal Palace)
-    "Royal Palace" : [("Guard", 40), ("Archer", 25), ("Dark Knight", 50), ("Warlock", 30), ("King", 400, (9,11), (5,5))],
-        "The Antitower" : [("Tome Spirit", 40), ("Rune Golem", 60), ("Magician", 40), ("Enchanted Guardian", 500, (11,11))],
+    "Royal Palace" : [("Guard", 40), ("Archer", 25), ("Dark Knight", 50), ("Warlock", 30), ("King", 1000, (9,11), (5,5))],
+        "The Antitower" : [("Tome Spirit", 40), ("Rune Golem", 60), ("Magician", 40), ("Enchanted Guardian", 5000, (11,11))],
 
     # Stage 6
-    "The Abyss" : [("Winged Demon", 40), ("Hulking Demon", 70), ("Nimble Demon", 50), ("Death Knight", 600, (13,13), (7,4))],
+    "The Abyss" : [("Winged Demon", 40), ("Hulking Demon", 70), ("Nimble Demon", 50), ("Death Knight", 8000, (13,13), (7,4))],
 
     # Stage 7
-    "The Nine Hells" : [("Bone Devil", 50), ("Ice Devil", 60), ("Chain Devil", 60), ("Pit Fiend", 80), ("Asmodeus", 1000, (15,15))]
+    "The Nine Hells" : [("Bone Devil", 50), ("Ice Devil", 60), ("Chain Devil", 60), ("Pit Fiend", 80), ("Asmodeus", 10000, (15,15))]
 }
