@@ -780,7 +780,7 @@ class Trait():
                     case "Bleed Out":
                         return "Deals the equipment's damage\nCauses the enemy to bleed for 5 turns, taking damage over time"
                     case "Essence Tear":
-                        return "Deals the equipment's damage\nCauses the enemy to disintegrate for 5 turns, taking heavy damage over time and recieving increased damage from all sources"
+                        return "Deals the equipment's damage\nCauses the enemy to disintegrate for 5 turns, taking heavy damage over time and receiving increased damage from all sources"
                     case "Fireblood":
                         return "Deals damage proportional to the duration of bleed on the enemy, then removes all bleed from them"
                     case "Demolish":
