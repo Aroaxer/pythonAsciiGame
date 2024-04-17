@@ -252,7 +252,7 @@ class Character(Object):
                 plannedAction = plannedAction[0] + (f" (+{self.actions - 1} More)" if self.actions > 1 else "")
         except AttributeError: pass
 
-        infoStr = f"{self.name}: {round(self.hp, 2)}/{self.maxHp} Health" + (f" (-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "")
+        infoStr = f"{self.name}: {round(self.hp, 2)}/{self.maxHp} Health " + "".join(list(((f"({status.name} {self.statuses[status]}) ") for status in self.statuses.keys()))) + (f"(-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "")
         acsInfo = f"\n   Will {plannedAction}" if plannedAction else ""
         if detailed:
             try: infoStr += f"\nMainhand: {self.mainhand.name}, {self.mainhand.damage} Damage"
