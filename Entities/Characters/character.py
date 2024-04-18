@@ -1,4 +1,5 @@
 import copy
+import re
 
 from Entities.object import Object
 
@@ -67,6 +68,10 @@ class Character(Object):
         for slot in (self.mainhand, self.offhand, self.armor, self.accessory):
             try: total *= ((100 - slot.defense) / 100)
             except AttributeError: pass
+        for status in self.statuses.keys():
+            name = re.findall("[^\d]+", status)[0]
+            if name == "Fracture":
+                total += 10
         return (100 - total)
     defense = property(fget=getDefense)
 
@@ -182,10 +187,18 @@ class Character(Object):
             else:
                 game.ended = True
 
-    def apply(self, debuffName, equipment, duration):
+    def apply(self, debuffName, equipment, duration, stacking = False):
         status = copy.deepcopy(pre.statuses[debuffName])
         status.tiedEquipment = equipment
-        self.statuses[status.name] = [duration, status]
+        if not stacking:
+            self.statuses[status.name] = [duration, status]
+        else:
+            count = 1
+            for cStatus in self.statuses:
+                name = re.findall("[^\d]+", cStatus)[0]
+                if name == status.name:
+                    count += 1
+            self.statuses[f"{status.name}{count}"] = [duration, status]
 
     def putOn(self, item):
         if type(item) == tuple:
@@ -252,7 +265,9 @@ class Character(Object):
                 plannedAction = plannedAction[0] + (f" (+{self.actions - 1} More)" if self.actions > 1 else "")
         except AttributeError: pass
 
-        infoStr = f"{self.name}: {round(self.hp, 2)}/{self.maxHp} Health " + "".join(list(((f"({status} {self.statuses[status][0]}) ") for status in self.statuses.keys()))) + (f"(-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "")
+        statusList = list(re.findall("[^\d]+", status)[0] for status in self.statuses.keys())
+        statusString = "".join(list(((f"({statusName} {self.statuses[statusKey][0]}) ") for statusName, statusKey in zip(statusList, self.statuses.keys()))))
+        infoStr = f"{self.name}: {round(self.hp, 2)}/{self.maxHp} Health " + statusString + (f"(-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "")
         acsInfo = f"\n   Will {plannedAction}" if plannedAction else ""
         if detailed:
             try: infoStr += f"\nMainhand: {self.mainhand.name}, {self.mainhand.damage} Damage"

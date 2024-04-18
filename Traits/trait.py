@@ -259,6 +259,9 @@ class Trait():
                     user.actionsLeft += 1
                     user.hp += 0.2
                     self.charges += 1
+            case "Bash":
+                target.takeDamage(equipment.damage, user, game)
+                target.apply("Fracture", equipment, 3, True)
             case "Lacerate":
                 target.takeDamage(equipment.damage, user, game)
                 target.apply("Bleed", equipment, 2)

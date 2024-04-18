@@ -336,14 +336,14 @@ class Enemy(Character):
                 self.preferredDist = 3
                 speed = 2
                 
-                self.putOn(pre.enemWeps["Medium Magic"])
+                self.putOn(pre.enemWeps["Strong Magic"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
             case "Rune Golem":
                 self.mapIcon = "G"
 
                 actions = 2
 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Heavy Melee"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
             case "Magician":
                 self.mapIcon = "M"
@@ -351,7 +351,7 @@ class Enemy(Character):
                 self.preferredDist = 3
                 speed = 3
 
-                self.putOn(pre.enemWeps["Medium Magic"])
+                self.putOn(pre.enemWeps["Strong Magic"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
 
                 # Boss
@@ -375,40 +375,6 @@ class Enemy(Character):
                 self.putOn(pre.enemArmrs["Invincible"])
 
             # Stage 6
-                # Astral Plane
-            case "Astral Spirit":
-                self.mapIcon = "S"
-
-                speed = 3
-
-                self.putOn(pre.enemWeps["Medium Melee"])
-                self.putOn(pre.enemArmrs["Weak No Special"])
-            case "Githyanki":
-                self.mapIcon = "G"
-
-                actions = 2
-                speed = 2
-
-                self.putOn(pre.enemWeps["Medium Melee"])
-                self.putOn(pre.enemArmrs["Medium No Special"])
-            case "Wanderer":
-                self.mapIcon = "W"
-
-                actions = 3
-                self.preferredDist = 2
-                
-                self.putOn(pre.enemWeps["Medium Ranged"])
-                self.putOn(pre.enemArmrs["Medium No Special"])
-
-                # Boss
-            case "Vlaakith":
-                self.mapIcon = "#"
-
-                actions = 4
-
-                self.putOn(pre.enemWeps["Medium Melee"])
-                self.putOn(pre.enemArmrs["Medium No Special"])
-            
                 # The Abyss
             case "Winged Demon":
                 self.mapIcon = "W"
@@ -417,14 +383,14 @@ class Enemy(Character):
                 actions = 2
                 speed = 2
 
-                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemWeps["Strong Ranged"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
             case "Hulking Demon":
                 self.mapIcon = "H"
 
                 actions = 3
                 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Heavy Melee"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
             case "Nimble Demon":
                 self.mapIcon = "N"
@@ -432,7 +398,7 @@ class Enemy(Character):
                 actions = 2
                 speed = 3
 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Strong Melee"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
 
                 # Boss
@@ -455,42 +421,6 @@ class Enemy(Character):
                 self.putOn(pre.enemArmrs["Invincible"])
             
             # Stage 7
-                # Mount Celestia
-            case "Angel":
-                self.mapIcon = "a"
-
-                actions = 2
-                speed = 2
-
-                self.putOn(pre.enemWeps["Medium Melee"])
-                self.putOn(pre.enemArmrs["Medium No Special"])
-            case "Seraph":
-                self.mapIcon = "S"
-
-                actions = 3
-                self.preferredDist = 2
-
-                self.putOn(pre.enemWeps["Medium Ranged"])
-                self.putOn(pre.enemArmrs["Medium No Special"])
-            case "Archangel":
-                self.mapIcon = "A"
-
-                actions = 3
-                speed = 2
-
-                self.putOn(pre.enemWeps["Medium Melee"])
-                self.putOn(pre.enemArmrs["Medium No Special"])
-            
-                # Boss
-            case "Deity":
-                self.mapIcon = "#"
-
-                actions = 4
-                speed = 2
-
-                self.putOn(pre.enemWeps["Medium Melee"])
-                self.putOn(pre.enemArmrs["Medium No Special"])
-            
                 # The Nine Hells
             case "Bone Devil":
                 self.mapIcon = "B"
@@ -499,7 +429,7 @@ class Enemy(Character):
                 speed = 2
                 self.preferredDist = 2
 
-                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemWeps["Strong Ranged"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
             case "Ice Devil":
                 self.mapIcon = "I"
@@ -507,7 +437,7 @@ class Enemy(Character):
                 actions = 3
                 speed = 2
 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Strong Melee"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
             case "Chain Devil":
                 self.mapIcon = "C"
@@ -516,7 +446,7 @@ class Enemy(Character):
                 actions = 2
                 speed = 3
 
-                self.putOn(pre.enemWeps["Medium Ranged"])
+                self.putOn(pre.enemWeps["Strong Ranged"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
             case "Pit Fiend":
                 self.mapIcon = "F"
@@ -524,7 +454,7 @@ class Enemy(Character):
                 actions = 3
                 speed = 2
 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Heavy Melee"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
             
                 # Asmodeus
@@ -541,7 +471,7 @@ class Enemy(Character):
 
                 speed = 2
 
-                self.putOn(pre.enemWeps["Weak Melee"])
+                self.putOn(pre.enemWeps["Strong Melee"])
                 self.putOn(pre.enemArmrs["Weak No Special"])
             case "Greater Devil":
                 self.mapIcon = "G"
@@ -549,7 +479,7 @@ class Enemy(Character):
                 speed = 2
                 actions = 2
 
-                self.putOn(pre.enemWeps["Medium Melee"])
+                self.putOn(pre.enemWeps["Heavy Melee"])
                 self.putOn(pre.enemArmrs["Medium No Special"])
 
             

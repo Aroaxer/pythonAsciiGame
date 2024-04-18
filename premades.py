@@ -154,6 +154,8 @@ enemAcs = {
     "Ranged" : Action("Ranged", "1x Damage", aiPrio=1, range = 2),
     "Magic" : Action("Magic", "1x Damage", aiPrio=1, range = 3, maxCharges=1),
     "Fireball" : Action("Fireball", "1.5x Damage", aiPrio=2, range = 3, maxCharges=1, rechargePercent=0.5),
+    "Shove" : Action("Shove", "Repel 1", aiPrio=3, maxCharges=1, rechargePercent=0.5),
+    "Bash" : Action("Bash", "Bash", aiPrio=2, maxCharges=1),
     # Treant
     "Thorny Vines" : Action("Thorny Vines", "1x Damage", aiPrio=3, range=2),
     "Tangling Vines" : Action("Tangling Vines", "Stun", aiPrio=2, maxCharges=1, rechargePercent=0.5, range=10),
@@ -229,6 +231,11 @@ enemWeps = {
     "Medium Ranged" : Equip("Medium Ranged", 2, 0, [enemAcs["Ranged"]]),
     "Medium Magic" : Equip("Medium Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
 
+    "Heavy Melee" : Equip("Heavy Melee", 15, 0, [enemAcs["Melee"], enemAcs["Bash"]]),
+    "Strong Melee" : Equip("Strong Melee", 10, 0, [enemAcs["Melee"]]),
+    "Strong Ranged" : Equip("Strong Ranged", 10, 0, [enemAcs["Ranged"], enemAcs["Shove"]]),
+    "Strong Magic" : Equip("Strong Magic", 8, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
+
     # Special
     "Treant" : Equip("Treant", 1.5, 0, [enemAcs["Thorny Vines"], enemAcs["Tangling Vines"], enemAcs["Pulling Vines"], enemAcs["Conjure"]]),
     "Hobgob Lord" : Equip("Hobgoblin Lord", 2, 20, [enemAcs["Hobgob Strike"], enemAcs["Hobgob Reinforcements"]]),
@@ -279,7 +286,8 @@ traits = {
 statuses = {
     "Bleed" : Trait("Bleed", "Turn", "Bleed"),
     "Stun" : Trait("Stun", "Turn", "StunEf"),
-    "Disintegrate" : Trait("Disintegrate", "Turn", "Disintegrate")
+    "Disintegrate" : Trait("Disintegrate", "Turn", "Disintegrate"),
+    "Fracture" : Trait("Fracture", "", "")
 }
 
 # Equips
