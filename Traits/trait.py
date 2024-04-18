@@ -522,11 +522,13 @@ class Trait():
                     target.takeDamage(equipment.damage, user, game)
                 user.hp = 0
                 user.takeDamage(0, user, game)
+                target.apply("Fracture", equipment, 5, True)
             case "Pulse":
                 if max(abs(target.x - user.x), abs(target.y - user.y)) <= 2:
                     target.takeDamage(equipment.damage, user, game)
                 user.hp = 0
                 user.takeDamage(0, user, game)
+                target.apply("Fracture", equipment, 5, True)
             case "Recover":
                 user.hp += 10
             case "Burrow" | "Leap":
