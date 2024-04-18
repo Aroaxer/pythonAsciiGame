@@ -231,10 +231,10 @@ enemWeps = {
     "Medium Ranged" : Equip("Medium Ranged", 2, 0, [enemAcs["Ranged"]]),
     "Medium Magic" : Equip("Medium Magic", 2, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
 
-    "Heavy Melee" : Equip("Heavy Melee", 15, 0, [enemAcs["Melee"], enemAcs["Bash"]]),
-    "Strong Melee" : Equip("Strong Melee", 10, 0, [enemAcs["Melee"]]),
-    "Strong Ranged" : Equip("Strong Ranged", 10, 0, [enemAcs["Ranged"], enemAcs["Shove"]]),
-    "Strong Magic" : Equip("Strong Magic", 8, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
+    "Heavy Melee" : Equip("Heavy Melee", 10, 0, [enemAcs["Melee"], enemAcs["Bash"]]),
+    "Strong Melee" : Equip("Strong Melee", 7, 0, [enemAcs["Melee"]]),
+    "Strong Ranged" : Equip("Strong Ranged", 7, 0, [enemAcs["Ranged"], enemAcs["Shove"]]),
+    "Strong Magic" : Equip("Strong Magic", 6, 0, [enemAcs["Magic"], enemAcs["Fireball"]]),
 
     # Special
     "Treant" : Equip("Treant", 1.5, 0, [enemAcs["Thorny Vines"], enemAcs["Tangling Vines"], enemAcs["Pulling Vines"], enemAcs["Conjure"]]),
