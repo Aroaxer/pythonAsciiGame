@@ -185,7 +185,7 @@ class Character(Object):
     def apply(self, debuffName, equipment, duration):
         status = copy.deepcopy(pre.statuses[debuffName])
         status.tiedEquipment = equipment
-        self.statuses[status] = duration
+        self.statuses[status.name] = [duration, status]
 
     def putOn(self, item):
         if type(item) == tuple:
@@ -252,7 +252,7 @@ class Character(Object):
                 plannedAction = plannedAction[0] + (f" (+{self.actions - 1} More)" if self.actions > 1 else "")
         except AttributeError: pass
 
-        infoStr = f"{self.name}: {round(self.hp, 2)}/{self.maxHp} Health " + "".join(list(((f"({status.name} {self.statuses[status]}) ") for status in self.statuses.keys()))) + (f"(-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "")
+        infoStr = f"{self.name}: {round(self.hp, 2)}/{self.maxHp} Health " + "".join(list(((f"({status} {self.statuses[status][0]}) ") for status in self.statuses.keys()))) + (f"(-{oldHp - self.hp})" if oldHp and oldHp != self.hp else "")
         acsInfo = f"\n   Will {plannedAction}" if plannedAction else ""
         if detailed:
             try: infoStr += f"\nMainhand: {self.mainhand.name}, {self.mainhand.damage} Damage"
@@ -281,11 +281,11 @@ class Character(Object):
         
         cleanedStatuses = {}
         for status in self.statuses.keys():
-            status.activate(game, trigger, status.tiedEquipment, self, target)
+            self.statuses[status][1].activate(game, trigger, self.statuses[status][1].tiedEquipment, self, target)
 
-            if trigger == status.trigger:
-                self.statuses[status] -= 1
-                if self.statuses[status] > 0:
+            if trigger == self.statuses[status][1].trigger:
+                self.statuses[status][0] -= 1
+                if self.statuses[status][0] > 0:
                     cleanedStatuses[status] = self.statuses[status]
             else:
                 cleanedStatuses[status] = self.statuses[status]

@@ -275,13 +275,13 @@ class Trait():
                 target.apply("Disintegrate", equipment, 5)
             case "Demolish":
                 for ef in target.statuses.keys():
-                    if ef.name == "Disintegrate":
+                    if ef == "Disintegrate":
                         target.takeDamage(equipment.damage * (target.statuses[ef]), user, game)
                         del target.statuses[ef]
 
             case "Fireblood":
                 for ef in target.statuses.keys():
-                    if ef.name == "Bleed":
+                    if ef == "Bleed":
                         target.takeDamage(equipment.damage * (target.statuses[ef] / 2), user, game)
                         del target.statuses[ef]
 
