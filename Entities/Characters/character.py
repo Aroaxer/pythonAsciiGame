@@ -298,7 +298,7 @@ class Character(Object):
         for status in self.statuses.keys():
             self.statuses[status][1].activate(game, trigger, self.statuses[status][1].tiedEquipment, self, target)
 
-            if trigger == self.statuses[status][1].trigger:
+            if trigger == self.statuses[status][1].trigger or (self.statuses[status][1].trigger == "" and trigger == "Turn"):
                 self.statuses[status][0] -= 1
                 if self.statuses[status][0] > 0:
                     cleanedStatuses[status] = self.statuses[status]
