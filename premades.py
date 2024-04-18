@@ -299,7 +299,7 @@ tier3Offs = {
     "Cultist Sword" : Equip("Cultist Sword", 15, 10, [acs["Ritual Stab"], acs["Lacerate"], acs["Pull"]]),
     "Mythril Chains" : Equip("Mythril Hooks", 12, 10, [acs["Double Hook"], acs["Entangle"]]),
     "Silent Shiv" : Equip("Silent Shiv", 10, 10, [acs["Shiv"], acs["Parry"]], speedBoost=1),
-    "Oceanic Coating" : Equip("Oceanic Coating", 10, 0, [traits["Coating"], traits["Knockback"], traits["Knockback"]]),
+    "Oceanic Coating" : Equip("Oceanic Coating", 5, 0, [traits["Coating"], traits["Knockback"], traits["Knockback"]]),
 
     # Defensive
     "Fiery Shield" : Equip("Fiery Shield", 5, 50, [acs["Fortify"], traits["Spikes"]], speedBoost=2, hpBoost=3),
@@ -310,7 +310,7 @@ tier2Offs = {
     "Ritual Blade" : Equip("Ritual Blade", 8, 0, [acs["Ritual Stab"], acs["Pull"]], upgr=tier3Offs["Cultist Sword"]),
     "Chain Hooks" : Equip("Chain Hooks", 3, 0, [acs["Double Hook"]], upgr=tier3Offs["Mythril Chains"]),
     "Shrouded Dagger" : Equip("Shrouded Dagger", 5, 0, [acs["Toss"], acs["Parry"]], speedBoost=1, upgr=tier3Offs["Silent Shiv"]),
-    "Forceful Coating" : Equip("Forceful Coating", 5, 0, [traits["Coating"], traits["Knockback"]], upgr=tier3Offs["Oceanic Coating"]),
+    "Forceful Coating" : Equip("Forceful Coating", 3, 0, [traits["Coating"], traits["Knockback"]], upgr=tier3Offs["Oceanic Coating"]),
 
     # Defensive
     "Crystal Shield" : Equip("Crystal Shield", 2, 30, [acs["Block"], traits["Spikes"]], speedBoost=1, hpBoost=1, upgr=tier3Offs["Fiery Shield"]),
@@ -321,7 +321,7 @@ offs = {
     "Ritual Dagger" : Equip("Ritual Dagger", 4, 0, [acs["Ritual Stab"]], upgr=tier2Offs["Ritual Blade"]),
     "Rope Hook" : Equip("Rope Hook", 1, 0, [acs["Damage Pull"]], upgr=tier2Offs["Chain Hooks"]),
     "Kunai" : Equip("Kunai", 2, 0, [acs["Toss"]], speedBoost=1, upgr=tier2Offs["Shrouded Dagger"]),
-    "Weapon Coating" : Equip("Weapon Coating", 2, 0, [traits["Coating"]], upgr=tier2Offs["Forceful Coating"]),
+    "Weapon Coating" : Equip("Weapon Coating", 1, 0, [traits["Coating"]], upgr=tier2Offs["Forceful Coating"]),
 
     # Defensive
     "Kite Shield" : Equip("Kite Shield", 0, 20, [acs["Block"]], speedBoost=1, upgr=tier2Offs["Crystal Shield"]),
@@ -338,7 +338,7 @@ tier3Armors = {
 
     # Utility
     "Aetherial Robes" : Equip("Aetherial Robes", 0, 20, [acs["Hasten"], traits["Momentum"]], speedBoost=3, actionBoost=2),
-    "Enchanter's Robes" : Equip("Enchanter's Robes", 10, 20, [acs["Hasten"], traits["Coating"]], speedBoost=2, actionBoost=1)
+    "Enchanter's Robes" : Equip("Enchanter's Robes", 5, 20, [acs["Hasten"], traits["Coating"]], speedBoost=2, actionBoost=1)
 }
 tier2Armors = {
     # Defensive
@@ -349,7 +349,7 @@ tier2Armors = {
 
     # Utility
     "Leathers of the Wind" : Equip("Leathers of the Wind", 0, 10, [acs["Hasten"]], speedBoost=2, actionBoost=2, upgr=tier3Armors["Aetherial Robes"]),
-    "Infusing Robes" : Equip("Infusing Robes", 5, 10, [traits["Coating"]], speedBoost=1, upgr=tier3Armors["Enchanter's Robes"])
+    "Infusing Robes" : Equip("Infusing Robes", 3, 10, [traits["Coating"]], speedBoost=1, upgr=tier3Armors["Enchanter's Robes"])
 }
 armors = {
     # Defensive
@@ -360,7 +360,7 @@ armors = {
 
     # Utility
     "Swift Leather" : Equip("Swift Leather", 0, 0, [], speedBoost=1, actionBoost=1, upgr=tier2Armors["Leathers of the Wind"]),
-    "Channeling Robes" : Equip("Channeling Robes", 2, 0, [traits["Coating"]], upgr=tier2Armors["Infusing Robes"])
+    "Channeling Robes" : Equip("Channeling Robes", 1, 0, [traits["Coating"]], upgr=tier2Armors["Infusing Robes"])
 }
 
 enemArmrs = {
