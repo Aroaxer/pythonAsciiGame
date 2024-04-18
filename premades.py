@@ -375,7 +375,7 @@ enemArmrs = {
 # Accesories
 tier3Accs = {
     # Defensive
-    "Fortress Necklace" : Equip("Fortress Necklace", 0, 50, [acs["Walking Fortress"], traits["Chain Reduction"]], hpBoost=3),
+    "Fortress Necklace" : Equip("Fortress Necklace", 0, 50, [acs["Arcane Shield"], acs["Walking Fortress"], traits["Chain Reduction"]], hpBoost=3),
     "Radiant Crown" : Equip("Radiant Crown", 8, 30, [traits["Holy Radiance"]], speedBoost=1, hpBoost=5),
 
     # Utility
