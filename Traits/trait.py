@@ -795,6 +795,7 @@ class Trait():
     def getEffectDesc(self):
         match self.name:
             # Any traits with unusual details not to do with their effect key
+            # There aren't any yet
             case _:
                 # Most traits
                 match self.effectKey:
