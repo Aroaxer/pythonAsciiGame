@@ -150,20 +150,28 @@ class Character(Object):
             return f"{self.name} died"
 
         record = ""
-        while self.actionsLeft >= 1:
+        while self.actionsLeft >= 1 or self.hasFreeActions():
             self.speedLeft = self.speed
             if not record:
                 record = self.takeAction(game)
+                if record == "End":
+                    break
             else:
                 record += f", {self.takeAction(game)}"
             if self.hp > self.maxHp:
                 self.hp = self.maxHp
 
         return f"{self.name} {record}"
+    
+    def hasFreeActions(self):
+        for trait in self.getAllTraits():
+            if trait.freeAction and trait.charges:
+                return True
+        return False
 
     def takeAction(self, *args):
         self.actionsLeft = 0
-        return "" # This function is defined by subclasses
+        return "End" # This function is defined by subclasses
     
     def takeDamage(self, damage, source, game, shouldTriggerTraits = True):
         if shouldTriggerTraits: self.activateAllTraits("Before Damage", game, source)
@@ -188,17 +196,19 @@ class Character(Object):
                 game.ended = True
 
     def apply(self, debuffName, equipment, duration, stacking = False):
+        newStatuses = copy.copy(self.statuses)
         status = copy.deepcopy(pre.statuses[debuffName])
         status.tiedEquipment = equipment
         if not stacking:
-            self.statuses[status.name] = [duration, status]
+            newStatuses[status.name] = [duration, status]
         else:
             count = 1
             for cStatus in self.statuses:
                 name = re.findall("[^\d]+", cStatus)[0]
                 if name == status.name:
                     count += 1
-            self.statuses[f"{status.name}{count}"] = [duration, status]
+            newStatuses[f"{status.name}{count}"] = [duration, status]
+        self.statuses = newStatuses
 
     def putOn(self, item):
         if type(item) == tuple:
@@ -298,11 +308,11 @@ class Character(Object):
         for status in self.statuses.keys():
             self.statuses[status][1].activate(game, trigger, self.statuses[status][1].tiedEquipment, self, target)
 
-            if trigger == self.statuses[status][1].trigger or (self.statuses[status][1].trigger == "" and trigger == "Turn"):
+            if trigger == self.statuses[status][1].trigger or (self.statuses[status][1].trigger == "" and trigger == "Turn") and self.statuses[status][0] > 0:
                 self.statuses[status][0] -= 1
                 if self.statuses[status][0] > 0:
                     cleanedStatuses[status] = self.statuses[status]
-            else:
+            elif self.statuses[status][0] > 0:
                 cleanedStatuses[status] = self.statuses[status]
         self.statuses = cleanedStatuses
     

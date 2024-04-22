@@ -128,6 +128,24 @@ acs = {
     "Conjured Spear" : Action("Conjured Spear", "Damage Repel 5", maxCharges=2, range=5),
     "Obliterate" : Action("Obliterate", "Power Word Kill", "Point", maxCharges=1, range=15, width=3),
 
+    # Cestus Line
+        # Cestus
+    "Punch" : Action("Punch", "1x Damage"),
+    "Grab" : Action("Grab", "Stun"),
+    "Throw" : Action("Throw", "Repel 2", maxCharges=1, freeAction="True"),
+        # Steel Gauntlets
+    "Cestus Leap" : Action("Leap", "Cestus Leap", range=3),
+        # Flame Gauntlets
+    "Cestus Slam" : Action("Slam", "1.5x Damage"),
+    "Vice Grip" : Action("Vice Grip", "Strong Stun"),
+    "Firepulse" : Action("Firepulse", "Repel 2", range=2, maxCharges=2, freeAction="True"),
+        # Astral Ribbons
+    "Cestus Strike" : Action("Strike", "1.5x Damage", range=2),
+    "Flurry" : Action("Flurry", "Flurry"),
+    "Entangle" : Action("Entangle", "Strong Stun"),
+    "Ad Astra" : Action("Ad Astra", "Ad Astra", "Centered", width=5, maxCharges=1, freeAction="True"),
+    "Lightspeed" : Action("Lightspeed", "Cestus Leap", range=4),
+
     # Utility
     "Hasten" : Action("Hasten", "Hasten", "Self", maxCharges=2, recharge="Encounter"),
     "Shove" : Action("Shove", "Repel 3"),
@@ -271,6 +289,7 @@ traits = {
     "Chain Reduction" : Trait("Chain Reduction", "Before Damage", "Minor Block", "Self"),
     "Charge Deity" : Trait("Charge Deity", "Attack", "Charge Deity"),
     "Momentum" : Trait("Momentum", "Attack", "Momentum"),
+    "Super Momentum" : Trait("Super Momentum", "Attack", "Super Momentum"),
     "Holy Radiance" : Trait("Holy Radiance", "Turn", "Holy Radiance", "Centered", width=7),
     "Excalibur" : Trait("Excalibur", "Attack", "Excalibur", width=3),
     "Mjolnir" : Trait("Mjolnir", "After Damage", "Mjolnir", "Self"),
@@ -286,8 +305,9 @@ traits = {
 statuses = {
     "Bleed" : Trait("Bleed", "Turn", "Bleed"),
     "Stun" : Trait("Stun", "Turn", "StunEf"),
+    "Strong Stun" : Trait("Strong Stun", "Turn", "Strong StunEf"),
     "Disintegrate" : Trait("Disintegrate", "Turn", "Disintegrate"),
-    "Fracture" : Trait("Fracture", "", "")
+    "Fracture" : Trait("Fracture", "", "") # Effect is in the defense calculation
 }
 
 # Equips
@@ -380,7 +400,8 @@ tier3Accs = {
 
     # Utility
     "Timewarp Amulet" : Equip("Timewarp Amulet", 0, 0, [acs["Hasten"], traits["Momentum"]], speedBoost=3, actionBoost=2),
-    "Aerial Gauntlets" : Equip("Aerial Gauntlets", 0, 20, [acs["Shove"], acs["Teleport"], traits["Repel"], traits["Repel"]], speedBoost=3, actionBoost=1, hpBoost=3)
+    "Aerial Gauntlets" : Equip("Aerial Gauntlets", 0, 20, [acs["Shove"], acs["Teleport"], traits["Repel"], traits["Repel"]], speedBoost=3, actionBoost=1, hpBoost=3),
+    "Astral Sigil" : Equip("Astral Sigil", 5, 20, [traits["Super Momentum"], traits["Coating"]], speedBoost=4, hpBoost=-1),
 }
 tier2Accs = {
     # Defensive
@@ -389,7 +410,8 @@ tier2Accs = {
 
     # Utility
     "Lightspeed Amulet" : Equip("Lightspeed Amulet", 0, 0, [acs["Hasten"]], speedBoost=2, actionBoost=1, upgr=tier3Accs["Timewarp Amulet"]),
-    "Repelling Gloves" : Equip("Repelling Gloves", 0, 10, [acs["Shove"], traits["Repel"]], speedBoost=2, hpBoost=1, upgr=tier3Accs["Aerial Gauntlets"])
+    "Repelling Gloves" : Equip("Repelling Gloves", 0, 10, [acs["Shove"], traits["Repel"]], speedBoost=2, hpBoost=1, upgr=tier3Accs["Aerial Gauntlets"]),
+    "Glowing Mask" : Equip("Glowing Mask", 0, 10, [traits["Momentum"]], speedBoost=2, upgr=tier3Accs["Astral Sigil"], hpBoost=-3),
 }
 accs = {
     # Defensive
@@ -398,7 +420,8 @@ accs = {
 
     # Utility
     "Hastening Amulet" : Equip("Hastening Amulet", 0, 0, actionBoost=1, upgr=tier2Accs["Lightspeed Amulet"]),
-    "Shoving Gauntlets" : Equip("Shoving Gauntlets", 0, 0, [acs["Shove"]], speedBoost=1, upgr=tier2Accs["Repelling Gloves"])
+    "Shoving Gauntlets" : Equip("Shoving Gauntlets", 0, 0, [acs["Shove"]], speedBoost=1, upgr=tier2Accs["Repelling Gloves"]),
+    "Odd Mask" : Equip("Odd Mask", 0, 0, speedBoost=1, upgr=tier2Accs["Glowing Mask"], hpBoost=-5),
 }
 
 # Tier 3/4 weapons generally have a special gimmick
@@ -418,7 +441,10 @@ tier4Weps = {
 
     # Magical Ranged
     "Infernum" : Equip("Infernum", 32, 0, [acs["Hellfire"], acs["Call Flames"], acs["Flamewave"], acs["Inferno"]], actionBoost=1, hpBoost=3),
-    "Arcanaloth" : Equip("Arcanaloth", 32, 0, [acs["Life Drain"], acs["Conjured Blade"], acs["Conjured Spear"], acs["Obliterate"]], hpBoost=3)
+    "Arcanaloth" : Equip("Arcanaloth", 32, 0, [acs["Life Drain"], acs["Conjured Blade"], acs["Conjured Spear"], acs["Obliterate"]], hpBoost=3),
+
+    # Special
+    "Astral Ribbons" : Equip("Astral Ribbons", 30, 30, [acs["Cestus Strike"], acs["Flurry"], acs["Entangle"], acs["Ad Astra"], acs["Lightspeed"]], speedBoost=4, actionBoost=3)
 }
 tier3Weps = {
     # Physical Melee
@@ -435,7 +461,10 @@ tier3Weps = {
 
     # Magical Ranged
     "Volcanic Staff" : Equip("Volcanic Staff", 16, 0, [acs["Flamestone"], acs["Meteor"], acs["Firestorm"], acs["Eruption"]], upgr=(tier4Weps["Infernum"], tier3Offs["Fiery Shield"]), hpBoost=1),
-    "Lich's Cane" : Equip("Lich's Cane", 16, 0, [acs["Draining Rays"], acs["Arcane Lance"], acs["Power Word Kill"]], upgr=(tier4Weps["Arcanaloth"], tier3Armors["Enchanter's Robes"]), hpBoost=1)
+    "Lich's Cane" : Equip("Lich's Cane", 16, 0, [acs["Draining Rays"], acs["Arcane Lance"], acs["Power Word Kill"]], upgr=(tier4Weps["Arcanaloth"], tier3Armors["Enchanter's Robes"]), hpBoost=1),
+
+    # Special
+    "Flame Gauntlets" : Equip("Flame Gauntlets", 12, 0, [acs["Cestus Slam"], acs["Vice Grip"], acs["Firepulse"], acs["Cestus Leap"]], speedBoost=3, actionBoost=2, upgr=(tier4Weps["Astral Ribbons"], tier3Accs["Astral Sigil"]), hpBoost=-1)
 }
 tier2Weps = {
     # Physical Melee
@@ -452,7 +481,10 @@ tier2Weps = {
 
     # Magical Ranged
     "Inferno Cane" : Equip("Inferno Cane", 8, 0, [acs["Enhanced Firebolt"], acs["Fireball"], acs["Flamethrower"]], upgr=tier3Weps["Volcanic Staff"]),
-    "Archmage Rod" : Equip("Archmage Rod", 8, 0, [acs["Arcane Rays"], acs["Magic Missiles"], acs["Arcane Shield"]], upgr=tier3Weps["Lich's Cane"])
+    "Archmage Rod" : Equip("Archmage Rod", 8, 0, [acs["Arcane Rays"], acs["Magic Missiles"], acs["Arcane Shield"]], upgr=tier3Weps["Lich's Cane"]),
+
+    # Special
+    "Steel Gauntlets" : Equip("Steel Gauntlets", 6, 0, [acs["Punch"], acs["Grab"], acs["Throw"], acs["Cestus Leap"]], speedBoost=2, actionBoost=1, upgr=tier3Weps["Flame Gauntlets"], hpBoost=-3)
 }
 weps = {
     # Physical Melee
@@ -469,7 +501,10 @@ weps = {
 
     # Magical Ranged
     "Fire Staff" : Equip("Fire Staff", 4, 0, [acs["Firebolt"], acs["Fireball"]], upgr=tier2Weps["Inferno Cane"]),
-    "Arcane Staff" : Equip("Arcane Staff", 4, 0, [acs["Arcane Rays"], acs["Magic Missiles"]], upgr=tier2Weps["Archmage Rod"])
+    "Arcane Staff" : Equip("Arcane Staff", 4, 0, [acs["Arcane Rays"], acs["Magic Missiles"]], upgr=tier2Weps["Archmage Rod"]),
+
+    # Special
+    "Cestus" : Equip("Cestus", 3, 0, [acs["Punch"], acs["Grab"], acs["Throw"]], speedBoost=2, actionBoost=1, upgr=tier2Weps["Steel Gauntlets"], hpBoost=-3)
 }
 
 

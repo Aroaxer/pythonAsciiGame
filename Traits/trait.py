@@ -324,6 +324,25 @@ class Trait():
                 if target.hp <= target.maxHp / (2 if target.mapIcon not in {"#", "Ω"} else 5):
                     target.hp = 0
 
+            case "Cestus Leap":
+                user.move(game.encounter, game, target=(target.x, target.y), ignoreSpd = True)
+                target.takeDamage(equipment.damage, user, game)
+            case "Flurry":
+                for _ in range(4):
+                    target.takeDamage(equipment.damage * 0.25, user, game)
+            case "Ad Astra":
+                target.apply("Fracture", equipment, 3)
+                # Also deal 2 tiles knockback
+                if target.speed > 0:
+                    if target.x < user.x:
+                        target.move(game.encounter, game, cx=-2, ignoreSpd = True)
+                    elif target.x > user.x:
+                        target.move(game.encounter, game, cx=2, ignoreSpd = True)
+                    if target.y < user.y:
+                        target.move(game.encounter, game, cy=-2, ignoreSpd = True)
+                    elif target.y > user.y:
+                        target.move(game.encounter, game, cy=2, ignoreSpd = True)
+
             # Passive Damage
             case "Spikes":
                 target.takeDamage(equipment.damage, user, game, False)
@@ -365,6 +384,10 @@ class Trait():
                 target.apply("Stun", equipment, 2)
             case "StunEf":
                 target.actionsLeft -= 1
+            case "Strong Stun":
+                target.apply("Strong Stun", equipment, 2)
+            case "Strong StunEf":
+                target.actionsLeft = math.floor(target.actionsLeft / 2)
             case "Teleport" | "Charge":
                 user.x, user.y = target[0], target[1]
                 if self.effectKey == "Charge":
@@ -388,6 +411,9 @@ class Trait():
             case "Momentum":
                 if target.hp <= 0:
                     user.actionsLeft += 0.25
+            case "Super Momentum":
+                if target.hp <= 0:
+                    user.actionsLeft += 1
 
             # Misc
             case "Repel" | "Damage Repel":
