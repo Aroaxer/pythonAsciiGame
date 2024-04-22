@@ -38,7 +38,14 @@ class Player(Character):
         else:
 
             try:
-                self.readAsMove(action, game)
+                if self.actionsLeft >= 0 and action.lower() != "pass":
+                    self.readAsMove(action, game)
+                elif action.lower() != "pass":
+                    input("You're out of actions. Enter 'pass' to end your turn, or use your free actions.\nPress enter to clear this prompt.")
+                    self.actionsLeft += 1
+                else:
+                    self.actionsLeft = 0
+                    return "End"
             except Exception:
                 try:
                         trait = self.getFullActionList()[int(action) - 1]
